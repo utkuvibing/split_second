@@ -56,9 +56,7 @@ split-second/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) >= 18
-- [Expo CLI](https://docs.expo.dev/get-started/installation/) (`npm install -g expo-cli`)
 - [Expo Go](https://expo.dev/go) app on your phone (for development)
-- A [Supabase](https://supabase.com/) project
 
 ### 1. Clone & Install
 
@@ -68,9 +66,37 @@ cd split_second
 npm install --legacy-peer-deps
 ```
 
-### 2. Supabase Setup
+### 2. Environment Variables
 
-Create a Supabase project, then run the migrations **in order**:
+Create a `.env` file in the project root:
+
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://rsfxbqfvunmzjdwkmyit.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZnhicWZ2dW5tempkd2tteWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTQ1MDksImV4cCI6MjA4NTg5MDUwOX0.ozK8b0thPmLDvOrBdSOYY_WfFa4ET59l-o0CgqcfaqU
+```
+
+> **Note**: These are the shared test environment credentials. The anon key is a public client-side key — all data is protected by Row Level Security (RLS) on the database. Do NOT use these in production.
+
+### 3. Sound Files (Optional)
+
+Add short sound effects to `assets/sounds/`:
+- `tick.mp3` — timer countdown tick
+- `vote.mp3` — vote tap feedback
+- `result.mp3` — results reveal
+
+The app works fine without them — sounds fail silently.
+
+### 4. Run
+
+```bash
+npx expo start
+```
+
+Scan the QR code with Expo Go on your phone.
+
+### Supabase Migrations (Admin Only)
+
+If you need to set up a fresh Supabase project, run the migrations **in order** in the SQL editor:
 
 ```
 supabase/migrations/001_initial_schema.sql
@@ -80,38 +106,12 @@ supabase/migrations/004_global_stats.sql
 supabase/migrations/005_question_translations.sql
 ```
 
-Seed the database with sample questions:
+Then seed with sample questions:
 
-```bash
-# Run in your Supabase SQL editor
+```sql
+-- Run in Supabase SQL editor
 supabase/seed.sql
 ```
-
-### 3. Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-```
-
-### 4. Sound Files (Optional)
-
-Add short sound effects to `assets/sounds/`:
-- `tick.mp3` — timer countdown tick
-- `vote.mp3` — vote tap feedback
-- `result.mp3` — results reveal
-
-The app works fine without them — sounds fail silently.
-
-### 5. Run
-
-```bash
-npx expo start
-```
-
-Scan the QR code with Expo Go on your phone.
 
 ## Scripts
 
