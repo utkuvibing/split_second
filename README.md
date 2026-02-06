@@ -91,7 +91,7 @@ Uygulama ses dosyaları olmadan da çalışır — sesler sessizce atlanır.
 ### 4. Çalıştır
 
 ```bash
-npx expo start
+npx expo start --tunnel
 ```
 
 Telefonundaki Expo Go ile QR kodu tara.

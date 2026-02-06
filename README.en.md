@@ -91,7 +91,7 @@ The app works fine without them — sounds fail silently.
 ### 4. Run
 
 ```bash
-npx expo start
+npx expo start --tunnel
 ```
 
 Scan the QR code with Expo Go on your phone.
