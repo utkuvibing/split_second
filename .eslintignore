@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.expo/
+coverage/
+__mocks__/
+*.config.js
+jest.setup.js
