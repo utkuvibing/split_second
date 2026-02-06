@@ -6,14 +6,27 @@ React Native ve Expo ile geliştirilmiş günlük "Hangisini Tercih Edersin?" mo
 
 ## Özellikler
 
+### Temel
 - **Günlük Soru** — Her gece yarısı yeni bir "hangisini tercih edersin" sorusu
 - **Geri Sayım** — Süre dolmadan oy ver, gerilimi hisset
 - **Canlı Sonuçlar** — Oyunu verdikten sonra küresel oy dağılımını gör
 - **Seri Takibi** — Günlük oylama serini devam ettir
 - **Global İstatistikler** — Bugün kaç kişi oy verdi, genel trendler
+- **Liderlik Tablosu** — En aktif oyuncuları ve en uzun serileri gör
+- **Rozet Sistemi** — 14+ rozet: ilk oy, seri başarıları, hız şeytanı, gece kuşu ve daha fazlası
+- **Oy Sonrası Analizler** — Oylama sonrasında istatistiksel bilgiler ve sonraki rozet ilerlemesi
+
+### Premium & Kozmetik
+- **Tema Motoru** — 6 tema: Gece Yarısı (varsayılan), Okyanus, Gün Batımı, Orman, Gül Altını, Noir
+- **Kozmetik Mağaza** — Temalar, profil çerçeveleri ve oy efektleri satın al ve tak
+- **Premium Abonelik** — Sınırsız geçmiş, detaylı istatistikler, tüm rozetler, analizler (Faz 1: dev stub)
+- **Paywall** — Aylık/yıllık plan seçimi (gerçek ödeme Faz 2'de RevenueCat ile gelecek)
+- **Geliştirici Araçları** — Premium simülasyonu, tüm kozmetiklere sahip olma toggle'ları (__DEV__ modunda)
+
+### Genel
 - **Paylaşım Kartları** — Oyunu görsel olarak oluştur ve paylaş
 - **Deep Link** — Herhangi bir günün sorusuna doğrudan link (`split-second://q/2025-01-15`)
-- **Çoklu Dil (i18n)** — Cihaz diline göre otomatik algılama
+- **Çoklu Dil (i18n)** — Cihaz diline göre otomatik algılama (TR + EN)
 - **Titreşim & Ses Efektleri** — Etkileşimlerde dokunsal ve sesli geri bildirim
 - **Onboarding** — İlk açılışta tanıtım ekranı
 
@@ -35,15 +48,28 @@ React Native ve Expo ile geliştirilmiş günlük "Hangisini Tercih Edersin?" mo
 ```
 split-second/
 ├── app/                    # Dosya tabanlı routing (expo-router)
-│   ├── _layout.tsx         # Ana layout (gesture handler, error boundary, onboarding)
+│   ├── _layout.tsx         # Ana layout (ThemeProvider, gesture handler, onboarding)
 │   ├── (tabs)/             # Tab navigator
 │   │   ├── index.tsx       # Ana Sayfa — günlük soru + oylama
-│   │   └── profile.tsx     # Profil — istatistikler, geçmiş, seriler
+│   │   ├── profile.tsx     # Profil — istatistikler, geçmiş, mağaza, rozetler
+│   │   └── leaderboard.tsx # Liderlik Tablosu
 │   └── q/[date].tsx        # Deep link route (tarihe göre)
-├── components/             # UI bileşenleri (17)
-├── hooks/                  # Custom React hook'ları (10)
-├── lib/                    # İş mantığı & yardımcı modüller (15)
-├── constants/              # Renk, tipografi token'ları
+├── components/             # UI bileşenleri (30+)
+│   ├── Shop.tsx            # Kozmetik mağaza modali
+│   ├── Paywall.tsx         # Premium paywall modali
+│   ├── DevMenu.tsx         # Geliştirici araçları (__DEV__)
+│   └── ...                 # QuestionCard, ResultBar, BadgeGrid, vb.
+├── hooks/                  # Custom React hook'ları (12)
+│   ├── usePremium.ts       # Premium durum yönetimi
+│   ├── useCosmetics.ts     # Kozmetik sahipliği & takma
+│   └── ...                 # useAuth, useVote, useBadges, vb.
+├── lib/                    # İş mantığı & yardımcı modüller (19)
+│   ├── themes.ts           # 6 tema renk tanımı
+│   ├── themeContext.tsx     # ThemeProvider + useTheme hook
+│   ├── premium.ts          # Premium kontrol fonksiyonları
+│   ├── cosmetics.ts        # Çerçeve & efekt kataloğu
+│   └── ...                 # supabase, badges, i18n, share, vb.
+├── constants/              # Tipografi token'ları
 ├── types/                  # TypeScript tip tanımları
 ├── __mocks__/              # Jest mock'ları (Expo & RN modülleri)
 ├── supabase/
@@ -106,6 +132,7 @@ supabase/migrations/002_streaks.sql
 supabase/migrations/003_history_stats.sql
 supabase/migrations/004_global_stats.sql
 supabase/migrations/005_question_translations.sql
+supabase/migrations/008_premium.sql
 ```
 
 Ardından örnek soruları ekle:
@@ -131,9 +158,14 @@ supabase/seed.sql
 
 Uygulama tüm yazma işlemleri için Supabase **atomik RPC fonksiyonları** kullanır — oy gönderimi, sonuç hesaplama ve seri güncellemesi tek bir veritabanı çağrısında gerçekleşir (race condition önlenir).
 
-**Tablolar**: `questions`, `votes`, `user_streaks`
+**Tablolar**: `questions`, `votes`, `user_streaks`, `user_profiles`, `user_cosmetics`, `user_equipped`
 **View'lar**: `question_results` (toplu oy yüzdeleri)
-**RPC**: `submit_vote_and_get_results()` — atomik oy + sonuç + seri güncelleme
+**RPC'ler**:
+- `submit_vote_and_get_results()` — atomik oy + sonuç + seri güncelleme
+- `get_or_create_profile()` — premium profil oluştur/getir
+- `get_user_cosmetics()` — sahip olunan kozmetikleri getir
+- `purchase_cosmetic()` — kozmetik satın al
+- `equip_cosmetic()` — kozmetik tak/çıkar
 
 Tüm tablolarda Row Level Security (RLS) aktiftir. Anonim auth ile her cihaz benzersiz bir kullanıcı ID'si alır.
 

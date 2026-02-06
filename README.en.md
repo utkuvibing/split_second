@@ -6,14 +6,27 @@ A daily "Would You Rather?" mobile app built with React Native and Expo. One que
 
 ## Features
 
+### Core
 - **Daily Question** — A new "would you rather" question every day at midnight
 - **Countdown Timer** — Vote before time runs out for a more intense experience
 - **Live Results** — See the global vote split after casting yours
 - **Streak Tracking** — Keep your daily voting streak alive
 - **Global Stats** — See how many people voted today and overall trends
+- **Leaderboard** — See the most active players and longest streaks
+- **Badge System** — 14+ badges: first vote, streak milestones, speed demon, night owl, and more
+- **Post-Vote Insights** — Statistical insights and next badge progress after voting
+
+### Premium & Cosmetics
+- **Theme Engine** — 6 themes: Midnight (default), Ocean, Sunset, Forest, Rose Gold, Noir
+- **Cosmetic Shop** — Purchase and equip themes, profile frames, and vote effects
+- **Premium Subscription** — Unlimited history, detailed stats, all badges, insights (Phase 1: dev stub)
+- **Paywall** — Monthly/yearly plan selection (real payments via RevenueCat in Phase 2)
+- **Dev Tools** — Premium simulation and own-all-cosmetics toggles (in __DEV__ mode)
+
+### General
 - **Share Cards** — Generate and share your vote as an image
 - **Deep Links** — Share a direct link to any day's question (`split-second://q/2025-01-15`)
-- **i18n** — Multi-language support with device locale detection
+- **i18n** — Multi-language support with device locale detection (TR + EN)
 - **Haptic Feedback & Sound Effects** — Tactile and audio feedback on interactions
 - **Onboarding** — First-launch walkthrough for new users
 
@@ -35,15 +48,28 @@ A daily "Would You Rather?" mobile app built with React Native and Expo. One que
 ```
 split-second/
 ├── app/                    # File-based routing (expo-router)
-│   ├── _layout.tsx         # Root layout (gesture handler, error boundary, onboarding)
+│   ├── _layout.tsx         # Root layout (ThemeProvider, gesture handler, onboarding)
 │   ├── (tabs)/             # Tab navigator
 │   │   ├── index.tsx       # Home — daily question + voting
-│   │   └── profile.tsx     # Profile — stats, history, streaks
+│   │   ├── profile.tsx     # Profile — stats, history, shop, badges
+│   │   └── leaderboard.tsx # Leaderboard
 │   └── q/[date].tsx        # Deep link route for specific dates
-├── components/             # UI components (17)
-├── hooks/                  # Custom React hooks (10)
-├── lib/                    # Business logic & utilities (15 modules)
-├── constants/              # Colors, typography tokens
+├── components/             # UI components (30+)
+│   ├── Shop.tsx            # Cosmetic shop modal
+│   ├── Paywall.tsx         # Premium paywall modal
+│   ├── DevMenu.tsx         # Dev tools (__DEV__)
+│   └── ...                 # QuestionCard, ResultBar, BadgeGrid, etc.
+├── hooks/                  # Custom React hooks (12)
+│   ├── usePremium.ts       # Premium state management
+│   ├── useCosmetics.ts     # Cosmetics ownership & equipping
+│   └── ...                 # useAuth, useVote, useBadges, etc.
+├── lib/                    # Business logic & utilities (19 modules)
+│   ├── themes.ts           # 6 theme color definitions
+│   ├── themeContext.tsx     # ThemeProvider + useTheme hook
+│   ├── premium.ts          # Premium check utilities
+│   ├── cosmetics.ts        # Frame & effect catalog
+│   └── ...                 # supabase, badges, i18n, share, etc.
+├── constants/              # Typography tokens
 ├── types/                  # TypeScript type definitions
 ├── __mocks__/              # Jest mocks for Expo & RN modules
 ├── supabase/
@@ -106,6 +132,7 @@ supabase/migrations/002_streaks.sql
 supabase/migrations/003_history_stats.sql
 supabase/migrations/004_global_stats.sql
 supabase/migrations/005_question_translations.sql
+supabase/migrations/008_premium.sql
 ```
 
 Then seed with sample questions:
@@ -131,9 +158,14 @@ supabase/seed.sql
 
 The app uses Supabase with **atomic RPC functions** for all write operations — vote submission, result calculation, and streak updates happen in a single database call to prevent race conditions.
 
-**Tables**: `questions`, `votes`, `user_streaks`
+**Tables**: `questions`, `votes`, `user_streaks`, `user_profiles`, `user_cosmetics`, `user_equipped`
 **Views**: `question_results` (aggregated vote percentages)
-**RPC**: `submit_vote_and_get_results()` — atomic vote + results + streak update
+**RPCs**:
+- `submit_vote_and_get_results()` — atomic vote + results + streak update
+- `get_or_create_profile()` — create/fetch premium profile
+- `get_user_cosmetics()` — fetch owned cosmetics
+- `purchase_cosmetic()` — purchase a cosmetic item
+- `equip_cosmetic()` — equip/unequip a cosmetic
 
 Row Level Security (RLS) is enabled on all tables. Anonymous auth ensures each device gets a unique user ID.
 
