@@ -1,52 +1,84 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../lib/themeContext';
+import { ThemeColors } from '../../types/premium';
 import { useUserStats } from '../../hooks/useUserStats';
 import { useVoteHistory } from '../../hooks/useVoteHistory';
 import { useBadges } from '../../hooks/useBadges';
+import { usePremium } from '../../hooks/usePremium';
+import { FREE_HISTORY_DAYS } from '../../lib/premium';
 import { StatsGrid } from '../../components/StatsGrid';
 import { BadgeGrid } from '../../components/BadgeGrid';
 import { HistoryCard } from '../../components/HistoryCard';
+import { PremiumGate } from '../../components/PremiumGate';
+import { Shop } from '../../components/Shop';
+import { Paywall } from '../../components/Paywall';
+import { DevMenu } from '../../components/DevMenu';
 import { t } from '../../lib/i18n';
 
 export default function ProfileScreen() {
+  const colors = useTheme();
+  const styles = createStyles(colors);
+  const { isPremium, loading: premiumLoading, refetch: refetchPremium } = usePremium();
   const { stats, loading: statsLoading } = useUserStats();
-  const { history, loading: historyLoading } = useVoteHistory();
+  const { history, loading: historyLoading } = useVoteHistory(isPremium ? undefined : FREE_HISTORY_DAYS);
   const { unlockedBadges, loading: badgesLoading } = useBadges();
 
-  const isLoading = statsLoading || historyLoading || badgesLoading;
+  const [shopVisible, setShopVisible] = useState(false);
+  const [paywallVisible, setPaywallVisible] = useState(false);
+
+  const isLoading = statsLoading || historyLoading || badgesLoading || premiumLoading;
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.logo}>Split Second</Text>
+        <Pressable style={[styles.shopButton, { backgroundColor: colors.accent }]} onPress={() => setShopVisible(true)}>
+          <Text style={styles.shopButtonText}>{t('shopTitle')}</Text>
+        </Pressable>
       </View>
       {isLoading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.accent} />
+          <ActivityIndicator size="large" color={colors.accent} />
         </View>
       ) : (
         <ScrollView
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          {/* Stats - gated for detailed view */}
           {stats && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{t('statistics')}</Text>
-              <StatsGrid stats={stats} />
+              <PremiumGate
+                isPremium={isPremium}
+                feature="detailedStats"
+                onUpgrade={() => setPaywallVisible(true)}
+              >
+                <StatsGrid stats={stats} />
+              </PremiumGate>
             </View>
           )}
 
+          {/* Badges - premium badges filtered inside BadgeGrid */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('badges')}</Text>
-            <BadgeGrid unlockedBadges={unlockedBadges} />
+            <BadgeGrid unlockedBadges={unlockedBadges} userIsPremium={isPremium} />
           </View>
 
+          {/* Vote history - limited to 7 days for free users */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>
               {t('pastVotes')} {history.length > 0 && `(${history.length})`}
             </Text>
+            {!isPremium && history.length > 0 && (
+              <Pressable style={styles.historyLimitBanner} onPress={() => setPaywallVisible(true)}>
+                <Text style={styles.historyLimitText}>{t('premiumHistoryLimit')}</Text>
+                <Text style={[styles.historyLimitCta, { color: colors.accent }]}>{t('premiumSeeAll')}</Text>
+              </Pressable>
+            )}
             {history.length === 0 ? (
               <Animated.View entering={FadeIn.duration(400)} style={styles.emptyState}>
                 <Text style={styles.emptyEmoji}>🗳️</Text>
@@ -61,28 +93,55 @@ export default function ProfileScreen() {
               </View>
             )}
           </View>
+
+          {/* Dev menu - only in development */}
+          {__DEV__ && (
+            <View style={styles.section}>
+              <DevMenu onPremiumChange={refetchPremium} />
+            </View>
+          )}
         </ScrollView>
       )}
+
+      <Shop visible={shopVisible} onClose={() => setShopVisible(false)} />
+      <Paywall
+        visible={paywallVisible}
+        onClose={() => setPaywallVisible(false)}
+        onPurchased={refetchPremium}
+      />
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
   },
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingTop: 16,
     paddingBottom: 8,
-    alignItems: 'center',
+    paddingHorizontal: 16,
   },
   logo: {
     fontSize: 18,
     fontWeight: '800',
-    color: Colors.accent,
+    color: colors.accent,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+  shopButton: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  shopButtonText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
   },
   loadingContainer: {
     flex: 1,
@@ -100,7 +159,24 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
+  },
+  historyLimitBanner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  historyLimitText: {
+    fontSize: 13,
+    color: colors.textMuted,
+  },
+  historyLimitCta: {
+    fontSize: 13,
+    fontWeight: '700',
   },
   historyList: {
     gap: 10,
@@ -116,10 +192,10 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
-    color: Colors.text,
+    color: colors.text,
   },
   emptySubtext: {
     fontSize: 14,
-    color: Colors.textMuted,
+    color: colors.textMuted,
   },
 });

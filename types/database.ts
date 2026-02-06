@@ -29,3 +29,26 @@ export interface VoteResults {
   longest_streak?: number;
   total_votes?: number;
 }
+
+export interface UserProfileRow {
+  user_id: string;
+  is_premium: boolean;
+  premium_until: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UserCosmeticRow {
+  id: string;
+  user_id: string;
+  cosmetic_id: string;
+  purchased_at: string;
+}
+
+export interface UserEquippedRow {
+  user_id: string;
+  theme_id: string;
+  frame_id: string;
+  vote_effect_id: string;
+  updated_at: string;
+}

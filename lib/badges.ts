@@ -7,6 +7,7 @@ export interface BadgeDef {
   descKey: string;
   check: (ctx: BadgeContext) => boolean;
   progress?: (ctx: BadgeContext) => { current: number; target: number } | null;
+  isPremium?: boolean;
 }
 
 export interface BadgeContext {
@@ -18,6 +19,12 @@ export interface BadgeContext {
   longest_streak: number;
   vote_time_seconds?: number;
   vote_hour?: number;
+  // Premium badge context (provided client-side)
+  owned_cosmetics_count?: number;
+  theme_changes_count?: number;
+  premium_days?: number;
+  basic_badges_unlocked?: number;
+  total_basic_badges?: number;
 }
 
 export interface UnlockedBadge {
@@ -134,6 +141,42 @@ export const BADGES: BadgeDef[] = [
     descKey: 'badgeVeteranDesc',
     check: (ctx) => ctx.total_votes >= 100,
     progress: (ctx) => ({ current: Math.min(ctx.total_votes, 100), target: 100 }),
+  },
+  // Premium badges
+  {
+    id: 'collector',
+    emoji: '🎨',
+    titleKey: 'badgeCollector',
+    descKey: 'badgeCollectorDesc',
+    check: (ctx) => (ctx.owned_cosmetics_count ?? 0) >= 3,
+    progress: (ctx) => ({ current: Math.min(ctx.owned_cosmetics_count ?? 0, 3), target: 3 }),
+    isPremium: true,
+  },
+  {
+    id: 'fashionista',
+    emoji: '💅',
+    titleKey: 'badgeFashionista',
+    descKey: 'badgeFashionistaDesc',
+    check: (ctx) => (ctx.theme_changes_count ?? 0) >= 5,
+    progress: (ctx) => ({ current: Math.min(ctx.theme_changes_count ?? 0, 5), target: 5 }),
+    isPremium: true,
+  },
+  {
+    id: 'supporter',
+    emoji: '💖',
+    titleKey: 'badgeSupporter',
+    descKey: 'badgeSupporterDesc',
+    check: (ctx) => (ctx.premium_days ?? 0) >= 30,
+    progress: (ctx) => ({ current: Math.min(ctx.premium_days ?? 0, 30), target: 30 }),
+    isPremium: true,
+  },
+  {
+    id: 'completionist',
+    emoji: '🌟',
+    titleKey: 'badgeCompletionist',
+    descKey: 'badgeCompletionistDesc',
+    check: (ctx) => ctx.basic_badges_unlocked != null && ctx.total_basic_badges != null && ctx.basic_badges_unlocked >= ctx.total_basic_badges,
+    isPremium: true,
   },
 ];
 

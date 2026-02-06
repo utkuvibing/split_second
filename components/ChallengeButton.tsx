@@ -5,7 +5,7 @@ import Animated, {
   withSpring,
   FadeIn,
 } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { t } from '../lib/i18n';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export function ChallengeButton({ onPress }: Props) {
+  const colors = useTheme();
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -24,7 +25,11 @@ export function ChallengeButton({ onPress }: Props) {
   return (
     <Animated.View entering={FadeIn.delay(1600).duration(400)}>
       <AnimatedPressable
-        style={[styles.button, animatedStyle]}
+        style={[
+          styles.button,
+          animatedStyle,
+          { backgroundColor: colors.surface, borderColor: colors.accent },
+        ]}
         onPressIn={() => {
           scale.value = withSpring(0.95);
         }}
@@ -33,7 +38,9 @@ export function ChallengeButton({ onPress }: Props) {
         }}
         onPress={onPress}
       >
-        <Text style={styles.buttonText}>{t('challengeFriend')}</Text>
+        <Text style={[styles.buttonText, { color: colors.text }]}>
+          {t('challengeFriend')}
+        </Text>
       </AnimatedPressable>
     </Animated.View>
   );
@@ -41,9 +48,7 @@ export function ChallengeButton({ onPress }: Props) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Colors.surface,
     borderWidth: 1,
-    borderColor: Colors.accent,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 14,
@@ -53,6 +58,5 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15,
     fontWeight: '600',
-    color: Colors.text,
   },
 });

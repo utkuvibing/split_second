@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { BADGES, BadgeContext, UnlockedBadge, fetchBadgeContext } from '../lib/badges';
+import { isPremiumBadge } from '../lib/premium';
+import { useTheme } from '../lib/themeContext';
 import { BadgeCard } from './BadgeCard';
+import { t } from '../lib/i18n';
 
 interface Props {
   unlockedBadges: UnlockedBadge[];
+  userIsPremium?: boolean;
 }
 
-export function BadgeGrid({ unlockedBadges }: Props) {
+export function BadgeGrid({ unlockedBadges, userIsPremium = false }: Props) {
+  const colors = useTheme();
   const [context, setContext] = useState<BadgeContext | null>(null);
   const unlockedIds = new Set(unlockedBadges.map((b) => b.badge_id));
 
@@ -15,10 +20,16 @@ export function BadgeGrid({ unlockedBadges }: Props) {
     fetchBadgeContext().then(setContext).catch(() => {});
   }, [unlockedBadges]);
 
+  // Filter badges: free users only see non-premium badges
+  const visibleBadges = BADGES.filter((badge) => {
+    if (isPremiumBadge(badge.id) && !userIsPremium) return false;
+    return true;
+  });
+
   // Chunk badges into rows of 4
-  const rows: typeof BADGES[] = [];
-  for (let i = 0; i < BADGES.length; i += 4) {
-    rows.push(BADGES.slice(i, i + 4));
+  const rows: typeof visibleBadges[] = [];
+  for (let i = 0; i < visibleBadges.length; i += 4) {
+    rows.push(visibleBadges.slice(i, i + 4));
   }
 
   return (
@@ -41,6 +52,16 @@ export function BadgeGrid({ unlockedBadges }: Props) {
             ))}
         </View>
       ))}
+
+      {/* Show teaser for premium badges if user is free */}
+      {!userIsPremium && (
+        <View style={[styles.premiumHint, { backgroundColor: colors.surface }]}>
+          <Text style={styles.premiumEmoji}>🔒</Text>
+          <Text style={[styles.premiumText, { color: colors.textMuted }]}>
+            +4 {t('premiumOnly')} {t('badges').toLowerCase()}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -55,5 +76,20 @@ const styles = StyleSheet.create({
   },
   empty: {
     flex: 1,
+  },
+  premiumHint: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    padding: 12,
+    borderRadius: 12,
+  },
+  premiumEmoji: {
+    fontSize: 16,
+  },
+  premiumText: {
+    fontSize: 13,
+    fontWeight: '500',
   },
 });

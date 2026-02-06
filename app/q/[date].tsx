@@ -3,7 +3,8 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../lib/themeContext';
+import { ThemeColors } from '../../types/premium';
 import { useAuth } from '../../hooks/useAuth';
 import { useVote } from '../../hooks/useVote';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
@@ -19,6 +20,8 @@ import { t, localizeQuestion } from '../../lib/i18n';
 const TIMER_SECONDS = 10;
 
 export default function ChallengeScreen() {
+  const colors = useTheme();
+  const styles = createStyles(colors);
   const { date } = useLocalSearchParams<{ date: string }>();
   const { userId, loading: authLoading } = useAuth();
   const [question, setQuestion] = useState<Question | null>(null);
@@ -140,10 +143,10 @@ export default function ChallengeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
   },
   center: {
     flex: 1,
@@ -161,12 +164,12 @@ const styles = StyleSheet.create({
   challengeTag: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.warning,
+    color: colors.warning,
   },
   logo: {
     fontSize: 18,
     fontWeight: '800',
-    color: Colors.accent,
+    color: colors.accent,
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
   questionTextResult: {
     fontSize: 22,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
     textAlign: 'center',
     paddingHorizontal: 24,
     lineHeight: 30,
@@ -190,11 +193,11 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 20,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
   retryButton: {
     marginTop: 16,
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     paddingHorizontal: 32,
     paddingVertical: 14,
     borderRadius: 12,
@@ -202,10 +205,10 @@ const styles = StyleSheet.create({
   retryText: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
   homeButton: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 14,
@@ -215,6 +218,6 @@ const styles = StyleSheet.create({
   homeButtonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
 });

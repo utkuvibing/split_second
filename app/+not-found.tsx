@@ -1,8 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 
 export default function NotFound() {
+  const colors = useTheme();
+  const styles = createStyles(colors);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Page not found</Text>
@@ -13,20 +17,20 @@ export default function NotFound() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 16,
   },
   text: {
     fontSize: 20,
-    color: Colors.text,
+    color: colors.text,
   },
   link: {
     fontSize: 16,
-    color: Colors.accent,
+    color: colors.accent,
   },
 });

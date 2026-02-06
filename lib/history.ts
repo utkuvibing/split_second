@@ -17,7 +17,7 @@ export interface VoteHistoryItem {
   option_b_tr?: string | null;
 }
 
-export async function getVoteHistory(): Promise<VoteHistoryItem[]> {
+export async function getVoteHistory(limitDays?: number): Promise<VoteHistoryItem[]> {
   const { data, error } = await supabase.rpc('get_vote_history');
 
   if (error) {
@@ -25,5 +25,15 @@ export async function getVoteHistory(): Promise<VoteHistoryItem[]> {
     return [];
   }
 
-  return (data as VoteHistoryItem[]) ?? [];
+  let items = (data as VoteHistoryItem[]) ?? [];
+
+  // Apply day limit if specified (free tier: last 7 days)
+  if (limitDays != null && limitDays > 0) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - limitDays);
+    const cutoffStr = cutoff.toISOString().split('T')[0];
+    items = items.filter((item) => item.scheduled_date >= cutoffStr);
+  }
+
+  return items;
 }

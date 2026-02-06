@@ -1,14 +1,18 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { DailyCountdown } from './DailyCountdown';
 import { t } from '../lib/i18n';
 
 export function NoQuestion() {
+  const colors = useTheme();
+
   return (
     <View style={styles.container}>
       <Text style={styles.emoji}>⏳</Text>
-      <Text style={styles.title}>{t('noQuestionToday')}</Text>
-      <Text style={styles.subtitle}>{t('comeBackTomorrow')}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t('noQuestionToday')}</Text>
+      <Text style={[styles.subtitle, { color: colors.textMuted }]}>
+        {t('comeBackTomorrow')}
+      </Text>
       <DailyCountdown />
     </View>
   );
@@ -29,12 +33,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: Colors.text,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: Colors.textMuted,
     textAlign: 'center',
   },
 });

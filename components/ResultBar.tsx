@@ -8,13 +8,15 @@ import Animated, {
   FadeIn,
 } from 'react-native-reanimated';
 import { useEffect, useState, useMemo } from 'react';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 import { getCategoryInsight } from '../lib/insights';
 import { t } from '../lib/i18n';
 
 function SocialProofBadge({ userPercent }: { userPercent: number }) {
+  const colors = useTheme();
   const isMajority = userPercent >= 50;
-  const color = isMajority ? Colors.success : Colors.warning;
+  const color = isMajority ? colors.success : colors.warning;
   const message = isMajority
     ? t('socialProofMajority', { percent: userPercent })
     : t('socialProofMinority', { percent: userPercent });
@@ -48,6 +50,7 @@ export function ResultBars({
   userChoice: 'a' | 'b';
   category?: string;
 }) {
+  const colors = useTheme();
   const percentA = total > 0 ? Math.round((countA / total) * 100) : 0;
   const percentB = total > 0 ? Math.round((countB / total) * 100) : 0;
   const userPercent = userChoice === 'a' ? percentA : percentB;
@@ -58,7 +61,7 @@ export function ResultBars({
         label={optionA}
         percentage={percentA}
         count={countA}
-        color={Colors.optionA}
+        color={colors.optionA}
         isUserChoice={userChoice === 'a'}
         delay={0}
       />
@@ -66,7 +69,7 @@ export function ResultBars({
         label={optionB}
         percentage={percentB}
         count={countB}
-        color={Colors.optionB}
+        color={colors.optionB}
         isUserChoice={userChoice === 'b'}
         delay={200}
       />
@@ -76,7 +79,7 @@ export function ResultBars({
           <CategoryInsight category={category} userPercent={userPercent} />
         </Animated.View>
       )}
-      <Text style={styles.totalVotes}>
+      <Text style={[styles.totalVotes, { color: colors.textMuted }]}>
         {t('totalVotesLabel', { count: total.toLocaleString() })}
       </Text>
     </View>
@@ -84,9 +87,10 @@ export function ResultBars({
 }
 
 function CategoryInsight({ category }: { category: string; userPercent: number }) {
+  const colors = useTheme();
   const message = useMemo(() => getCategoryInsight(category), [category]);
   return (
-    <Text style={styles.insightText}>{message}</Text>
+    <Text style={[styles.insightText, { color: colors.textMuted }]}>{message}</Text>
   );
 }
 
@@ -105,6 +109,7 @@ function ResultBar({
   isUserChoice: boolean;
   delay: number;
 }) {
+  const colors = useTheme();
   const animatedWidth = useSharedValue(0);
   const [displayPercent, setDisplayPercent] = useState(0);
 
@@ -138,17 +143,21 @@ function ResultBar({
     <View style={styles.resultItem}>
       <View style={styles.labelRow}>
         <Text
-          style={[styles.label, isUserChoice && styles.labelHighlight]}
+          style={[
+            styles.label,
+            { color: colors.textMuted },
+            isUserChoice && [styles.labelHighlight, { color: colors.text }]
+          ]}
           numberOfLines={2}
         >
           {isUserChoice ? '\u2713 ' : ''}{label}
         </Text>
         <Text style={[styles.percentage, { color }]}>{displayPercent}%</Text>
       </View>
-      <View style={styles.barTrack}>
+      <View style={[styles.barTrack, { backgroundColor: colors.surface }]}>
         <Animated.View style={[styles.barFill, { backgroundColor: color }, barStyle]} />
       </View>
-      <Text style={styles.voteCount}>
+      <Text style={[styles.voteCount, { color: colors.textMuted }]}>
         {count.toLocaleString()} {count === 1 ? t('voteSingular') : t('votePlural')}
       </Text>
     </View>
@@ -171,23 +180,19 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: Colors.textMuted,
     flex: 1,
     marginRight: 12,
   },
   labelHighlight: {
-    color: Colors.text,
     fontWeight: '700',
   },
   percentage: {
     fontSize: 24,
     fontWeight: '700',
-    color: Colors.text,
   },
   barTrack: {
     width: '100%',
     height: 12,
-    backgroundColor: Colors.surface,
     borderRadius: 6,
     overflow: 'hidden',
   },
@@ -197,11 +202,9 @@ const styles = StyleSheet.create({
   },
   voteCount: {
     fontSize: 13,
-    color: Colors.textMuted,
   },
   totalVotes: {
     fontSize: 14,
-    color: Colors.textMuted,
     textAlign: 'center',
     marginTop: 8,
   },
@@ -220,7 +223,6 @@ const styles = StyleSheet.create({
   insightText: {
     fontSize: 13,
     fontStyle: 'italic',
-    color: Colors.textMuted,
     textAlign: 'center',
   },
 });

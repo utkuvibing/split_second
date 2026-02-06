@@ -8,7 +8,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { hapticTick } from '../lib/haptics';
 
 interface Props {
@@ -17,6 +17,7 @@ interface Props {
 }
 
 export function CountdownTimer({ timeLeft, progress }: Props) {
+  const colors = useTheme();
   const animatedWidth = useSharedValue(progress);
   const pulseScale = useSharedValue(1);
 
@@ -65,17 +66,17 @@ export function CountdownTimer({ timeLeft, progress }: Props) {
       <Animated.Text
         style={[
           styles.timeText,
-          isUrgent && styles.urgentText,
+          { color: isUrgent ? colors.accent : colors.text },
           textPulseStyle,
         ]}
       >
         {timeLeft}
       </Animated.Text>
-      <View style={styles.barTrack}>
+      <View style={[styles.barTrack, { backgroundColor: colors.surface }]}>
         <Animated.View
           style={[
             styles.barFill,
-            isUrgent && styles.urgentBar,
+            { backgroundColor: isUrgent ? colors.accent : colors.text },
             barStyle,
           ]}
         />
@@ -93,24 +94,15 @@ const styles = StyleSheet.create({
   timeText: {
     fontSize: 48,
     fontWeight: '800',
-    color: Colors.text,
-  },
-  urgentText: {
-    color: Colors.accent,
   },
   barTrack: {
     width: '100%',
     height: 6,
-    backgroundColor: Colors.surface,
     borderRadius: 3,
     overflow: 'hidden',
   },
   barFill: {
     height: '100%',
-    backgroundColor: Colors.text,
     borderRadius: 3,
-  },
-  urgentBar: {
-    backgroundColor: Colors.accent,
   },
 });

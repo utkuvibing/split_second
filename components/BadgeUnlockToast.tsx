@@ -9,7 +9,7 @@ import Animated, {
   withSpring,
   Easing,
 } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { getBadgeById } from '../lib/badges';
 import { t } from '../lib/i18n';
 
@@ -19,6 +19,7 @@ interface Props {
 }
 
 export function BadgeUnlockToast({ badgeId, onDone }: Props) {
+  const colors = useTheme();
   const badge = getBadgeById(badgeId);
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
@@ -60,13 +61,23 @@ export function BadgeUnlockToast({ badgeId, onDone }: Props) {
   if (!badge) return null;
 
   return (
-    <Animated.View style={[styles.container, containerStyle]}>
+    <Animated.View
+      style={[
+        styles.container,
+        containerStyle,
+        { backgroundColor: colors.surface, borderColor: colors.accent },
+      ]}
+    >
       <Animated.View style={emojiStyle}>
         <Text style={styles.emoji}>{badge.emoji}</Text>
       </Animated.View>
       <View style={styles.textContainer}>
-        <Text style={styles.unlocked}>{t('badgeUnlocked')}</Text>
-        <Text style={styles.title}>{t(badge.titleKey as any)}</Text>
+        <Text style={[styles.unlocked, { color: colors.accent }]}>
+          {t('badgeUnlocked')}
+        </Text>
+        <Text style={[styles.title, { color: colors.text }]}>
+          {t(badge.titleKey as any)}
+        </Text>
       </View>
     </Animated.View>
   );
@@ -76,13 +87,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.surface,
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 16,
     gap: 12,
     borderWidth: 1,
-    borderColor: Colors.accent,
     marginHorizontal: 24,
   },
   emoji: {
@@ -94,13 +103,11 @@ const styles = StyleSheet.create({
   unlocked: {
     fontSize: 11,
     fontWeight: '600',
-    color: Colors.accent,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   title: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.text,
   },
 });

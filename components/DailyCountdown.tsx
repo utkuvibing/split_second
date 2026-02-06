@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { useDailyCountdown } from '../hooks/useDailyCountdown';
 import { t } from '../lib/i18n';
 
 export function DailyCountdown() {
+  const colors = useTheme();
   const { formatted } = useDailyCountdown();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{t('nextQuestionIn')}</Text>
-      <Text style={styles.time}>{formatted}</Text>
+      <Text style={[styles.label, { color: colors.textMuted }]}>{t('nextQuestionIn')}</Text>
+      <Text style={[styles.time, { color: colors.text }]}>{formatted}</Text>
     </View>
   );
 }
@@ -22,12 +23,10 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: Colors.textMuted,
   },
   time: {
     fontSize: 20,
     fontWeight: '600',
-    color: Colors.text,
     fontVariant: ['tabular-nums'],
   },
 });

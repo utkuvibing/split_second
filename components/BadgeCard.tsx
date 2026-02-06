@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 import { BadgeDef, BadgeContext } from '../lib/badges';
 import { t } from '../lib/i18n';
 
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export function BadgeCard({ badge, unlocked, context, delay = 0 }: Props) {
+  const colors = useTheme();
+  const styles = createStyles(colors);
   const progress = context && badge.progress ? badge.progress(context) : null;
 
   return (
@@ -52,10 +55,10 @@ export function BadgeCard({ badge, unlocked, context, delay = 0 }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 12,
     alignItems: 'center',
@@ -74,15 +77,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 11,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
     textAlign: 'center',
   },
   textLocked: {
-    color: Colors.textMuted,
+    color: colors.textMuted,
   },
   desc: {
     fontSize: 9,
-    color: Colors.textMuted,
+    color: colors.textMuted,
     textAlign: 'center',
   },
   progressContainer: {
@@ -93,17 +96,17 @@ const styles = StyleSheet.create({
   progressBar: {
     width: '100%',
     height: 4,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     borderRadius: 2,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     borderRadius: 2,
   },
   progressText: {
     fontSize: 9,
-    color: Colors.textMuted,
+    color: colors.textMuted,
   },
 });

@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -20,58 +21,58 @@ export const ShareCard = forwardRef<View, Props>(({
   percentB,
   userChoice,
 }, ref) => {
+  const colors = useTheme();
+  const dynamicStyles = createStyles(colors);
+
   return (
-    <View ref={ref} style={styles.card} collapsable={false}>
-      <Text style={styles.brand}>SPLIT SECOND</Text>
-      <Text style={styles.question}>{questionText}</Text>
+    <View ref={ref} style={dynamicStyles.card} collapsable={false}>
+      <Text style={dynamicStyles.brand}>SPLIT SECOND</Text>
+      <Text style={dynamicStyles.question}>{questionText}</Text>
       <View style={styles.options}>
-        <View style={[styles.optionRow, userChoice === 'a' && styles.selectedOption]}>
-          <View style={[styles.bar, { width: `${percentA}%`, backgroundColor: Colors.optionA }]} />
-          <Text style={styles.optionText}>{optionA}</Text>
-          <Text style={[styles.percent, { color: Colors.optionA }]}>{percentA}%</Text>
+        <View style={[dynamicStyles.optionRow, userChoice === 'a' && dynamicStyles.selectedOption]}>
+          <View style={[styles.bar, { width: `${percentA}%`, backgroundColor: colors.optionA }]} />
+          <Text style={dynamicStyles.optionText}>{optionA}</Text>
+          <Text style={[styles.percent, { color: colors.optionA }]}>{percentA}%</Text>
         </View>
-        <View style={[styles.optionRow, userChoice === 'b' && styles.selectedOption]}>
-          <View style={[styles.bar, { width: `${percentB}%`, backgroundColor: Colors.optionB }]} />
-          <Text style={styles.optionText}>{optionB}</Text>
-          <Text style={[styles.percent, { color: Colors.optionB }]}>{percentB}%</Text>
+        <View style={[dynamicStyles.optionRow, userChoice === 'b' && dynamicStyles.selectedOption]}>
+          <View style={[styles.bar, { width: `${percentB}%`, backgroundColor: colors.optionB }]} />
+          <Text style={dynamicStyles.optionText}>{optionB}</Text>
+          <Text style={[styles.percent, { color: colors.optionB }]}>{percentB}%</Text>
         </View>
       </View>
-      <Text style={styles.footer}>{t('shareCardFooter')}</Text>
+      <Text style={dynamicStyles.footer}>{t('shareCardFooter')}</Text>
     </View>
   );
 });
 
 ShareCard.displayName = 'ShareCard';
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   card: {
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     borderRadius: 20,
     padding: 24,
     width: 340,
     gap: 16,
     borderWidth: 1,
-    borderColor: Colors.surface,
+    borderColor: colors.surface,
   },
   brand: {
     fontSize: 14,
     fontWeight: '800',
-    color: Colors.accent,
+    color: colors.accent,
     letterSpacing: 2,
     textAlign: 'center',
   },
   question: {
     fontSize: 20,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
     textAlign: 'center',
     lineHeight: 28,
   },
-  options: {
-    gap: 10,
-  },
   optionRow: {
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 14,
     flexDirection: 'row',
@@ -82,7 +83,25 @@ const styles = StyleSheet.create({
   },
   selectedOption: {
     borderWidth: 1,
-    borderColor: Colors.text,
+    borderColor: colors.text,
+  },
+  optionText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: colors.text,
+    flex: 1,
+  },
+  footer: {
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+});
+
+const styles = StyleSheet.create({
+  options: {
+    gap: 10,
   },
   bar: {
     position: 'absolute',
@@ -92,20 +111,8 @@ const styles = StyleSheet.create({
     opacity: 0.15,
     borderRadius: 12,
   },
-  optionText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: Colors.text,
-    flex: 1,
-  },
   percent: {
     fontSize: 18,
     fontWeight: '700',
-  },
-  footer: {
-    fontSize: 13,
-    color: Colors.textMuted,
-    textAlign: 'center',
-    fontStyle: 'italic',
   },
 });

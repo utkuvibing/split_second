@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, RefreshControl, FlatList } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { LeaderboardEntry } from '../lib/leaderboard';
 import { LeaderboardRow } from './LeaderboardRow';
 import { t } from '../lib/i18n';
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export function LeaderboardList({ entries, userRank, userEntry, currentUserId, loading, onRefresh }: Props) {
+  const colors = useTheme();
   const isUserInList = entries.some((e) => e.user_id === currentUserId);
 
   return (
@@ -35,23 +36,27 @@ export function LeaderboardList({ entries, userRank, userEntry, currentUserId, l
           <RefreshControl
             refreshing={loading}
             onRefresh={onRefresh}
-            tintColor={Colors.accent}
-            colors={[Colors.accent]}
+            tintColor={colors.accent}
+            colors={[colors.accent]}
           />
         }
         ListEmptyComponent={
           !loading ? (
             <Animated.View entering={FadeIn.duration(400)} style={styles.emptyState}>
               <Text style={styles.emptyEmoji}>🏆</Text>
-              <Text style={styles.emptyText}>{t('leaderboardEmpty')}</Text>
-              <Text style={styles.emptySubtext}>{t('leaderboardEmptyDesc')}</Text>
+              <Text style={[styles.emptyText, { color: colors.text }]}>
+                {t('leaderboardEmpty')}
+              </Text>
+              <Text style={[styles.emptySubtext, { color: colors.textMuted }]}>
+                {t('leaderboardEmptyDesc')}
+              </Text>
             </Animated.View>
           ) : null
         }
         ListFooterComponent={
           userEntry && !isUserInList && userRank > 0 ? (
             <View style={styles.userSection}>
-              <Text style={styles.userSectionLabel}>···</Text>
+              <Text style={[styles.userSectionLabel, { color: colors.textMuted }]}>···</Text>
               <LeaderboardRow entry={userEntry} isCurrentUser />
             </View>
           ) : null
@@ -84,11 +89,9 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
-    color: Colors.text,
   },
   emptySubtext: {
     fontSize: 14,
-    color: Colors.textMuted,
     textAlign: 'center',
   },
   userSection: {
@@ -98,7 +101,6 @@ const styles = StyleSheet.create({
   },
   userSectionLabel: {
     fontSize: 18,
-    color: Colors.textMuted,
     letterSpacing: 4,
   },
 });

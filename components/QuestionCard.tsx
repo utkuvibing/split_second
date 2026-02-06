@@ -7,7 +7,7 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { Typography } from '../constants/typography';
 import { Question } from '../types/database';
 import { t } from '../lib/i18n';
@@ -57,6 +57,7 @@ function OptionButton({
 }
 
 export function QuestionCard({ question, onVote, disabled }: Props) {
+  const colors = useTheme();
   const translateX = useSharedValue(0);
 
   const submitVote = (choice: 'a' | 'b') => {
@@ -101,29 +102,29 @@ export function QuestionCard({ question, onVote, disabled }: Props) {
     <GestureDetector gesture={panGesture}>
       <Animated.View style={[styles.container, cardAnimatedStyle]}>
         {/* Swipe overlays */}
-        <Animated.View style={[styles.swipeOverlay, styles.leftOverlay, leftOverlayStyle]}>
-          <Text style={styles.swipeHint}>{question.option_a}</Text>
+        <Animated.View style={[styles.swipeOverlay, styles.leftOverlay, { backgroundColor: colors.optionA }, leftOverlayStyle]}>
+          <Text style={[styles.swipeHint, { color: colors.text }]}>{question.option_a}</Text>
         </Animated.View>
-        <Animated.View style={[styles.swipeOverlay, styles.rightOverlay, rightOverlayStyle]}>
-          <Text style={styles.swipeHint}>{question.option_b}</Text>
+        <Animated.View style={[styles.swipeOverlay, styles.rightOverlay, { backgroundColor: colors.optionB }, rightOverlayStyle]}>
+          <Text style={[styles.swipeHint, { color: colors.text }]}>{question.option_b}</Text>
         </Animated.View>
 
         <Text style={styles.questionText}>{question.question_text}</Text>
 
         <View style={styles.swipeInstructions}>
-          <Text style={styles.swipeText}>{t('swipeHint')}</Text>
+          <Text style={[styles.swipeText, { color: colors.textMuted }]}>{t('swipeHint')}</Text>
         </View>
 
         <View style={styles.optionsContainer}>
           <OptionButton
             label={question.option_a}
-            color={Colors.optionA}
+            color={colors.optionA}
             onPress={() => onVote('a')}
             disabled={disabled}
           />
           <OptionButton
             label={question.option_b}
-            color={Colors.optionB}
+            color={colors.optionB}
             onPress={() => onVote('b')}
             disabled={disabled}
           />
@@ -171,17 +172,14 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   leftOverlay: {
-    backgroundColor: Colors.optionA,
     left: 0,
   },
   rightOverlay: {
-    backgroundColor: Colors.optionB,
     left: 0,
   },
   swipeHint: {
     fontSize: 20,
     fontWeight: '800',
-    color: Colors.text,
     textAlign: 'center',
     paddingHorizontal: 32,
   },
@@ -190,7 +188,6 @@ const styles = StyleSheet.create({
   },
   swipeText: {
     fontSize: 12,
-    color: Colors.textMuted,
     opacity: 0.6,
   },
 });

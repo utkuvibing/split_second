@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 import { LeaderboardEntry, getPlayerName } from '../lib/leaderboard';
+import { getFrameById } from '../lib/cosmetics';
 import { t } from '../lib/i18n';
 
 const RANK_EMOJIS: Record<number, string> = {
@@ -12,13 +14,24 @@ const RANK_EMOJIS: Record<number, string> = {
 interface Props {
   entry: LeaderboardEntry;
   isCurrentUser: boolean;
+  frameId?: string;
 }
 
-export function LeaderboardRow({ entry, isCurrentUser }: Props) {
+export function LeaderboardRow({ entry, isCurrentUser, frameId }: Props) {
+  const colors = useTheme();
+  const styles = createStyles(colors);
   const rankEmoji = RANK_EMOJIS[entry.rank];
 
+  // Render frame border for the current user
+  const frame = frameId ? getFrameById(frameId) : null;
+  const frameBorderColor = frame && frame.borderColors.length > 0 ? frame.borderColors[0] : undefined;
+
   return (
-    <View style={[styles.container, isCurrentUser && styles.highlighted]}>
+    <View style={[
+      styles.container,
+      isCurrentUser && styles.highlighted,
+      isCurrentUser && frameBorderColor && { borderColor: frameBorderColor },
+    ]}>
       <View style={styles.rankContainer}>
         {rankEmoji ? (
           <Text style={styles.rankEmoji}>{rankEmoji}</Text>
@@ -44,59 +57,60 @@ export function LeaderboardRow({ entry, isCurrentUser }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surface,
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    gap: 12,
-  },
-  highlighted: {
-    borderWidth: 1,
-    borderColor: Colors.accent,
-  },
-  rankContainer: {
-    width: 36,
-    alignItems: 'center',
-  },
-  rankEmoji: {
-    fontSize: 22,
-  },
-  rankNumber: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: Colors.textMuted,
-  },
-  info: {
-    flex: 1,
-    gap: 2,
-  },
-  name: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: Colors.text,
-  },
-  nameHighlighted: {
-    color: Colors.accent,
-  },
-  stats: {
-    fontSize: 12,
-    color: Colors.textMuted,
-  },
-  streakContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  streakFire: {
-    fontSize: 16,
-  },
-  streakNumber: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: Colors.warning,
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.surface,
+      borderRadius: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 14,
+      gap: 12,
+    },
+    highlighted: {
+      borderWidth: 1,
+      borderColor: colors.accent,
+    },
+    rankContainer: {
+      width: 36,
+      alignItems: 'center',
+    },
+    rankEmoji: {
+      fontSize: 22,
+    },
+    rankNumber: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: colors.textMuted,
+    },
+    info: {
+      flex: 1,
+      gap: 2,
+    },
+    name: {
+      fontSize: 15,
+      fontWeight: '600',
+      color: colors.text,
+    },
+    nameHighlighted: {
+      color: colors.accent,
+    },
+    stats: {
+      fontSize: 12,
+      color: colors.textMuted,
+    },
+    streakContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+    streakFire: {
+      fontSize: 16,
+    },
+    streakNumber: {
+      fontSize: 18,
+      fontWeight: '800',
+      color: colors.warning,
+    },
+  });

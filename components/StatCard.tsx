@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 
 interface Props {
   emoji: string;
@@ -8,11 +8,13 @@ interface Props {
 }
 
 export function StatCard({ emoji, value, label }: Props) {
+  const colors = useTheme();
+
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { backgroundColor: colors.surface }]}>
       <Text style={styles.emoji}>{emoji}</Text>
-      <Text style={styles.value}>{value}</Text>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.value, { color: colors.text }]}>{value}</Text>
+      <Text style={[styles.label, { color: colors.textMuted }]}>{label}</Text>
     </View>
   );
 }
@@ -20,7 +22,6 @@ export function StatCard({ emoji, value, label }: Props) {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 14,
     alignItems: 'center',
@@ -33,11 +34,9 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 20,
     fontWeight: '800',
-    color: Colors.text,
   },
   label: {
     fontSize: 11,
-    color: Colors.textMuted,
     textAlign: 'center',
   },
 });

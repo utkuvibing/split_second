@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Animated, { SlideInRight } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
+import { ThemeColors } from '../types/premium';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -22,6 +23,8 @@ const slides = [
 ];
 
 export function Onboarding({ onComplete }: Props) {
+  const colors = useTheme();
+  const styles = createStyles(colors);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const isLast = currentSlide === slides.length - 1;
@@ -74,10 +77,10 @@ export function Onboarding({ onComplete }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     justifyContent: 'center',
   },
   slideContent: {
@@ -94,13 +97,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '800',
-    color: Colors.text,
+    color: colors.text,
     textAlign: 'center',
     lineHeight: 36,
   },
   subtitle: {
     fontSize: 16,
-    color: Colors.textMuted,
+    color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 22,
   },
@@ -118,14 +121,14 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.surface,
   },
   dotActive: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     width: 24,
   },
   button: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     paddingVertical: 16,
     paddingHorizontal: 48,
     borderRadius: 16,
@@ -135,10 +138,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
   skipText: {
     fontSize: 14,
-    color: Colors.textMuted,
+    color: colors.textMuted,
   },
 });

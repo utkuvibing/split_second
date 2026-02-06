@@ -2,7 +2,7 @@ import { Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { withLayoutContext } from 'expo-router';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../lib/themeContext';
 import { t } from '../../lib/i18n';
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -10,6 +10,7 @@ const { Navigator } = createMaterialTopTabNavigator();
 const MaterialTopTabs = withLayoutContext(Navigator);
 
 export default function TabLayout() {
+  const colors = useTheme();
   const insets = useSafeAreaInsets();
   const bottomPadding = Math.max(insets.bottom, 8);
 
@@ -20,8 +21,8 @@ export default function TabLayout() {
         swipeEnabled: true,
         animationEnabled: true,
         tabBarStyle: {
-          backgroundColor: Colors.surface,
-          borderTopColor: Colors.background,
+          backgroundColor: colors.surface,
+          borderTopColor: colors.background,
           borderTopWidth: 1,
           height: 68 + bottomPadding,
           paddingBottom: bottomPadding,
@@ -32,8 +33,8 @@ export default function TabLayout() {
         tabBarItemStyle: {
           paddingVertical: 4,
         },
-        tabBarActiveTintColor: Colors.accent,
-        tabBarInactiveTintColor: Colors.textMuted,
+        tabBarActiveTintColor: colors.accent,
+        tabBarInactiveTintColor: colors.textMuted,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
@@ -43,7 +44,7 @@ export default function TabLayout() {
           lineHeight: 18,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: Colors.accent,
+          backgroundColor: colors.accent,
           height: 2,
           borderRadius: 1,
         },

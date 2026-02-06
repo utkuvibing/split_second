@@ -5,7 +5,7 @@ import Animated, {
   withSpring,
   FadeIn,
 } from 'react-native-reanimated';
-import { Colors } from '../constants/colors';
+import { useTheme } from '../lib/themeContext';
 import { t } from '../lib/i18n';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -16,6 +16,7 @@ interface Props {
 }
 
 export function ShareButton({ onPress, onImageShare }: Props) {
+  const colors = useTheme();
   const scale = useSharedValue(1);
   const scaleImg = useSharedValue(1);
 
@@ -30,7 +31,7 @@ export function ShareButton({ onPress, onImageShare }: Props) {
   return (
     <Animated.View entering={FadeIn.delay(1400).duration(400)} style={styles.row}>
       <AnimatedPressable
-        style={[styles.button, styles.primaryButton, animatedStyle]}
+        style={[styles.button, styles.primaryButton, { backgroundColor: colors.accent }, animatedStyle]}
         onPressIn={() => {
           scale.value = withSpring(0.95);
         }}
@@ -39,11 +40,16 @@ export function ShareButton({ onPress, onImageShare }: Props) {
         }}
         onPress={onPress}
       >
-        <Text style={styles.buttonText}>{t('share')}</Text>
+        <Text style={[styles.buttonText, { color: colors.text }]}>{t('share')}</Text>
       </AnimatedPressable>
       {onImageShare && (
         <AnimatedPressable
-          style={[styles.button, styles.secondaryButton, animatedStyleImg]}
+          style={[
+            styles.button,
+            styles.secondaryButton,
+            { backgroundColor: colors.surface, borderColor: colors.accent },
+            animatedStyleImg
+          ]}
           onPressIn={() => {
             scaleImg.value = withSpring(0.95);
           }}
@@ -52,7 +58,7 @@ export function ShareButton({ onPress, onImageShare }: Props) {
           }}
           onPress={onImageShare}
         >
-          <Text style={styles.secondaryText}>{t('story')}</Text>
+          <Text style={[styles.secondaryText, { color: colors.accent }]}>{t('story')}</Text>
         </AnimatedPressable>
       )}
     </Animated.View>
@@ -73,21 +79,16 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     flex: 1,
-    backgroundColor: Colors.accent,
   },
   secondaryButton: {
-    backgroundColor: Colors.surface,
     borderWidth: 1,
-    borderColor: Colors.accent,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.text,
   },
   secondaryText: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.accent,
   },
 });

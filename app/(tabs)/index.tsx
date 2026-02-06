@@ -3,7 +3,8 @@ import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../lib/themeContext';
+import { ThemeColors } from '../../types/premium';
 import { useAuth } from '../../hooks/useAuth';
 import { useTodayQuestion } from '../../hooks/useTodayQuestion';
 import { useVote } from '../../hooks/useVote';
@@ -24,6 +25,7 @@ import { BadgeUnlockToast } from '../../components/BadgeUnlockToast';
 import { PostVoteInsights } from '../../components/PostVoteInsights';
 import { ChallengeButton } from '../../components/ChallengeButton';
 import { shareChallenge } from '../../lib/deeplink';
+import { usePremium } from '../../hooks/usePremium';
 import { useGlobalStats } from '../../hooks/useGlobalStats';
 import { GlobalStatsBanner } from '../../components/GlobalStatsBanner';
 import { Confetti } from '../../components/Confetti';
@@ -36,10 +38,13 @@ import { t } from '../../lib/i18n';
 const TIMER_SECONDS = 10;
 
 export default function HomeScreen() {
+  const colors = useTheme();
+  const styles = createStyles(colors);
   const { userId, loading: authLoading } = useAuth();
   const { question, loading: questionLoading, error, refetch } = useTodayQuestion(!!userId);
   const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading, voteTimeSeconds } = useVote(question?.id);
   const { unlockedBadges, checkNewUnlocks } = useBadges();
+  const { isPremium } = usePremium();
 
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
@@ -193,6 +198,7 @@ export default function HomeScreen() {
               countB={results.count_b}
               total={results.total}
               nextBadgeProgress={nextBadgeProg}
+              isPremium={isPremium}
             />
             {results.current_streak != null && results.current_streak > 0 && (
               <Animated.View entering={FadeIn.delay(1000).duration(400)}>
@@ -252,10 +258,10 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
   },
   center: {
     flex: 1,
@@ -272,7 +278,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 18,
     fontWeight: '800',
-    color: Colors.accent,
+    color: colors.accent,
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
   questionTextResult: {
     fontSize: 22,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
     textAlign: 'center',
     paddingHorizontal: 24,
     lineHeight: 30,
@@ -303,16 +309,16 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 20,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
   errorDetail: {
     fontSize: 14,
-    color: Colors.textMuted,
+    color: colors.textMuted,
     textAlign: 'center',
   },
   retryButton: {
     marginTop: 16,
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     paddingHorizontal: 32,
     paddingVertical: 14,
     borderRadius: 12,
@@ -320,7 +326,7 @@ const styles = StyleSheet.create({
   retryText: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.text,
+    color: colors.text,
   },
   hiddenCard: {
     position: 'absolute',

@@ -155,6 +155,88 @@ const tr = {
   leaderboardVotes: '{count} oy',
   leaderboardEmpty: 'Henüz kimse yok',
   leaderboardEmptyDesc: 'İlk oy veren sen ol!',
+
+  // Premium
+  premiumFeature: 'Premium Özellik',
+  premiumUnlock: 'Bu özelliğin kilidini açmak için Premium\'a geç',
+  premiumUpgrade: 'Premium\'a Geç',
+  premiumTitle: 'Split Second Premium',
+  premiumSubtitle: 'Deneyimini bir üst seviyeye taşı',
+  premiumMonthly: 'Aylık',
+  premiumYearly: 'Yıllık',
+  premiumMonthlyPrice: '₺89,99/ay',
+  premiumYearlyPrice: '₺549,99/yıl',
+  premiumYearlySave: '%45 tasarruf',
+  premiumStartTrial: 'Ücretsiz Denemeyi Başlat',
+  premiumRestore: 'Satın Alımları Geri Yükle',
+  premiumActivated: 'Premium aktif (geliştirici modu)',
+  premiumFeatureHistory: 'Sınırsız oy geçmişi',
+  premiumFeatureStats: 'Detaylı istatistikler',
+  premiumFeatureBadges: 'Tüm rozetler',
+  premiumFeatureInsights: 'Oylama sonrası analizler',
+  premiumFeatureThemes: 'Özel temalar',
+  premiumFeatureNoAds: 'Reklamsız deneyim',
+  premiumOnly: 'Premium',
+  premiumHistoryLimit: 'Son 7 günün oyları gösteriliyor',
+  premiumSeeAll: 'Tümünü Gör',
+
+  // Themes
+  themeMidnight: 'Gece Yarısı',
+  themeOcean: 'Okyanus Derinliği',
+  themeSunset: 'Gün Batımı',
+  themeForest: 'Orman Gecesi',
+  themeRose: 'Gül Altını',
+  themeNoir: 'Noir',
+
+  // Shop
+  shopTitle: 'Mağaza',
+  shopThemes: 'Temalar',
+  shopFrames: 'Profil Çerçeveleri',
+  shopEffects: 'Oy Efektleri',
+  shopEquipped: 'Takılı',
+  shopEquip: 'Tak',
+  shopOwned: 'Sahip',
+  shopGet: 'Al',
+  shopPremiumRequired: 'Premium Gerekli',
+
+  // Frames
+  frameNone: 'Varsayılan',
+  frameGold: 'Altın',
+  frameNeon: 'Neon',
+  frameFire: 'Ateş',
+  frameIce: 'Buz',
+  frameNoneDesc: 'Çerçeve yok',
+  frameGoldDesc: 'Altın gradyan çerçeve',
+  frameNeonDesc: 'Parlayan aksan çerçeve',
+  frameFireDesc: 'Kırmızı-turuncu çerçeve',
+  frameIceDesc: 'Mavi-beyaz çerçeve',
+
+  // Vote effects
+  effectDefault: 'Standart',
+  effectConfetti: 'Parti',
+  effectLightning: 'Yıldırım',
+  effectHearts: 'Aşk',
+  effectDefaultDesc: 'Varsayılan kaydırma animasyonu',
+  effectConfettiDesc: 'Oy verince konfeti patlaması',
+  effectLightningDesc: 'Şimşek çakması efekti',
+  effectHeartsDesc: 'Kalp parçacıkları',
+
+  // Premium badges
+  badgeCollector: 'Koleksiyoncu',
+  badgeCollectorDesc: '3+ kozmetik edin',
+  badgeFashionista: 'Modacı',
+  badgeFashionistaDesc: 'Temayı 5 kez değiştir',
+  badgeSupporter: 'Destekçi',
+  badgeSupporterDesc: '30+ gün Premium ol',
+  badgeCompletionist: 'Tamamlayıcı',
+  badgeCompletionistDesc: 'Tüm temel rozetleri aç',
+
+  // Dev menu
+  devMenu: 'Geliştirici Menüsü',
+  devSimulatePremium: 'Premium Simüle Et',
+  devOwnAllCosmetics: 'Tüm Kozmetiklere Sahip Ol',
+  devResetPremium: 'Premium Durumunu Sıfırla',
+  devReset: 'Sıfırla',
 };
 
 const en: typeof tr = {
@@ -298,6 +380,88 @@ const en: typeof tr = {
   leaderboardVotes: '{count} votes',
   leaderboardEmpty: 'No one here yet',
   leaderboardEmptyDesc: 'Be the first to vote!',
+
+  // Premium
+  premiumFeature: 'Premium Feature',
+  premiumUnlock: 'Upgrade to Premium to unlock this feature',
+  premiumUpgrade: 'Go Premium',
+  premiumTitle: 'Split Second Premium',
+  premiumSubtitle: 'Take your experience to the next level',
+  premiumMonthly: 'Monthly',
+  premiumYearly: 'Yearly',
+  premiumMonthlyPrice: '$2.99/mo',
+  premiumYearlyPrice: '$19.99/yr',
+  premiumYearlySave: 'Save 45%',
+  premiumStartTrial: 'Start Free Trial',
+  premiumRestore: 'Restore Purchases',
+  premiumActivated: 'Premium activated (dev mode)',
+  premiumFeatureHistory: 'Unlimited vote history',
+  premiumFeatureStats: 'Detailed statistics',
+  premiumFeatureBadges: 'All badges',
+  premiumFeatureInsights: 'Post-vote insights',
+  premiumFeatureThemes: 'Custom themes',
+  premiumFeatureNoAds: 'Ad-free experience',
+  premiumOnly: 'Premium',
+  premiumHistoryLimit: 'Showing last 7 days of votes',
+  premiumSeeAll: 'See All',
+
+  // Themes
+  themeMidnight: 'Midnight',
+  themeOcean: 'Ocean Depth',
+  themeSunset: 'Sunset Glow',
+  themeForest: 'Forest Night',
+  themeRose: 'Rose Gold',
+  themeNoir: 'Noir',
+
+  // Shop
+  shopTitle: 'Shop',
+  shopThemes: 'Themes',
+  shopFrames: 'Profile Frames',
+  shopEffects: 'Vote Effects',
+  shopEquipped: 'Equipped',
+  shopEquip: 'Equip',
+  shopOwned: 'Owned',
+  shopGet: 'Get',
+  shopPremiumRequired: 'Premium Required',
+
+  // Frames
+  frameNone: 'Default',
+  frameGold: 'Gold',
+  frameNeon: 'Neon',
+  frameFire: 'Fire',
+  frameIce: 'Ice',
+  frameNoneDesc: 'No frame',
+  frameGoldDesc: 'Gold gradient border',
+  frameNeonDesc: 'Glowing accent border',
+  frameFireDesc: 'Red-orange border',
+  frameIceDesc: 'Blue-white border',
+
+  // Vote effects
+  effectDefault: 'Standard',
+  effectConfetti: 'Party',
+  effectLightning: 'Thunder',
+  effectHearts: 'Love',
+  effectDefaultDesc: 'Default swipe animation',
+  effectConfettiDesc: 'Confetti burst on vote',
+  effectLightningDesc: 'Lightning flash effect',
+  effectHeartsDesc: 'Heart particles',
+
+  // Premium badges
+  badgeCollector: 'Collector',
+  badgeCollectorDesc: 'Own 3+ cosmetics',
+  badgeFashionista: 'Fashionista',
+  badgeFashionistaDesc: 'Change theme 5 times',
+  badgeSupporter: 'Supporter',
+  badgeSupporterDesc: 'Be premium for 30+ days',
+  badgeCompletionist: 'Completionist',
+  badgeCompletionistDesc: 'Unlock all basic badges',
+
+  // Dev menu
+  devMenu: 'Developer Menu',
+  devSimulatePremium: 'Simulate Premium',
+  devOwnAllCosmetics: 'Own All Cosmetics',
+  devResetPremium: 'Reset Premium State',
+  devReset: 'Reset',
 };
 
 const translations: Record<Language, typeof tr> = { tr, en };
