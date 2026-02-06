@@ -17,6 +17,7 @@ const currentLang: Language = getDeviceLanguage();
 const tr = {
   // Tabs
   tabToday: 'Bugün',
+  tabLeaderboard: 'Sıralama',
   tabProfile: 'Profil',
 
   // App
@@ -109,11 +110,57 @@ const tr = {
   dailyReminderBody: 'Karar zamanın geldi. 10 saniyede seç!',
   streakReminderTitle: '{streak} günlük serin tehlikede! 🔥',
   streakReminderBody: 'Bugün oy vermeyi unutma, serin kırılmasın!',
+
+  // Badges
+  badges: 'Rozetler',
+  badgeUnlocked: 'Rozet Açıldı!',
+  badgeFirstVote: 'İlk Oy',
+  badgeFirstVoteDesc: 'İlk oyunu ver',
+  badgeSpeedDemon: 'Hız Şeytanı',
+  badgeSpeedDemonDesc: '3 saniyeden kısa sürede oy ver',
+  badgeNightOwl: 'Gece Kuşu',
+  badgeNightOwlDesc: 'Gece yarısı-05:00 arası oy ver',
+  badgeStreak3: '3 Gün Seri',
+  badgeStreak3Desc: '3 günlük seri yap',
+  badgeStreak7: '7 Gün Seri',
+  badgeStreak7Desc: '7 günlük seri yap',
+  badgeStreak14: '14 Gün Seri',
+  badgeStreak14Desc: '14 günlük seri yap',
+  badgeStreak30: '30 Gün Seri',
+  badgeStreak30Desc: '30 günlük seri yap',
+  badgeStreak50: '50 Gün Seri',
+  badgeStreak50Desc: '50 günlük seri yap',
+  badgeCentury: 'Yüzyıl',
+  badgeCenturyDesc: '100 günlük seri yap',
+  badgeConformist: 'Uyumlu',
+  badgeConformistDesc: '10 kez çoğunlukla aynı oy ver',
+  badgeRebel: 'Asi',
+  badgeRebelDesc: '10 kez çoğunluğa karşı oy ver',
+  badgeExplorer: 'Kaşif',
+  badgeExplorerDesc: '10 farklı kategoride oy ver',
+  badgeDedicated: 'Adanmış',
+  badgeDedicatedDesc: '50 toplam oy ver',
+  badgeVeteran: 'Veteran',
+  badgeVeteranDesc: '100 toplam oy ver',
+  nextBadgeProgress: '{remaining} adım kaldı: {badge}',
+
+  // Insights
+  insightControversial: 'Tartışmalı soru!',
+  insightClearFavorite: 'Net favori!',
+  insightPopular: 'Popüler soru!',
+
+  // Leaderboard
+  leaderboardTitle: 'Sıralama',
+  leaderboardYou: 'Sen',
+  leaderboardVotes: '{count} oy',
+  leaderboardEmpty: 'Henüz kimse yok',
+  leaderboardEmptyDesc: 'İlk oy veren sen ol!',
 };
 
 const en: typeof tr = {
   // Tabs
   tabToday: 'Today',
+  tabLeaderboard: 'Ranking',
   tabProfile: 'Profile',
 
   // App
@@ -206,6 +253,51 @@ const en: typeof tr = {
   dailyReminderBody: 'Time to decide. Choose in 10 seconds!',
   streakReminderTitle: 'Your {streak}-day streak is at risk! 🔥',
   streakReminderBody: 'Don\'t forget to vote today!',
+
+  // Badges
+  badges: 'Badges',
+  badgeUnlocked: 'Badge Unlocked!',
+  badgeFirstVote: 'First Vote',
+  badgeFirstVoteDesc: 'Cast your first vote',
+  badgeSpeedDemon: 'Speed Demon',
+  badgeSpeedDemonDesc: 'Vote in under 3 seconds',
+  badgeNightOwl: 'Night Owl',
+  badgeNightOwlDesc: 'Vote between midnight and 5 AM',
+  badgeStreak3: '3-Day Streak',
+  badgeStreak3Desc: 'Reach a 3-day streak',
+  badgeStreak7: '7-Day Streak',
+  badgeStreak7Desc: 'Reach a 7-day streak',
+  badgeStreak14: '14-Day Streak',
+  badgeStreak14Desc: 'Reach a 14-day streak',
+  badgeStreak30: '30-Day Streak',
+  badgeStreak30Desc: 'Reach a 30-day streak',
+  badgeStreak50: '50-Day Streak',
+  badgeStreak50Desc: 'Reach a 50-day streak',
+  badgeCentury: 'Century',
+  badgeCenturyDesc: 'Reach a 100-day streak',
+  badgeConformist: 'Conformist',
+  badgeConformistDesc: 'Vote with the majority 10 times',
+  badgeRebel: 'Rebel',
+  badgeRebelDesc: 'Vote against the majority 10 times',
+  badgeExplorer: 'Explorer',
+  badgeExplorerDesc: 'Vote in 10 different categories',
+  badgeDedicated: 'Dedicated',
+  badgeDedicatedDesc: 'Cast 50 total votes',
+  badgeVeteran: 'Veteran',
+  badgeVeteranDesc: 'Cast 100 total votes',
+  nextBadgeProgress: '{remaining} more to go: {badge}',
+
+  // Insights
+  insightControversial: 'Controversial question!',
+  insightClearFavorite: 'Clear favorite!',
+  insightPopular: 'Popular question!',
+
+  // Leaderboard
+  leaderboardTitle: 'Leaderboard',
+  leaderboardYou: 'You',
+  leaderboardVotes: '{count} votes',
+  leaderboardEmpty: 'No one here yet',
+  leaderboardEmptyDesc: 'Be the first to vote!',
 };
 
 const translations: Record<Language, typeof tr> = { tr, en };

@@ -4,15 +4,18 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { Colors } from '../../constants/colors';
 import { useUserStats } from '../../hooks/useUserStats';
 import { useVoteHistory } from '../../hooks/useVoteHistory';
+import { useBadges } from '../../hooks/useBadges';
 import { StatsGrid } from '../../components/StatsGrid';
+import { BadgeGrid } from '../../components/BadgeGrid';
 import { HistoryCard } from '../../components/HistoryCard';
 import { t } from '../../lib/i18n';
 
 export default function ProfileScreen() {
   const { stats, loading: statsLoading } = useUserStats();
   const { history, loading: historyLoading } = useVoteHistory();
+  const { unlockedBadges, loading: badgesLoading } = useBadges();
 
-  const isLoading = statsLoading || historyLoading;
+  const isLoading = statsLoading || historyLoading || badgesLoading;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,6 +37,11 @@ export default function ProfileScreen() {
               <StatsGrid stats={stats} />
             </View>
           )}
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{t('badges')}</Text>
+            <BadgeGrid unlockedBadges={unlockedBadges} />
+          </View>
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>

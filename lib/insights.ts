@@ -1,4 +1,32 @@
-import { getLang } from './i18n';
+import { getLang, TranslationKey } from './i18n';
+
+export interface QuestionInsight {
+  key: TranslationKey;
+  emoji: string;
+}
+
+/**
+ * Generate a question insight based on vote distribution
+ */
+export function getQuestionInsight(countA: number, countB: number, total: number): QuestionInsight | null {
+  if (total < 2) return null;
+
+  const percentA = (countA / total) * 100;
+  const percentB = (countB / total) * 100;
+  const maxPercent = Math.max(percentA, percentB);
+  const diff = Math.abs(percentA - percentB);
+
+  if (diff <= 10) {
+    return { key: 'insightControversial', emoji: '🔥' };
+  }
+  if (maxPercent >= 80) {
+    return { key: 'insightClearFavorite', emoji: '🎯' };
+  }
+  if (total >= 100) {
+    return { key: 'insightPopular', emoji: '📈' };
+  }
+  return null;
+}
 
 const categoryMessagesTR: Record<string, string[]> = {
   superpower: [

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native';
@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useTodayQuestion } from '../../hooks/useTodayQuestion';
 import { useVote } from '../../hooks/useVote';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
+import { useBadges } from '../../hooks/useBadges';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import { QuestionCard } from '../../components/QuestionCard';
 import { CountdownTimer } from '../../components/CountdownTimer';
@@ -19,12 +20,16 @@ import { shareResult, shareImage } from '../../lib/share';
 import { ShareCard } from '../../components/ShareCard';
 import { hapticVote, hapticResult } from '../../lib/haptics';
 import { StreakBadge } from '../../components/StreakBadge';
+import { BadgeUnlockToast } from '../../components/BadgeUnlockToast';
+import { PostVoteInsights } from '../../components/PostVoteInsights';
 import { ChallengeButton } from '../../components/ChallengeButton';
 import { shareChallenge } from '../../lib/deeplink';
 import { useGlobalStats } from '../../hooks/useGlobalStats';
 import { GlobalStatsBanner } from '../../components/GlobalStatsBanner';
 import { Confetti } from '../../components/Confetti';
 import { isNewMilestone } from '../../lib/streaks';
+import { getNextBadgeProgress } from '../../lib/badges';
+import { fetchBadgeContext } from '../../lib/badges';
 import { scheduleDailyReminder, scheduleStreakReminder } from '../../lib/notifications';
 import { t } from '../../lib/i18n';
 
@@ -33,7 +38,12 @@ const TIMER_SECONDS = 10;
 export default function HomeScreen() {
   const { userId, loading: authLoading } = useAuth();
   const { question, loading: questionLoading, error, refetch } = useTodayQuestion(!!userId);
-  const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading } = useVote(question?.id);
+  const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading, voteTimeSeconds } = useVote(question?.id);
+  const { unlockedBadges, checkNewUnlocks } = useBadges();
+
+  const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
+  const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
+  const badgeCheckDone = useRef(false);
 
   const { stats: globalStats } = useGlobalStats();
   const shareCardRef = useRef<View>(null);
@@ -60,13 +70,36 @@ export default function HomeScreen() {
     !!showQuestion
   );
 
-  // Haptic feedback when results appear + schedule notifications
+  // Haptic feedback when results appear + schedule notifications + badge check
   useEffect(() => {
     if (hasVoted && results) {
       hapticResult();
       scheduleDailyReminder();
       if (results.current_streak) {
         scheduleStreakReminder(results.current_streak);
+      }
+
+      // Check for new badge unlocks (only once per vote)
+      if (!badgeCheckDone.current) {
+        badgeCheckDone.current = true;
+        const hour = new Date().getHours();
+        checkNewUnlocks({
+          vote_time_seconds: voteTimeSeconds ?? undefined,
+          vote_hour: hour,
+        }).then((newIds) => {
+          if (newIds.length > 0) {
+            setNewBadgeId(newIds[0]);
+          }
+        }).catch(() => {});
+
+        // Fetch next badge progress
+        fetchBadgeContext().then((ctx) => {
+          if (ctx) {
+            const unlockedIds = new Set(unlockedBadges.map((b) => b.badge_id));
+            const prog = getNextBadgeProgress(ctx, unlockedIds);
+            setNextBadgeProg(prog);
+          }
+        }).catch(() => {});
       }
     }
   }, [hasVoted, results]);
@@ -126,8 +159,11 @@ export default function HomeScreen() {
         <View style={styles.header}>
           <Text style={styles.logo}>Split Second</Text>
         </View>
-        <View style={styles.resultsContainer}>
-          <View style={styles.resultsContent}>
+        <ScrollView
+          style={styles.resultsContainer}
+          contentContainerStyle={styles.resultsScrollContent}
+          showsVerticalScrollIndicator={false}
+        >
             <Animated.View entering={FadeIn.duration(300)}>
               <Text style={styles.questionTextResult}>{question.question_text}</Text>
             </Animated.View>
@@ -142,6 +178,22 @@ export default function HomeScreen() {
                 category={question.category}
               />
             </Animated.View>
+            {/* Badge unlock toast */}
+            {newBadgeId && (
+              <Animated.View entering={FadeIn.delay(600).duration(300)}>
+                <BadgeUnlockToast
+                  badgeId={newBadgeId}
+                  onDone={() => setNewBadgeId(null)}
+                />
+              </Animated.View>
+            )}
+            {/* Post-vote insights */}
+            <PostVoteInsights
+              countA={results.count_a}
+              countB={results.count_b}
+              total={results.total}
+              nextBadgeProgress={nextBadgeProg}
+            />
             {results.current_streak != null && results.current_streak > 0 && (
               <Animated.View entering={FadeIn.delay(1000).duration(400)}>
                 <StreakBadge
@@ -161,13 +213,10 @@ export default function HomeScreen() {
             <ChallengeButton
               onPress={() => shareChallenge(question.question_text, question.scheduled_date)}
             />
-          </View>
-          <View style={styles.countdownFill}>
-            <Animated.View entering={FadeIn.delay(800)}>
-              <DailyCountdown />
-            </Animated.View>
-          </View>
-        </View>
+          <Animated.View entering={FadeIn.delay(800)} style={styles.countdownFill}>
+            <DailyCountdown />
+          </Animated.View>
+        </ScrollView>
         {/* Hidden share card for screenshot */}
         <View style={styles.hiddenCard}>
           <ShareCard
@@ -230,14 +279,14 @@ const styles = StyleSheet.create({
   resultsContainer: {
     flex: 1,
   },
-  resultsContent: {
+  resultsScrollContent: {
     gap: 24,
     paddingTop: 8,
+    paddingBottom: 32,
   },
   countdownFill: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 16,
   },
   questionTextResult: {
     fontSize: 22,

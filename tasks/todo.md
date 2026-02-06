@@ -110,3 +110,28 @@
 - [x] 6B. Fix Turkish Characters - All ö,ü,ş,ç,ğ,ı,İ corrected across all files
 - [x] 6C. Swipeable Tabs - @react-navigation/material-top-tabs, smooth swipe between Bugün/Profil
 - [x] 6D. All components updated to use t() function from lib/i18n.ts
+
+### Phase 7: Engagement & Retention (V4)
+- [x] 7A. Badge System - 006_badges.sql, lib/badges.ts, hooks/useBadges.ts
+  - 14 badges (First Vote, Speed Demon, Night Owl, Streak 3-100, Conformist, Rebel, Explorer, Dedicated, Veteran)
+  - BadgeCard.tsx, BadgeGrid.tsx, BadgeUnlockToast.tsx components
+  - Badge unlock detection after each vote with animated toast
+  - Progress tracking for locked badges
+- [x] 7B. Post-Vote Experience - PostVoteInsights.tsx, lib/insights.ts (getQuestionInsight)
+  - Question insights: Controversial/Clear favorite/Popular labels
+  - Next badge progress display after voting
+  - Results view now scrollable for more content
+- [x] 7C. Leaderboard Tab - 007_leaderboard.sql, lib/leaderboard.ts, hooks/useLeaderboard.ts
+  - 3-tab layout: Today | Leaderboard | Profile
+  - Top 50 users ranked by current streak
+  - Anonymous naming (Player #XXXX from user_id hash)
+  - Top 3 emoji medals, current user highlighted
+  - Pull-to-refresh, user's own rank always visible
+- [x] 7D. i18n - All new strings translated (TR/EN)
+  - Badge names/descriptions, insights, leaderboard labels
+
+---
+
+### Manual Steps for V4
+- [ ] Run 006_badges.sql in Supabase SQL Editor
+- [ ] Run 007_leaderboard.sql in Supabase SQL Editor

@@ -61,6 +61,16 @@ export default function TabLayout() {
         }}
       />
       <MaterialTopTabs.Screen
+        name="leaderboard"
+        options={{
+          title: t('tabLeaderboard'),
+          tabBarIcon: ({ focused }: { focused: boolean }) => (
+            <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>🏆</Text>
+          ),
+          tabBarShowIcon: true,
+        }}
+      />
+      <MaterialTopTabs.Screen
         name="profile"
         options={{
           title: t('tabProfile'),

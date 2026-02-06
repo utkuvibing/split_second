@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { VoteResults } from '../types/database';
 import { submitVote, getUserVote, getResults } from '../lib/votes';
 
@@ -7,6 +7,15 @@ export function useVote(questionId: string | undefined) {
   const [results, setResults] = useState<VoteResults | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [voteTimeSeconds, setVoteTimeSeconds] = useState<number | null>(null);
+  const questionShownAt = useRef<number | null>(null);
+
+  // Track when question is first shown
+  useEffect(() => {
+    if (questionId && !userChoice) {
+      questionShownAt.current = Date.now();
+    }
+  }, [questionId, userChoice]);
 
   // Check if user already voted
   useEffect(() => {
@@ -30,6 +39,14 @@ export function useVote(questionId: string | undefined) {
     if (!questionId || submitting || userChoice) return;
     setSubmitting(true);
 
+    // Calculate vote time
+    const elapsed = questionShownAt.current
+      ? (Date.now() - questionShownAt.current) / 1000
+      : null;
+    if (elapsed != null) {
+      setVoteTimeSeconds(elapsed);
+    }
+
     const result = await submitVote(questionId, choice);
     if (result) {
       setUserChoice(choice);
@@ -41,5 +58,5 @@ export function useVote(questionId: string | undefined) {
 
   const hasVoted = userChoice !== null;
 
-  return { vote, userChoice, results, hasVoted, submitting, loading };
+  return { vote, userChoice, results, hasVoted, submitting, loading, voteTimeSeconds };
 }
