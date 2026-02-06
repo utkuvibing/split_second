@@ -1,5 +1,7 @@
 # Split Second
 
+**[Türkçe README](README.tr.md)**
+
 A daily "Would You Rather?" mobile app built with React Native and Expo. One question per day, vote under pressure with a countdown timer, and see how the world thinks.
 
 ## Features
