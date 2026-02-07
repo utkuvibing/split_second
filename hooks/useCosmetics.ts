@@ -48,16 +48,30 @@ export function useCosmetics() {
     [owned]
   );
 
-  const purchase = useCallback(async (cosmeticId: string): Promise<boolean> => {
+  const purchase = useCallback(async (cosmeticId: string, price?: number): Promise<{ success: boolean; error?: string }> => {
     try {
+      if (price != null && price > 0) {
+        // Coin-based purchase
+        const { data, error } = await supabase.rpc('purchase_cosmetic_with_coins', {
+          p_cosmetic_id: cosmeticId,
+          p_price: price,
+        });
+        if (error) return { success: false, error: error.message };
+        const result = data as { success: boolean; error?: string; current_coins: number };
+        if (result.success) {
+          await fetchOwned();
+        }
+        return { success: result.success, error: result.error };
+      }
+      // Legacy free purchase fallback
       const { error } = await supabase.rpc('purchase_cosmetic', { p_cosmetic_id: cosmeticId });
       if (!error) {
         await fetchOwned();
-        return true;
+        return { success: true };
       }
-      return false;
+      return { success: false, error: error.message };
     } catch {
-      return false;
+      return { success: false, error: 'unknown' };
     }
   }, [fetchOwned]);
 

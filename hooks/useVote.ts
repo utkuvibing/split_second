@@ -8,6 +8,8 @@ export function useVote(questionId: string | undefined) {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [voteTimeSeconds, setVoteTimeSeconds] = useState<number | null>(null);
+  const [coinsEarned, setCoinsEarned] = useState<number>(0);
+  const [totalCoins, setTotalCoins] = useState<number>(0);
   const questionShownAt = useRef<number | null>(null);
 
   // Track when question is first shown
@@ -51,6 +53,8 @@ export function useVote(questionId: string | undefined) {
     if (result) {
       setUserChoice(choice);
       setResults(result);
+      if (result.coins_earned != null) setCoinsEarned(result.coins_earned);
+      if (result.total_coins != null) setTotalCoins(result.total_coins);
     }
 
     setSubmitting(false);
@@ -58,5 +62,5 @@ export function useVote(questionId: string | undefined) {
 
   const hasVoted = userChoice !== null;
 
-  return { vote, userChoice, results, hasVoted, submitting, loading, voteTimeSeconds };
+  return { vote, userChoice, results, hasVoted, submitting, loading, voteTimeSeconds, coinsEarned, totalCoins };
 }

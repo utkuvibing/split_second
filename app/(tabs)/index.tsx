@@ -29,6 +29,7 @@ import { usePremium } from '../../hooks/usePremium';
 import { useGlobalStats } from '../../hooks/useGlobalStats';
 import { GlobalStatsBanner } from '../../components/GlobalStatsBanner';
 import { Confetti } from '../../components/Confetti';
+import { VoteEffect } from '../../components/VoteEffect';
 import { isNewMilestone } from '../../lib/streaks';
 import { getNextBadgeProgress } from '../../lib/badges';
 import { fetchBadgeContext } from '../../lib/badges';
@@ -42,9 +43,9 @@ export default function HomeScreen() {
   const styles = createStyles(colors);
   const { userId, loading: authLoading } = useAuth();
   const { question, loading: questionLoading, error, refetch } = useTodayQuestion(!!userId);
-  const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading, voteTimeSeconds } = useVote(question?.id);
+  const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading, voteTimeSeconds, coinsEarned } = useVote(question?.id);
   const { unlockedBadges, checkNewUnlocks } = useBadges();
-  const { isPremium } = usePremium();
+  const { isPremium, equippedEffect } = usePremium();
 
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
@@ -157,10 +158,14 @@ export default function HomeScreen() {
     const userChoiceText = userChoice === 'a' ? question.option_a : question.option_b;
 
     const showConfetti = results.current_streak != null && isNewMilestone(results.current_streak);
+    const hasEquippedEffect = equippedEffect && equippedEffect !== 'default';
 
     return (
       <SafeAreaView style={styles.container}>
-        {showConfetti && <Confetti />}
+        {hasEquippedEffect
+          ? <VoteEffect effectId={equippedEffect} />
+          : showConfetti ? <Confetti /> : null
+        }
         <View style={styles.header}>
           <Text style={styles.logo}>Split Second</Text>
         </View>
@@ -206,6 +211,16 @@ export default function HomeScreen() {
                   currentStreak={results.current_streak}
                   longestStreak={results.longest_streak ?? results.current_streak}
                 />
+              </Animated.View>
+            )}
+            {coinsEarned > 0 && (
+              <Animated.View entering={FadeIn.delay(1200).duration(400)} style={styles.coinToast}>
+                <Text style={styles.coinToastText}>
+                  {coinsEarned > 10
+                    ? t('coinEarnedStreak', { amount: String(coinsEarned) })
+                    : t('coinEarned', { amount: String(coinsEarned) })
+                  }
+                </Text>
               </Animated.View>
             )}
             <ShareButton
@@ -327,6 +342,15 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: colors.text,
+  },
+  coinToast: {
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  coinToastText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.warning,
   },
   hiddenCard: {
     position: 'absolute',

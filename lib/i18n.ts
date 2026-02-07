@@ -194,7 +194,7 @@ const tr = {
   shopFrames: 'Profil Çerçeveleri',
   shopEffects: 'Oy Efektleri',
   shopEquipped: 'Takılı',
-  shopEquip: 'Tak',
+  shopEquip: 'Kullan',
   shopOwned: 'Sahip',
   shopGet: 'Al',
   shopPremiumRequired: 'Premium Gerekli',
@@ -230,6 +230,22 @@ const tr = {
   badgeSupporterDesc: '30+ gün Premium ol',
   badgeCompletionist: 'Tamamlayıcı',
   badgeCompletionistDesc: 'Tüm temel rozetleri aç',
+
+  // Coins
+  coinSymbol: 'coin',
+  coinBalance: 'Bakiye',
+  coinEarned: '+{amount} coin!',
+  coinEarnedStreak: '+{amount} coin! (seri bonusu)',
+  shopInsufficientCoins: 'Yetersiz Coin',
+  shopInsufficientCoinsDesc: 'Bu öğeyi almak için yeterli coin\'in yok. Günlük oy vererek coin kazan!',
+  shopBuyFor: '{price} coin ile Al',
+  shopYourBalance: 'Bakiyen',
+  shopPreviewQuestion: 'Ya bu ya şu?',
+  shopPreviewOptionA: 'Seçenek A',
+  shopPreviewOptionB: 'Seçenek B',
+
+  // Profile card
+  profileAnonymous: 'Oyuncu',
 
   // Dev menu
   devMenu: 'Geliştirici Menüsü',
@@ -419,7 +435,7 @@ const en: typeof tr = {
   shopFrames: 'Profile Frames',
   shopEffects: 'Vote Effects',
   shopEquipped: 'Equipped',
-  shopEquip: 'Equip',
+  shopEquip: 'Use',
   shopOwned: 'Owned',
   shopGet: 'Get',
   shopPremiumRequired: 'Premium Required',
@@ -455,6 +471,22 @@ const en: typeof tr = {
   badgeSupporterDesc: 'Be premium for 30+ days',
   badgeCompletionist: 'Completionist',
   badgeCompletionistDesc: 'Unlock all basic badges',
+
+  // Coins
+  coinSymbol: 'coin',
+  coinBalance: 'Balance',
+  coinEarned: '+{amount} coins!',
+  coinEarnedStreak: '+{amount} coins! (streak bonus)',
+  shopInsufficientCoins: 'Not Enough Coins',
+  shopInsufficientCoinsDesc: 'You don\'t have enough coins to buy this item. Earn coins by voting daily!',
+  shopBuyFor: 'Buy for {price} coins',
+  shopYourBalance: 'Your balance',
+  shopPreviewQuestion: 'This or that?',
+  shopPreviewOptionA: 'Option A',
+  shopPreviewOptionB: 'Option B',
+
+  // Profile card
+  profileAnonymous: 'Player',
 
   // Dev menu
   devMenu: 'Developer Menu',

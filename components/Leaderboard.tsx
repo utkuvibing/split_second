@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, RefreshControl, FlatList } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useTheme } from '../lib/themeContext';
+import { usePremium } from '../hooks/usePremium';
 import { LeaderboardEntry } from '../lib/leaderboard';
 import { LeaderboardRow } from './LeaderboardRow';
 import { t } from '../lib/i18n';
@@ -16,6 +17,7 @@ interface Props {
 
 export function LeaderboardList({ entries, userRank, userEntry, currentUserId, loading, onRefresh }: Props) {
   const colors = useTheme();
+  const { equippedFrame } = usePremium();
   const isUserInList = entries.some((e) => e.user_id === currentUserId);
 
   return (
@@ -27,6 +29,7 @@ export function LeaderboardList({ entries, userRank, userEntry, currentUserId, l
           <LeaderboardRow
             entry={item}
             isCurrentUser={item.user_id === currentUserId}
+            frameId={item.user_id === currentUserId ? equippedFrame : undefined}
           />
         )}
         contentContainerStyle={styles.listContent}
@@ -57,7 +60,7 @@ export function LeaderboardList({ entries, userRank, userEntry, currentUserId, l
           userEntry && !isUserInList && userRank > 0 ? (
             <View style={styles.userSection}>
               <Text style={[styles.userSectionLabel, { color: colors.textMuted }]}>···</Text>
-              <LeaderboardRow entry={userEntry} isCurrentUser />
+              <LeaderboardRow entry={userEntry} isCurrentUser frameId={equippedFrame} />
             </View>
           ) : null
         }

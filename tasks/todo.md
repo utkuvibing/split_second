@@ -135,3 +135,64 @@
 ### Manual Steps for V4
 - [ ] Run 006_badges.sql in Supabase SQL Editor
 - [ ] Run 007_leaderboard.sql in Supabase SQL Editor
+
+---
+
+### Phase 9: Coin Economy + Shop UX (V6)
+- [x] 9A. Coin Backend - 009_coins.sql
+  - coins column on user_profiles, coin_transactions table
+  - Updated submit_vote_and_get_results: +10 coin per daily vote, streak bonuses (+5/+15/+25/+50)
+  - purchase_cosmetic_with_coins RPC (atomic, coin check, deduct, log)
+  - get_coin_balance, award_badge_coins, award_share_coins RPCs
+  - Updated get_or_create_profile to include coins
+- [x] 9B. Coin Frontend - lib/coins.ts, hooks/useCoins.ts
+  - Price definitions: themes 150-200, frames 100-120, effects 100
+  - Reward definitions: vote 10, streak 5-50, badge 20, share 5
+  - useCoins hook: fetch/spend/awardBadge/awardShare
+  - useVote updated: returns coinsEarned from RPC response
+  - useCosmetics updated: coin-based purchase method
+  - usePremium updated: exposes coins from profile
+- [x] 9C. Shop Grid Fix
+  - ShopItem: explicit width, bigger preview (64px), proper fonts (14/11), coin prices
+  - Shop: proper width calc (screenWidth - padding*2 - gap) / 2
+  - Shop: coin balance badge in header (gold border)
+  - ThemePreview: enlarged to 56px, added surface bar mockup
+- [x] 9D. Preview System
+  - FramePreview.tsx: gradient border circle (half-color simulation)
+  - EffectPreview.tsx: animated confetti/lightning/hearts/swipe loops
+  - ItemPreviewModal.tsx: full modal with large previews, buy/equip, price
+- [x] 9E. Coin UI
+  - Profile header: coin balance badge
+  - Vote results: "+X coins!" animated toast
+  - Streak bonuses: "+X coins! (streak bonus)" label
+  - 11 new i18n keys (TR + EN)
+- [x] 9F. Premium → Coin Transition
+  - Shop no longer gates cosmetics behind premium
+  - Coin-based purchasing replaces premium requirement
+  - Premium kept for ad-free, detailed stats, unlimited history
+
+### Manual Steps for V6
+- [ ] Run 009_coins.sql in Supabase SQL Editor
+
+---
+
+### Phase 10: Cosmetic Visibility (V7)
+- [x] 10A. ProfileCard - components/ProfileCard.tsx (NEW)
+  - Avatar circle with equipped frame border (gradient simulation)
+  - Anonymous player name (Player #XXXX from userId hash)
+  - Streak badge + coin balance below avatar
+  - No frame → simple thin border, frame → 2-color gradient border
+- [x] 10B. ProfileCard Integration - app/(tabs)/profile.tsx
+  - Added useAuth import for userId
+  - Added ProfileCard above stats section with frameId, streak, coins, userId
+- [x] 10C. Leaderboard Frame - components/Leaderboard.tsx
+  - Import usePremium, pass equippedFrame as frameId to current user's LeaderboardRow
+  - Both in-list and footer rows receive frameId prop
+- [x] 10D. Vote Effect - components/VoteEffect.tsx (NEW)
+  - Full-screen one-shot effects: confetti, lightning (yellow flash), hearts (rising)
+  - pointerEvents="none", auto-fades after ~2 seconds
+- [x] 10E. Vote Effect Integration - app/(tabs)/index.tsx
+  - equippedEffect from usePremium controls effect display
+  - Equipped effect shown on every vote, streak confetti as fallback
+- [x] 10F. i18n - profileAnonymous key added (TR: Oyuncu, EN: Player)
+- [x] 10G. TypeScript - 0 errors confirmed

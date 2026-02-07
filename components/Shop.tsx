@@ -1,15 +1,35 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Modal, Pressable } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Modal, Pressable, Dimensions, Alert } from 'react-native';
 import { useTheme, useSetTheme } from '../lib/themeContext';
 import { THEMES } from '../lib/themes';
 import { FRAMES, VOTE_EFFECTS } from '../lib/cosmetics';
 import { useCosmetics } from '../hooks/useCosmetics';
 import { usePremium } from '../hooks/usePremium';
+import { useCoins } from '../hooks/useCoins';
 import { ShopItem } from './ShopItem';
 import { ThemePreview } from './ThemePreview';
-import { Paywall } from './Paywall';
+import { FramePreview } from './FramePreview';
+import { EffectPreview } from './EffectPreview';
+import { ItemPreviewModal } from './ItemPreviewModal';
 import { t } from '../lib/i18n';
-import { ThemeColors } from '../types/premium';
+import { getCoinPrice } from '../lib/coins';
+import { ThemeColors, FrameDef, VoteEffectDef, ThemeDef } from '../types/premium';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const GRID_PADDING = 16;
+const GRID_GAP = 12;
+const ITEM_WIDTH = (SCREEN_WIDTH - GRID_PADDING * 2 - GRID_GAP) / 2;
+
+type PreviewItem = {
+  type: 'theme';
+  item: ThemeDef;
+} | {
+  type: 'frame';
+  item: FrameDef;
+} | {
+  type: 'effect';
+  item: VoteEffectDef;
+};
 
 interface Props {
   visible: boolean;
@@ -20,9 +40,10 @@ export function Shop({ visible, onClose }: Props) {
   const colors = useTheme();
   const setTheme = useSetTheme();
   const styles = createStyles(colors);
-  const { isPremium, equippedTheme, equippedFrame, equippedEffect, refetch: refetchPremium } = usePremium();
+  const { equippedTheme, equippedFrame, equippedEffect, refetch: refetchPremium } = usePremium();
   const { isOwned, purchase, equip, refetch: refetchCosmetics } = useCosmetics();
-  const [showPaywall, setShowPaywall] = useState(false);
+  const { coins, fetchCoins } = useCoins();
+  const [previewItem, setPreviewItem] = useState<PreviewItem | null>(null);
 
   const handleEquipTheme = async (themeId: string) => {
     const success = await equip('theme', themeId);
@@ -43,8 +64,39 @@ export function Shop({ visible, onClose }: Props) {
   };
 
   const handlePurchase = async (cosmeticId: string) => {
-    await purchase(cosmeticId);
-    await refetchCosmetics();
+    const price = getCoinPrice(cosmeticId);
+    if (price === 0) return;
+    if (coins < price) {
+      Alert.alert(t('shopInsufficientCoins'), t('shopInsufficientCoinsDesc'));
+      return;
+    }
+    const result = await purchase(cosmeticId, price);
+    if (result.success) {
+      await Promise.all([refetchCosmetics(), fetchCoins()]);
+      setPreviewItem(null);
+    } else if (result.error === 'insufficient_coins') {
+      Alert.alert(t('shopInsufficientCoins'), t('shopInsufficientCoinsDesc'));
+    }
+  };
+
+  const getPreviewEquipped = () => {
+    if (!previewItem) return false;
+    if (previewItem.type === 'theme') return equippedTheme === previewItem.item.id;
+    if (previewItem.type === 'frame') return equippedFrame === previewItem.item.id;
+    return equippedEffect === previewItem.item.id;
+  };
+
+  const handlePreviewEquip = async () => {
+    if (!previewItem) return;
+    if (previewItem.type === 'theme') await handleEquipTheme(previewItem.item.id);
+    else if (previewItem.type === 'frame') await handleEquipFrame(previewItem.item.id);
+    else await handleEquipEffect(previewItem.item.id);
+    setPreviewItem(null);
+  };
+
+  const handlePreviewPurchase = async () => {
+    if (!previewItem) return;
+    await handlePurchase(previewItem.item.id);
   };
 
   return (
@@ -52,9 +104,14 @@ export function Shop({ visible, onClose }: Props) {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{t('shopTitle')}</Text>
-          <Pressable onPress={onClose}>
-            <Text style={styles.closeText}>✕</Text>
-          </Pressable>
+          <View style={styles.headerRight}>
+            <View style={styles.coinBadge}>
+              <Text style={styles.coinText}>{coins} {t('coinSymbol')}</Text>
+            </View>
+            <Pressable onPress={onClose} hitSlop={12}>
+              <Text style={styles.closeText}>✕</Text>
+            </Pressable>
+          </View>
         </View>
 
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -66,14 +123,15 @@ export function Shop({ visible, onClose }: Props) {
                 key={theme.id}
                 nameKey={theme.nameKey}
                 descKey={theme.nameKey}
-                isPremium={theme.isPremium}
+                price={getCoinPrice(theme.id)}
                 isOwned={isOwned(theme.id)}
                 isEquipped={equippedTheme === theme.id}
-                userIsPremium={isPremium}
+                userCoins={coins}
                 preview={<ThemePreview themeColors={theme.colors} />}
+                width={ITEM_WIDTH}
+                onPress={() => setPreviewItem({ type: 'theme', item: theme })}
                 onEquip={() => handleEquipTheme(theme.id)}
                 onPurchase={() => handlePurchase(theme.id)}
-                onUpgrade={() => setShowPaywall(true)}
               />
             ))}
           </View>
@@ -84,16 +142,17 @@ export function Shop({ visible, onClose }: Props) {
             {FRAMES.map((frame) => (
               <ShopItem
                 key={frame.id}
-                emoji={frame.borderColors.length > 0 ? '🖼️' : '◻️'}
                 nameKey={frame.nameKey}
                 descKey={frame.descKey}
-                isPremium={frame.isPremium}
+                price={getCoinPrice(frame.id)}
                 isOwned={isOwned(frame.id)}
                 isEquipped={equippedFrame === frame.id}
-                userIsPremium={isPremium}
+                userCoins={coins}
+                preview={<FramePreview borderColors={frame.borderColors} size={48} />}
+                width={ITEM_WIDTH}
+                onPress={() => setPreviewItem({ type: 'frame', item: frame })}
                 onEquip={() => handleEquipFrame(frame.id)}
                 onPurchase={() => handlePurchase(frame.id)}
-                onUpgrade={() => setShowPaywall(true)}
               />
             ))}
           </View>
@@ -104,26 +163,35 @@ export function Shop({ visible, onClose }: Props) {
             {VOTE_EFFECTS.map((effect) => (
               <ShopItem
                 key={effect.id}
-                emoji={effect.emoji}
                 nameKey={effect.nameKey}
                 descKey={effect.descKey}
-                isPremium={effect.isPremium}
+                price={getCoinPrice(effect.id)}
                 isOwned={isOwned(effect.id)}
                 isEquipped={equippedEffect === effect.id}
-                userIsPremium={isPremium}
+                userCoins={coins}
+                emoji={effect.emoji}
+                width={ITEM_WIDTH}
+                onPress={() => setPreviewItem({ type: 'effect', item: effect })}
                 onEquip={() => handleEquipEffect(effect.id)}
                 onPurchase={() => handlePurchase(effect.id)}
-                onUpgrade={() => setShowPaywall(true)}
               />
             ))}
           </View>
         </ScrollView>
 
-        <Paywall
-          visible={showPaywall}
-          onClose={() => setShowPaywall(false)}
-          onPurchased={refetchPremium}
-        />
+        {previewItem && (
+          <ItemPreviewModal
+            visible={!!previewItem}
+            item={previewItem}
+            isOwned={isOwned(previewItem.item.id)}
+            isEquipped={getPreviewEquipped()}
+            price={getCoinPrice(previewItem.item.id)}
+            userCoins={coins}
+            onClose={() => setPreviewItem(null)}
+            onEquip={handlePreviewEquip}
+            onPurchase={handlePreviewPurchase}
+          />
+        )}
       </View>
     </Modal>
   );
@@ -143,10 +211,28 @@ const createStyles = (colors: ThemeColors) =>
       paddingTop: 16,
       paddingBottom: 12,
     },
+    headerRight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+    },
     title: {
       fontSize: 22,
       fontWeight: '800',
       color: colors.text,
+    },
+    coinBadge: {
+      backgroundColor: colors.surface,
+      borderRadius: 14,
+      paddingHorizontal: 12,
+      paddingVertical: 5,
+      borderWidth: 1,
+      borderColor: colors.warning,
+    },
+    coinText: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: colors.warning,
     },
     closeText: {
       fontSize: 20,
@@ -154,7 +240,7 @@ const createStyles = (colors: ThemeColors) =>
       padding: 4,
     },
     content: {
-      paddingHorizontal: 16,
+      paddingHorizontal: GRID_PADDING,
       paddingBottom: 48,
       gap: 16,
     },
@@ -167,6 +253,6 @@ const createStyles = (colors: ThemeColors) =>
     grid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
+      gap: GRID_GAP,
     },
   });

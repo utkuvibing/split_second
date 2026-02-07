@@ -3,6 +3,7 @@
 export interface UserProfile {
   is_premium: boolean;
   premium_until: string | null;
+  coins: number;
   theme_id: string;
   frame_id: string;
   vote_effect_id: string;

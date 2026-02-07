@@ -4,43 +4,42 @@ import { t } from '../lib/i18n';
 import { ThemeColors } from '../types/premium';
 
 interface Props {
-  emoji?: string;
   nameKey: string;
   descKey: string;
-  isPremium: boolean;
+  price: number;
   isOwned: boolean;
   isEquipped: boolean;
-  userIsPremium: boolean;
+  userCoins: number;
   preview?: React.ReactNode;
+  emoji?: string;
+  width: number;
+  onPress: () => void;
   onEquip: () => void;
   onPurchase: () => void;
-  onUpgrade: () => void;
 }
 
 export function ShopItem({
-  emoji,
   nameKey,
   descKey,
-  isPremium,
+  price,
   isOwned,
   isEquipped,
-  userIsPremium,
+  userCoins,
   preview,
+  emoji,
+  width,
+  onPress,
   onEquip,
   onPurchase,
-  onUpgrade,
 }: Props) {
   const colors = useTheme();
-  const styles = createStyles(colors);
+  const styles = createStyles(colors, width);
+  const canAfford = userCoins >= price;
 
-  const needsPremium = isPremium && !userIsPremium;
-
-  const handlePress = () => {
-    if (needsPremium) {
-      onUpgrade();
-    } else if (isOwned && !isEquipped) {
+  const handleButtonPress = () => {
+    if (isOwned && !isEquipped) {
       onEquip();
-    } else if (!isOwned) {
+    } else if (!isOwned && canAfford) {
       onPurchase();
     }
   };
@@ -49,69 +48,73 @@ export function ShopItem({
     ? t('shopEquipped')
     : isOwned
     ? t('shopEquip')
-    : needsPremium
-    ? t('shopPremiumRequired')
-    : t('shopGet');
+    : `${price} ${t('coinSymbol')}`;
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.previewArea}>
         {preview ?? (emoji ? <Text style={styles.emoji}>{emoji}</Text> : null)}
       </View>
-      <Text style={styles.name}>{t(nameKey as any)}</Text>
-      <Text style={styles.desc} numberOfLines={1}>{t(descKey as any)}</Text>
+      <Text style={styles.name} numberOfLines={1}>{t(nameKey as any)}</Text>
+      <Text style={styles.desc} numberOfLines={2}>{t(descKey as any)}</Text>
       <Pressable
         style={[
           styles.button,
           isEquipped && styles.buttonEquipped,
-          needsPremium && styles.buttonLocked,
+          !isOwned && !canAfford && styles.buttonDisabled,
         ]}
-        onPress={handlePress}
-        disabled={isEquipped}
+        onPress={handleButtonPress}
+        disabled={isEquipped || (!isOwned && !canAfford)}
       >
-        <Text style={[styles.buttonText, isEquipped && styles.buttonTextEquipped]}>
+        <Text style={[
+          styles.buttonText,
+          isEquipped && styles.buttonTextEquipped,
+          !isOwned && !canAfford && styles.buttonTextDisabled,
+        ]}>
           {isEquipped ? '✓ ' : ''}{buttonLabel}
         </Text>
       </Pressable>
-    </View>
+    </Pressable>
   );
 }
 
-const createStyles = (colors: ThemeColors) =>
+const createStyles = (colors: ThemeColors, itemWidth: number) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      width: itemWidth,
       backgroundColor: colors.surface,
-      borderRadius: 12,
+      borderRadius: 14,
       padding: 12,
       alignItems: 'center',
       gap: 6,
-      minHeight: 140,
+      minHeight: 170,
     },
     previewArea: {
-      height: 48,
+      height: 64,
+      width: 64,
       justifyContent: 'center',
       alignItems: 'center',
     },
     emoji: {
-      fontSize: 32,
+      fontSize: 36,
     },
     name: {
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: '700',
       color: colors.text,
       textAlign: 'center',
     },
     desc: {
-      fontSize: 10,
+      fontSize: 11,
       color: colors.textMuted,
       textAlign: 'center',
+      lineHeight: 15,
     },
     button: {
       backgroundColor: colors.accent,
       borderRadius: 8,
-      paddingVertical: 6,
-      paddingHorizontal: 12,
+      paddingVertical: 7,
+      paddingHorizontal: 14,
       marginTop: 'auto',
     },
     buttonEquipped: {
@@ -119,16 +122,20 @@ const createStyles = (colors: ThemeColors) =>
       borderWidth: 1,
       borderColor: colors.accent,
     },
-    buttonLocked: {
+    buttonDisabled: {
       backgroundColor: colors.textMuted,
-      opacity: 0.6,
+      opacity: 0.4,
     },
     buttonText: {
-      fontSize: 11,
-      fontWeight: '600',
+      fontSize: 12,
+      fontWeight: '700',
       color: colors.text,
     },
     buttonTextEquipped: {
       color: colors.accent,
+    },
+    buttonTextDisabled: {
+      color: colors.text,
+      opacity: 0.7,
     },
   });

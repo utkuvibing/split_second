@@ -28,6 +28,8 @@ export interface VoteResults {
   current_streak?: number;
   longest_streak?: number;
   total_votes?: number;
+  coins_earned?: number;
+  total_coins?: number;
 }
 
 export interface UserProfileRow {

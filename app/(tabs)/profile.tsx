@@ -8,11 +8,14 @@ import { useUserStats } from '../../hooks/useUserStats';
 import { useVoteHistory } from '../../hooks/useVoteHistory';
 import { useBadges } from '../../hooks/useBadges';
 import { usePremium } from '../../hooks/usePremium';
+import { useCoins } from '../../hooks/useCoins';
+import { useAuth } from '../../hooks/useAuth';
 import { FREE_HISTORY_DAYS } from '../../lib/premium';
 import { StatsGrid } from '../../components/StatsGrid';
 import { BadgeGrid } from '../../components/BadgeGrid';
 import { HistoryCard } from '../../components/HistoryCard';
 import { PremiumGate } from '../../components/PremiumGate';
+import { ProfileCard } from '../../components/ProfileCard';
 import { Shop } from '../../components/Shop';
 import { Paywall } from '../../components/Paywall';
 import { DevMenu } from '../../components/DevMenu';
@@ -21,7 +24,9 @@ import { t } from '../../lib/i18n';
 export default function ProfileScreen() {
   const colors = useTheme();
   const styles = createStyles(colors);
-  const { isPremium, loading: premiumLoading, refetch: refetchPremium } = usePremium();
+  const { isPremium, equippedFrame, loading: premiumLoading, refetch: refetchPremium } = usePremium();
+  const { coins, loading: coinsLoading } = useCoins();
+  const { userId } = useAuth();
   const { stats, loading: statsLoading } = useUserStats();
   const { history, loading: historyLoading } = useVoteHistory(isPremium ? undefined : FREE_HISTORY_DAYS);
   const { unlockedBadges, loading: badgesLoading } = useBadges();
@@ -29,15 +34,20 @@ export default function ProfileScreen() {
   const [shopVisible, setShopVisible] = useState(false);
   const [paywallVisible, setPaywallVisible] = useState(false);
 
-  const isLoading = statsLoading || historyLoading || badgesLoading || premiumLoading;
+  const isLoading = statsLoading || historyLoading || badgesLoading || premiumLoading || coinsLoading;
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.logo}>Split Second</Text>
-        <Pressable style={[styles.shopButton, { backgroundColor: colors.accent }]} onPress={() => setShopVisible(true)}>
-          <Text style={styles.shopButtonText}>{t('shopTitle')}</Text>
-        </Pressable>
+        <View style={styles.headerRight}>
+          <View style={styles.coinBadge}>
+            <Text style={styles.coinText}>{coins} {t('coinSymbol')}</Text>
+          </View>
+          <Pressable style={[styles.shopButton, { backgroundColor: colors.accent }]} onPress={() => setShopVisible(true)}>
+            <Text style={styles.shopButtonText}>{t('shopTitle')}</Text>
+          </Pressable>
+        </View>
       </View>
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -48,6 +58,14 @@ export default function ProfileScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          {/* Profile card with avatar + frame */}
+          <ProfileCard
+            frameId={equippedFrame}
+            currentStreak={stats?.current_streak ?? 0}
+            coins={coins}
+            userId={userId ?? ''}
+          />
+
           {/* Stats - gated for detailed view */}
           {stats && (
             <View style={styles.section}>
@@ -103,7 +121,7 @@ export default function ProfileScreen() {
         </ScrollView>
       )}
 
-      <Shop visible={shopVisible} onClose={() => setShopVisible(false)} />
+      <Shop visible={shopVisible} onClose={() => { setShopVisible(false); refetchPremium(); }} />
       <Paywall
         visible={paywallVisible}
         onClose={() => setPaywallVisible(false)}
@@ -132,6 +150,24 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     color: colors.accent,
     letterSpacing: 1,
     textTransform: 'uppercase',
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  coinBadge: {
+    backgroundColor: colors.surface,
+    borderRadius: 14,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderWidth: 1,
+    borderColor: colors.warning,
+  },
+  coinText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.warning,
   },
   shopButton: {
     paddingHorizontal: 14,

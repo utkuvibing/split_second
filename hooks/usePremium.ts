@@ -9,6 +9,7 @@ export function usePremium() {
   const [equippedTheme, setEquippedTheme] = useState('default');
   const [equippedFrame, setEquippedFrame] = useState('none');
   const [equippedEffect, setEquippedEffect] = useState('default');
+  const [coins, setCoins] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = useCallback(async () => {
@@ -25,6 +26,7 @@ export function usePremium() {
         setEquippedTheme(profile.theme_id || 'default');
         setEquippedFrame(profile.frame_id || 'none');
         setEquippedEffect(profile.vote_effect_id || 'default');
+        setCoins(profile.coins ?? 0);
       } else {
         // If RPC not available yet, just use dev toggle
         setIsPremium(devPremium);
@@ -53,6 +55,7 @@ export function usePremium() {
     equippedTheme,
     equippedFrame,
     equippedEffect,
+    coins,
     loading,
     refetch,
   };
