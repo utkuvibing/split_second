@@ -1,130 +1,130 @@
 # Split Second
 
-**[English README](README.en.md)**
+**[Türkçe README](README.tr.md)**
 
-React Native ve Expo ile geliştirilmiş günlük "Hangisini Tercih Edersin?" mobil uygulaması. Her gün bir soru, geri sayım baskısı altında oy ver ve dünyanın nasıl düşündüğünü gör.
+A daily "Would You Rather?" mobile app built with React Native and Expo. One question per day, vote under pressure with a countdown timer, and see how the world thinks.
 
-## Özellikler
+## Features
 
-### Temel
-- **Günlük Soru** — Her gece yarısı yeni bir "hangisini tercih edersin" sorusu
-- **Geri Sayım** — Süre dolmadan oy ver, gerilimi hisset
-- **Canlı Sonuçlar** — Oyunu verdikten sonra küresel oy dağılımını gör
-- **Seri Takibi** — Günlük oylama serini devam ettir
-- **Global İstatistikler** — Bugün kaç kişi oy verdi, genel trendler
-- **Liderlik Tablosu** — En aktif oyuncuları ve en uzun serileri gör
-- **Rozet Sistemi** — 14+ rozet: ilk oy, seri başarıları, hız şeytanı, gece kuşu ve daha fazlası
-- **Oy Sonrası Analizler** — Oylama sonrasında istatistiksel bilgiler ve sonraki rozet ilerlemesi
+### Core
+- **Daily Question** — A new "would you rather" question every day at midnight
+- **Countdown Timer** — Vote before time runs out for a more intense experience
+- **Live Results** — See the global vote split after casting yours
+- **Streak Tracking** — Keep your daily voting streak alive
+- **Global Stats** — See how many people voted today and overall trends
+- **Leaderboard** — See the most active players and longest streaks
+- **Badge System** — 14+ badges: first vote, streak milestones, speed demon, night owl, and more
+- **Post-Vote Insights** — Statistical insights and next badge progress after voting
 
-### Premium & Kozmetik
-- **Tema Motoru** — 6 tema: Gece Yarısı (varsayılan), Okyanus, Gün Batımı, Orman, Gül Altını, Noir
-- **Kozmetik Mağaza** — Temalar, profil çerçeveleri ve oy efektleri satın al ve tak
-- **Premium Abonelik** — Sınırsız geçmiş, detaylı istatistikler, tüm rozetler, analizler (Faz 1: dev stub)
-- **Paywall** — Aylık/yıllık plan seçimi (gerçek ödeme Faz 2'de RevenueCat ile gelecek)
-- **Geliştirici Araçları** — Premium simülasyonu, tüm kozmetiklere sahip olma toggle'ları (__DEV__ modunda)
+### Premium & Cosmetics
+- **Theme Engine** — 6 themes: Midnight (default), Ocean, Sunset, Forest, Rose Gold, Noir
+- **Cosmetic Shop** — Purchase and equip themes, profile frames, and vote effects
+- **Premium Subscription** — Unlimited history, detailed stats, all badges, insights (Phase 1: dev stub)
+- **Paywall** — Monthly/yearly plan selection (real payments via RevenueCat in Phase 2)
+- **Dev Tools** — Premium simulation and own-all-cosmetics toggles (in __DEV__ mode)
 
-### Genel
-- **Paylaşım Kartları** — Oyunu görsel olarak oluştur ve paylaş
-- **Deep Link** — Herhangi bir günün sorusuna doğrudan link (`split-second://q/2025-01-15`)
-- **Çoklu Dil (i18n)** — Cihaz diline göre otomatik algılama (TR + EN)
-- **Titreşim & Ses Efektleri** — Etkileşimlerde dokunsal ve sesli geri bildirim
-- **Onboarding** — İlk açılışta tanıtım ekranı
+### General
+- **Share Cards** — Generate and share your vote as an image
+- **Deep Links** — Share a direct link to any day's question (`split-second://q/2025-01-15`)
+- **i18n** — Multi-language support with device locale detection (TR + EN)
+- **Haptic Feedback & Sound Effects** — Tactile and audio feedback on interactions
+- **Onboarding** — First-launch walkthrough for new users
 
-## Teknoloji
+## Tech Stack
 
-| Katman | Teknoloji |
-|--------|-----------|
+| Layer | Technology |
+|-------|-----------|
 | Framework | [Expo SDK 54](https://expo.dev/) (React Native 0.81) |
-| Routing | [expo-router](https://docs.expo.dev/router/introduction/) (dosya tabanlı) |
+| Routing | [expo-router](https://docs.expo.dev/router/introduction/) (file-based) |
 | Backend | [Supabase](https://supabase.com/) (Postgres + Auth + RPC) |
-| Auth | Supabase anonim kimlik doğrulama |
-| Animasyonlar | react-native-reanimated |
-| State | React hooks (harici state kütüphanesi yok) |
-| Test | Jest 30 + React Native Testing Library |
+| Auth | Supabase anonymous auth |
+| Animations | react-native-reanimated |
+| State | React hooks (no external state library) |
+| Testing | Jest 30 + React Native Testing Library |
 | Linting | ESLint + TypeScript |
 
-## Proje Yapısı
+## Project Structure
 
 ```
 split-second/
-├── app/                    # Dosya tabanlı routing (expo-router)
-│   ├── _layout.tsx         # Ana layout (ThemeProvider, gesture handler, onboarding)
+├── app/                    # File-based routing (expo-router)
+│   ├── _layout.tsx         # Root layout (ThemeProvider, gesture handler, onboarding)
 │   ├── (tabs)/             # Tab navigator
-│   │   ├── index.tsx       # Ana Sayfa — günlük soru + oylama
-│   │   ├── profile.tsx     # Profil — istatistikler, geçmiş, mağaza, rozetler
-│   │   └── leaderboard.tsx # Liderlik Tablosu
-│   └── q/[date].tsx        # Deep link route (tarihe göre)
-├── components/             # UI bileşenleri (30+)
-│   ├── Shop.tsx            # Kozmetik mağaza modali
-│   ├── Paywall.tsx         # Premium paywall modali
-│   ├── DevMenu.tsx         # Geliştirici araçları (__DEV__)
-│   └── ...                 # QuestionCard, ResultBar, BadgeGrid, vb.
-├── hooks/                  # Custom React hook'ları (12)
-│   ├── usePremium.ts       # Premium durum yönetimi
-│   ├── useCosmetics.ts     # Kozmetik sahipliği & takma
-│   └── ...                 # useAuth, useVote, useBadges, vb.
-├── lib/                    # İş mantığı & yardımcı modüller (19)
-│   ├── themes.ts           # 6 tema renk tanımı
+│   │   ├── index.tsx       # Home — daily question + voting
+│   │   ├── profile.tsx     # Profile — stats, history, shop, badges
+│   │   └── leaderboard.tsx # Leaderboard
+│   └── q/[date].tsx        # Deep link route for specific dates
+├── components/             # UI components (30+)
+│   ├── Shop.tsx            # Cosmetic shop modal
+│   ├── Paywall.tsx         # Premium paywall modal
+│   ├── DevMenu.tsx         # Dev tools (__DEV__)
+│   └── ...                 # QuestionCard, ResultBar, BadgeGrid, etc.
+├── hooks/                  # Custom React hooks (12)
+│   ├── usePremium.ts       # Premium state management
+│   ├── useCosmetics.ts     # Cosmetics ownership & equipping
+│   └── ...                 # useAuth, useVote, useBadges, etc.
+├── lib/                    # Business logic & utilities (19 modules)
+│   ├── themes.ts           # 6 theme color definitions
 │   ├── themeContext.tsx     # ThemeProvider + useTheme hook
-│   ├── premium.ts          # Premium kontrol fonksiyonları
-│   ├── cosmetics.ts        # Çerçeve & efekt kataloğu
-│   └── ...                 # supabase, badges, i18n, share, vb.
-├── constants/              # Tipografi token'ları
-├── types/                  # TypeScript tip tanımları
-├── __mocks__/              # Jest mock'ları (Expo & RN modülleri)
+│   ├── premium.ts          # Premium check utilities
+│   ├── cosmetics.ts        # Frame & effect catalog
+│   └── ...                 # supabase, badges, i18n, share, etc.
+├── constants/              # Typography tokens
+├── types/                  # TypeScript type definitions
+├── __mocks__/              # Jest mocks for Expo & RN modules
 ├── supabase/
-│   ├── migrations/         # SQL migration'ları (sırayla çalıştır)
-│   └── seed.sql            # Örnek soru verileri
-├── tasks/                  # Geliştirme notları, planlar, doğrulama raporları
-└── assets/sounds/          # Ses efekti dosyaları (manuel ekle)
+│   ├── migrations/         # SQL migrations (run in order)
+│   └── seed.sql            # Sample question data
+├── tasks/                  # Dev notes, plans, validation reports
+└── assets/sounds/          # Sound effect files (add manually)
 ```
 
-## Kurulum
+## Getting Started
 
-### Gereksinimler
+### Prerequisites
 
 - [Node.js](https://nodejs.org/) >= 18
-- Telefonunda [Expo Go](https://expo.dev/go) uygulaması
+- [Expo Go](https://expo.dev/go) app on your phone (for development)
 
-### 1. Klonla & Kur
+### 1. Clone & Install
 
 ```bash
-git clone https://github.com/imgevio/split_second.git
+git clone https://github.com/utkuvibing/split_second.git
 cd split_second
 npm install --legacy-peer-deps
 ```
 
-### 2. Ortam Değişkenleri
+### 2. Environment Variables
 
-Proje kök dizininde `.env` dosyası oluştur:
+Create a `.env` file in the project root:
 
 ```env
 EXPO_PUBLIC_SUPABASE_URL=your_supabase_url_here
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-> **Not**: Kendi Supabase projenizi oluşturup URL ve anon key bilgilerinizi buraya girin. Proje şeması için `supabase/migrations/` klasöründeki migration dosyalarını sırasıyla çalıştırın. Ayrıca `.env.example` dosyasını referans olarak kullanabilirsiniz.
+> **Note**: Create your own Supabase project and enter your URL and anon key here. Run the migration files in `supabase/migrations/` in order to set up the database schema. You can also use `.env.example` as a reference.
 
-### 3. Ses Dosyaları (Opsiyonel)
+### 3. Sound Files (Optional)
 
-`assets/sounds/` klasörüne kısa ses efektleri ekle:
-- `tick.mp3` — geri sayım tik sesi
-- `vote.mp3` — oy verme dokunma sesi
-- `result.mp3` — sonuç açılış sesi
+Add short sound effects to `assets/sounds/`:
+- `tick.mp3` — timer countdown tick
+- `vote.mp3` — vote tap feedback
+- `result.mp3` — results reveal
 
-Uygulama ses dosyaları olmadan da çalışır — sesler sessizce atlanır.
+The app works fine without them — sounds fail silently.
 
-### 4. Çalıştır
+### 4. Run
 
 ```bash
 npx expo start --tunnel
 ```
 
-Telefonundaki Expo Go ile QR kodu tara.
+Scan the QR code with Expo Go on your phone.
 
-### Supabase Migration'ları (Sadece Admin)
+### Supabase Migrations (Admin Only)
 
-Sıfırdan Supabase projesi kurman gerekiyorsa, migration'ları SQL editöründe **sırayla** çalıştır:
+If you need to set up a fresh Supabase project, run the migrations **in order** in the SQL editor:
 
 ```
 supabase/migrations/001_initial_schema.sql
@@ -135,40 +135,40 @@ supabase/migrations/005_question_translations.sql
 supabase/migrations/008_premium.sql
 ```
 
-Ardından örnek soruları ekle:
+Then seed with sample questions:
 
 ```sql
--- Supabase SQL editöründe çalıştır
+-- Run in Supabase SQL editor
 supabase/seed.sql
 ```
 
-## Komutlar
+## Scripts
 
-| Komut | Açıklama |
-|-------|----------|
-| `npm start` | Expo geliştirme sunucusunu başlat |
-| `npm test` | Jest test suite'ini çalıştır |
-| `npm run test:watch` | Testleri izleme modunda çalıştır |
-| `npm run test:coverage` | Testleri kapsam raporuyla çalıştır |
-| `npm run lint` | ESLint ile kontrol et |
-| `npm run lint:fix` | Lint hatalarını otomatik düzelt |
-| `npm run typecheck` | TypeScript tip kontrolü |
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start Expo dev server |
+| `npm test` | Run Jest test suite |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Run tests with coverage report |
+| `npm run lint` | Lint with ESLint |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run typecheck` | TypeScript type checking |
 
-## Veritabanı Mimarisi
+## Database Architecture
 
-Uygulama tüm yazma işlemleri için Supabase **atomik RPC fonksiyonları** kullanır — oy gönderimi, sonuç hesaplama ve seri güncellemesi tek bir veritabanı çağrısında gerçekleşir (race condition önlenir).
+The app uses Supabase with **atomic RPC functions** for all write operations — vote submission, result calculation, and streak updates happen in a single database call to prevent race conditions.
 
-**Tablolar**: `questions`, `votes`, `user_streaks`, `user_profiles`, `user_cosmetics`, `user_equipped`
-**View'lar**: `question_results` (toplu oy yüzdeleri)
-**RPC'ler**:
-- `submit_vote_and_get_results()` — atomik oy + sonuç + seri güncelleme
-- `get_or_create_profile()` — premium profil oluştur/getir
-- `get_user_cosmetics()` — sahip olunan kozmetikleri getir
-- `purchase_cosmetic()` — kozmetik satın al
-- `equip_cosmetic()` — kozmetik tak/çıkar
+**Tables**: `questions`, `votes`, `user_streaks`, `user_profiles`, `user_cosmetics`, `user_equipped`
+**Views**: `question_results` (aggregated vote percentages)
+**RPCs**:
+- `submit_vote_and_get_results()` — atomic vote + results + streak update
+- `get_or_create_profile()` — create/fetch premium profile
+- `get_user_cosmetics()` — fetch owned cosmetics
+- `purchase_cosmetic()` — purchase a cosmetic item
+- `equip_cosmetic()` — equip/unequip a cosmetic
 
-Tüm tablolarda Row Level Security (RLS) aktiftir. Anonim auth ile her cihaz benzersiz bir kullanıcı ID'si alır.
+Row Level Security (RLS) is enabled on all tables. Anonymous auth ensures each device gets a unique user ID.
 
-## Lisans
+## License
 
-Özel — Tüm hakları saklıdır.
+Private — All rights reserved.
