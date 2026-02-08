@@ -99,11 +99,11 @@ npm install --legacy-peer-deps
 Create a `.env` file in the project root:
 
 ```env
-EXPO_PUBLIC_SUPABASE_URL=https://rsfxbqfvunmzjdwkmyit.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZnhicWZ2dW5tempkd2tteWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTQ1MDksImV4cCI6MjA4NTg5MDUwOX0.ozK8b0thPmLDvOrBdSOYY_WfFa4ET59l-o0CgqcfaqU
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url_here
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-> **Note**: These are the shared test environment credentials. The anon key is a public client-side key — all data is protected by Row Level Security (RLS) on the database. Do NOT use these in production.
+> **Note**: Create your own Supabase project and enter your URL and anon key here. Run the migration files in `supabase/migrations/` in order to set up the database schema. You can also use `.env.example` as a reference.
 
 ### 3. Sound Files (Optional)
 

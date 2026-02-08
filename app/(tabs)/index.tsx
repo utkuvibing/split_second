@@ -34,6 +34,10 @@ import { isNewMilestone } from '../../lib/streaks';
 import { getNextBadgeProgress } from '../../lib/badges';
 import { fetchBadgeContext } from '../../lib/badges';
 import { scheduleDailyReminder, scheduleStreakReminder } from '../../lib/notifications';
+import { usePersonality } from '../../hooks/usePersonality';
+import { PersonalityRevealModal } from '../../components/PersonalityRevealModal';
+import { useFriendVotes } from '../../hooks/useFriendVotes';
+import { FriendVotesFeed } from '../../components/FriendVotesFeed';
 import { t } from '../../lib/i18n';
 
 const TIMER_SECONDS = 10;
@@ -47,10 +51,15 @@ export default function HomeScreen() {
   const { unlockedBadges, checkNewUnlocks } = useBadges();
   const { isPremium, equippedEffect } = usePremium();
 
+  const { personality, isFirstReveal, recalculate: recalcPersonality } = usePersonality();
+  const [showPersonalityReveal, setShowPersonalityReveal] = useState(false);
+  const personalityCheckDone = useRef(false);
+
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
   const badgeCheckDone = useRef(false);
 
+  const { friendVotes } = useFriendVotes(question?.id, hasVoted);
   const { stats: globalStats } = useGlobalStats();
   const shareCardRef = useRef<View>(null);
   const isLoading = authLoading || questionLoading || voteLoading;
@@ -104,6 +113,17 @@ export default function HomeScreen() {
             const unlockedIds = new Set(unlockedBadges.map((b) => b.badge_id));
             const prog = getNextBadgeProgress(ctx, unlockedIds);
             setNextBadgeProg(prog);
+          }
+        }).catch(() => {});
+      }
+
+      // Check personality reveal (first time reaching 7 votes)
+      if (!personalityCheckDone.current) {
+        personalityCheckDone.current = true;
+        recalcPersonality().then((type) => {
+          if (type && isFirstReveal) {
+            // Delay to let results animation play first
+            setTimeout(() => setShowPersonalityReveal(true), 2000);
           }
         }).catch(() => {});
       }
@@ -223,6 +243,14 @@ export default function HomeScreen() {
                 </Text>
               </Animated.View>
             )}
+            {/* Friend votes feed */}
+            {friendVotes.length > 0 && question && (
+              <FriendVotesFeed
+                friendVotes={friendVotes}
+                optionA={question.option_a}
+                optionB={question.option_b}
+              />
+            )}
             <ShareButton
               onPress={() => shareResult({
                 questionText: question.question_text,
@@ -250,6 +278,14 @@ export default function HomeScreen() {
             userChoice={userChoice!}
           />
         </View>
+        {/* Personality reveal modal */}
+        {personality && (
+          <PersonalityRevealModal
+            visible={showPersonalityReveal}
+            personality={personality}
+            onClose={() => setShowPersonalityReveal(false)}
+          />
+        )}
       </SafeAreaView>
     );
   }

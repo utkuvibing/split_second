@@ -19,22 +19,34 @@ import { ProfileCard } from '../../components/ProfileCard';
 import { Shop } from '../../components/Shop';
 import { Paywall } from '../../components/Paywall';
 import { DevMenu } from '../../components/DevMenu';
+import { usePersonality } from '../../hooks/usePersonality';
+import { PersonalityProgress } from '../../components/PersonalityProgress';
+import { PersonalityDetailCard } from '../../components/PersonalityDetailCard';
+import { useFriends } from '../../hooks/useFriends';
+import { FriendCodeCard } from '../../components/FriendCodeCard';
+import { FriendsList } from '../../components/FriendsList';
+import { AddFriendModal } from '../../components/AddFriendModal';
+import { PremiumFeaturesCard } from '../../components/PremiumFeaturesCard';
 import { t } from '../../lib/i18n';
 
 export default function ProfileScreen() {
   const colors = useTheme();
   const styles = createStyles(colors);
-  const { isPremium, equippedFrame, loading: premiumLoading, refetch: refetchPremium } = usePremium();
+  const { isPremium, equippedFrame, friendCode, loading: premiumLoading, refetch: refetchPremium } = usePremium();
   const { coins, loading: coinsLoading } = useCoins();
   const { userId } = useAuth();
   const { stats, loading: statsLoading } = useUserStats();
   const { history, loading: historyLoading } = useVoteHistory(isPremium ? undefined : FREE_HISTORY_DAYS);
   const { unlockedBadges, loading: badgesLoading } = useBadges();
 
+  const { personality, axes, totalVotes, isUnlocked: personalityUnlocked, loading: personalityLoading } = usePersonality();
+  const { friends, addFriend, removeFriend: removeFriendById, loading: friendsLoading } = useFriends();
+
   const [shopVisible, setShopVisible] = useState(false);
   const [paywallVisible, setPaywallVisible] = useState(false);
+  const [addFriendVisible, setAddFriendVisible] = useState(false);
 
-  const isLoading = statsLoading || historyLoading || badgesLoading || premiumLoading || coinsLoading;
+  const isLoading = statsLoading || historyLoading || badgesLoading || premiumLoading || coinsLoading || personalityLoading || friendsLoading;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,7 +76,27 @@ export default function ProfileScreen() {
             currentStreak={stats?.current_streak ?? 0}
             coins={coins}
             userId={userId ?? ''}
+            personality={personality}
           />
+
+          {/* Premium features - free users only */}
+          {!isPremium && (
+            <PremiumFeaturesCard onUpgrade={() => setPaywallVisible(true)} />
+          )}
+
+          {/* Personality section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{t('personalityTitle')}</Text>
+            {personalityUnlocked && personality && axes ? (
+              <PersonalityDetailCard
+                personality={personality}
+                axes={axes}
+                isPremium={isPremium}
+              />
+            ) : (
+              <PersonalityProgress totalVotes={totalVotes} />
+            )}
+          </View>
 
           {/* Stats - gated for detailed view */}
           {stats && (
@@ -84,6 +116,18 @@ export default function ProfileScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('badges')}</Text>
             <BadgeGrid unlockedBadges={unlockedBadges} userIsPremium={isPremium} />
+          </View>
+
+          {/* Friends section */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>{t('friendsTitle')}</Text>
+            {friendCode ? <FriendCodeCard friendCode={friendCode} /> : null}
+            <FriendsList
+              friends={friends}
+              isPremium={isPremium}
+              onRemove={removeFriendById}
+              onAddPress={() => setAddFriendVisible(true)}
+            />
           </View>
 
           {/* Vote history - limited to 7 days for free users */}
@@ -126,6 +170,11 @@ export default function ProfileScreen() {
         visible={paywallVisible}
         onClose={() => setPaywallVisible(false)}
         onPurchased={refetchPremium}
+      />
+      <AddFriendModal
+        visible={addFriendVisible}
+        onClose={() => setAddFriendVisible(false)}
+        onSubmit={(code) => addFriend(code, isPremium)}
       />
     </SafeAreaView>
   );

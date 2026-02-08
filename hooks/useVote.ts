@@ -49,7 +49,7 @@ export function useVote(questionId: string | undefined) {
       setVoteTimeSeconds(elapsed);
     }
 
-    const result = await submitVote(questionId, choice);
+    const result = await submitVote(questionId, choice, elapsed ?? undefined);
     if (result) {
       setUserChoice(choice);
       setResults(result);

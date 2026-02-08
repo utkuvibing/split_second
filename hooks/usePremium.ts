@@ -9,6 +9,7 @@ export function usePremium() {
   const [equippedTheme, setEquippedTheme] = useState('default');
   const [equippedFrame, setEquippedFrame] = useState('none');
   const [equippedEffect, setEquippedEffect] = useState('default');
+  const [friendCode, setFriendCode] = useState('');
   const [coins, setCoins] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +27,7 @@ export function usePremium() {
         setEquippedTheme(profile.theme_id || 'default');
         setEquippedFrame(profile.frame_id || 'none');
         setEquippedEffect(profile.vote_effect_id || 'default');
+        setFriendCode(profile.friend_code ?? '');
         setCoins(profile.coins ?? 0);
       } else {
         // If RPC not available yet, just use dev toggle
@@ -55,6 +57,7 @@ export function usePremium() {
     equippedTheme,
     equippedFrame,
     equippedEffect,
+    friendCode,
     coins,
     loading,
     refetch,

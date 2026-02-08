@@ -99,11 +99,11 @@ npm install --legacy-peer-deps
 Proje kök dizininde `.env` dosyası oluştur:
 
 ```env
-EXPO_PUBLIC_SUPABASE_URL=https://rsfxbqfvunmzjdwkmyit.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZnhicWZ2dW5tempkd2tteWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTQ1MDksImV4cCI6MjA4NTg5MDUwOX0.ozK8b0thPmLDvOrBdSOYY_WfFa4ET59l-o0CgqcfaqU
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url_here
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-> **Not**: Bunlar paylaşılan test ortamı bilgileridir. Anon key, istemci tarafı public bir anahtardır — tüm veriler veritabanında Row Level Security (RLS) ile korunmaktadır. Production'da bu bilgileri KULLANMAYIN.
+> **Not**: Kendi Supabase projenizi oluşturup URL ve anon key bilgilerinizi buraya girin. Proje şeması için `supabase/migrations/` klasöründeki migration dosyalarını sırasıyla çalıştırın. Ayrıca `.env.example` dosyasını referans olarak kullanabilirsiniz.
 
 ### 3. Ses Dosyaları (Opsiyonel)
 

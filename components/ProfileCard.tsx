@@ -4,6 +4,8 @@ import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { getFrameById } from '../lib/cosmetics';
 import { getPlayerName } from '../lib/leaderboard';
+import { PersonalityType } from '../lib/personality';
+import { PersonalityBadge } from './PersonalityBadge';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -11,9 +13,10 @@ interface Props {
   currentStreak: number;
   coins: number;
   userId: string;
+  personality?: PersonalityType | null;
 }
 
-export function ProfileCard({ frameId, currentStreak, coins, userId }: Props) {
+export function ProfileCard({ frameId, currentStreak, coins, userId, personality }: Props) {
   const colors = useTheme();
   const styles = createStyles(colors);
   const frame = getFrameById(frameId);
@@ -66,6 +69,9 @@ export function ProfileCard({ frameId, currentStreak, coins, userId }: Props) {
         )}
 
         <Text style={styles.playerName}>{playerName}</Text>
+
+        {/* Personality badge */}
+        {personality && <PersonalityBadge personality={personality} />}
 
         {/* Streak + Coins row */}
         <View style={styles.infoRow}>

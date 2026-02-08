@@ -11,7 +11,12 @@ export const PREMIUM_FEATURES = {
   postVoteInsights: 'postVoteInsights',
   cosmetics: 'cosmetics',
   noAds: 'noAds',
+  unlimitedFriends: 'unlimitedFriends',
+  personalityDetail: 'personalityDetail',
 } as const;
+
+// Free tier friend limit
+export const FREE_FRIEND_LIMIT = 3;
 
 // Free tier limits
 export const FREE_HISTORY_DAYS = 7;

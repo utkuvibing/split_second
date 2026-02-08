@@ -3,11 +3,13 @@ import { VoteResults } from '../types/database';
 
 export async function submitVote(
   questionId: string,
-  choice: 'a' | 'b'
+  choice: 'a' | 'b',
+  voteTimeSeconds?: number
 ): Promise<VoteResults | null> {
   const { data, error } = await supabase.rpc('submit_vote_and_get_results', {
     p_question_id: questionId,
     p_choice: choice,
+    p_vote_time: voteTimeSeconds ?? null,
   });
 
   if (error) {

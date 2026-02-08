@@ -196,3 +196,73 @@
   - Equipped effect shown on every vote, streak confetti as fallback
 - [x] 10F. i18n - profileAnonymous key added (TR: Oyuncu, EN: Player)
 - [x] 10G. TypeScript - 0 errors confirmed
+
+---
+
+### Phase 11: Engagement Hooks - Personality + Friends (V8)
+
+#### Feature 1: Personality Profile
+- [x] 11A. DB Migration - 010_personality.sql
+  - vote_time_seconds column on votes table
+  - user_personality table (type, 4 axis scores, votes_analyzed)
+  - get_personality_context() RPC - raw data for client calculation
+  - save_personality() RPC - persist calculated profile
+  - Updated submit_vote_and_get_results with p_vote_time parameter
+- [x] 11B. Personality Engine - lib/personality.ts
+  - 4 axes: Conformity, Speed, Diversity, Courage (0-100 each)
+  - 8 personality types with weighted scoring algorithm
+  - Flash Rebel, Cool Strategist, Gut Feeler, Lone Wolf
+  - Explorer Soul, Specialist Sage, Chaos Agent, Wise Owl
+- [x] 11C. Vote Time Tracking - lib/votes.ts + hooks/useVote.ts
+  - submitVote now passes voteTimeSeconds to RPC
+  - DB records vote duration for speed axis calculation
+- [x] 11D. Personality Hook - hooks/usePersonality.ts
+  - Load existing personality or calculate on first unlock (7 votes)
+  - isFirstReveal flag for trigger modal
+  - recalculate() method updates on each vote
+- [x] 11E. Personality UI Components
+  - PersonalityProgress.tsx - Pre-unlock progress bar (X/7 votes)
+  - PersonalityBadge.tsx - Inline emoji + type name badge
+  - PersonalityDetailCard.tsx - 4 axis bars (premium-gated)
+  - PersonalityRevealModal.tsx - Animated reveal (analyze → zoom emoji → title → description)
+  - PersonalityShareCard.tsx - Shareable card with axes
+- [x] 11F. Personality Integration
+  - ProfileCard: personality badge below player name
+  - profile.tsx: personality section (detail card or progress bar)
+  - index.tsx: 7th vote triggers PersonalityRevealModal
+
+#### Feature 2: Friend Code System
+- [x] 11G. DB Migration - 011_friends.sql
+  - friend_code column on user_profiles (auto-generated 6-char, no O/0/I/1/L)
+  - friendships table (bidirectional, unique constraint)
+  - Updated get_or_create_profile: auto-assigns friend_code
+  - add_friend_by_code RPC (limit check, self check, dupe check)
+  - get_friends_list RPC (with compatibility score)
+  - get_friend_votes_for_question RPC
+  - remove_friend RPC (both directions)
+- [x] 11H. Friends API - lib/friends.ts + hooks
+  - All friend operations wrapped in typed functions
+  - useFriends hook: list, add, remove, refetch
+  - useFriendVotes hook: post-vote friend choices
+  - Compatibility score labels (5 tiers: 0-20% to 81-100%)
+- [x] 11I. Friend UI Components
+  - FriendCodeCard.tsx - Code display + copy + share
+  - AddFriendModal.tsx - 6-digit PIN-style input with error handling
+  - FriendsList.tsx - Friend rows with compatibility badge, long-press remove
+  - CompatibilityBadge.tsx - Score + label display
+  - FriendVotesFeed.tsx - Post-vote "friends' choices" feed
+- [x] 11J. Friend Integration
+  - profile.tsx: friend code card + friends list + add modal
+  - index.tsx: FriendVotesFeed in post-vote results
+  - premium.ts: FREE_FRIEND_LIMIT = 3, unlimitedFriends feature flag
+  - usePremium.ts: exposes friendCode from profile
+  - types/premium.ts: friend_code field on UserProfile
+- [x] 11K. i18n - 50+ new translation keys (TR + EN)
+  - Personality: 8 type names + descriptions, axis labels, UI strings
+  - Friends: code, add/remove, compatibility tiers, feed labels
+- [x] 11L. TypeScript - 0 errors confirmed
+
+### Manual Steps for V8
+- [ ] Run 010_personality.sql in Supabase SQL Editor
+- [ ] Run 011_friends.sql in Supabase SQL Editor
+- [ ] Install expo-clipboard: `npx expo install expo-clipboard`

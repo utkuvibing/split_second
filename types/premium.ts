@@ -4,6 +4,7 @@ export interface UserProfile {
   is_premium: boolean;
   premium_until: string | null;
   coins: number;
+  friend_code: string;
   theme_id: string;
   frame_id: string;
   vote_effect_id: string;
