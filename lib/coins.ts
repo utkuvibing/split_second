@@ -15,6 +15,13 @@ export const COIN_PRICES: Record<string, number> = {
   confetti: 100,
   lightning: 100,
   hearts: 100,
+  // New items
+  cyber: 300,
+  cherry: 250,
+  platinum: 200,
+  prism: 250,
+  fireworks: 200,
+  snowfall: 150,
 };
 
 // Coin reward amounts
@@ -50,4 +57,11 @@ export function getCoinPrice(cosmeticId: string): number {
 // Check if a cosmetic is free (no coin cost)
 export function isFreeCosmetic(cosmeticId: string): boolean {
   return cosmeticId === 'default' || cosmeticId === 'none' || getCoinPrice(cosmeticId) === 0;
+}
+
+// Check if a cosmetic is premium-free (isPremium but no coin price)
+export function isPremiumFreeItem(cosmeticId: string): boolean {
+  return getCoinPrice(cosmeticId) === 0
+    && cosmeticId !== 'default'
+    && cosmeticId !== 'none';
 }

@@ -44,7 +44,7 @@ import { isQuestionUnlocked } from '../../lib/questions';
 import { useMysteryBox } from '../../hooks/useMysteryBox';
 import { MysteryBoxDrop } from '../../components/MysteryBoxDrop';
 import { MysteryBoxOpenModal } from '../../components/MysteryBoxOpenModal';
-import { BoxRarity, RewardType } from '../../lib/mysteryBox';
+import { BoxRarity, RewardType, RARITY_EMOJIS } from '../../lib/mysteryBox';
 import { useLiveEvent } from '../../hooks/useLiveEvent';
 import { LiveEventBanner } from '../../components/LiveEventBanner';
 import { LiveEventModal } from '../../components/LiveEventModal';
@@ -224,16 +224,7 @@ export default function HomeScreen() {
       scheduleStreakReminder(results.current_streak);
     }
 
-    // Mystery box drop check (separate from vote path - non-blocking)
-    checkDrop().then((drop) => {
-      if (drop.dropped && drop.box_id && drop.rarity) {
-        setPendingBoxId(drop.box_id);
-        setPendingBoxRarity(drop.rarity as BoxRarity);
-        setTimeout(() => setShowBoxDrop(true), 1500);
-      }
-    }).catch(() => {});
-
-    // Badge check (only on first vote result per session, or when all voted)
+    // Badge + mystery box check (only when all 3 daily questions answered)
     if (!badgeCheckDone.current && results.all_today_voted) {
       badgeCheckDone.current = true;
       const hour = new Date().getHours();
@@ -250,6 +241,15 @@ export default function HomeScreen() {
           const unlockedIds = new Set(unlockedBadges.map((b) => b.badge_id));
           const prog = getNextBadgeProgress(ctx, unlockedIds);
           setNextBadgeProg(prog);
+        }
+      }).catch(() => {});
+
+      // Mystery box: once per day, only after completing all 3 questions
+      checkDrop().then((drop) => {
+        if (drop.dropped && drop.box_id && drop.rarity) {
+          setPendingBoxId(drop.box_id);
+          setPendingBoxRarity(drop.rarity as BoxRarity);
+          setTimeout(() => setShowBoxDrop(true), 1500);
         }
       }).catch(() => {});
     }
@@ -526,6 +526,22 @@ export default function HomeScreen() {
             })}
             onImageShare={() => shareImage(shareCardRef)}
           />
+          {/* Mystery box teaser - answer all to unlock */}
+          {!allVoted && (
+            <Animated.View entering={FadeIn.delay(700).duration(400)} style={{ marginHorizontal: 24 }}>
+              <GlassCard style={SHADOW.sm}>
+                <View style={styles.mysteryTeaser}>
+                  <Text style={styles.mysteryTeaserEmoji}>{RARITY_EMOJIS.rare}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.mysteryTeaserText}>{t('mysteryBoxTeaser')}</Text>
+                    <Text style={styles.mysteryTeaserSub}>
+                      {t('mysteryBoxTeaserProgress', { voted: String(votedCount), total: String(questions.length) })}
+                    </Text>
+                  </View>
+                </View>
+              </GlassCard>
+            </Animated.View>
+          )}
           <Animated.View entering={FadeIn.delay(800)} style={styles.countdownFill}>
             <DailyCountdown />
           </Animated.View>
@@ -698,5 +714,24 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: colors.accent,
+  },
+  mysteryTeaser: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    gap: 12,
+  },
+  mysteryTeaserEmoji: {
+    fontSize: 28,
+  },
+  mysteryTeaserText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  mysteryTeaserSub: {
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: 2,
   },
 });

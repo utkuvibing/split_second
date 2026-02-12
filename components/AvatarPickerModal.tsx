@@ -4,7 +4,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
-import { AVATAR_CATEGORIES, AVATAR_COIN_PRICE, getAvatarsByCategory, AvatarCategory, AvatarDef } from '../lib/avatars';
+import { AVATAR_CATEGORIES, AVATAR_COIN_PRICE, getAvatarsByCategory, getAvatarPrice, AvatarCategory, AvatarDef } from '../lib/avatars';
 import { setAvatar, purchaseAvatar, getOwnedAvatars } from '../lib/avatar';
 import { t, TranslationKey } from '../lib/i18n';
 
@@ -63,12 +63,13 @@ export function AvatarPickerModal({ visible, currentAvatarId, isPremium, coins, 
   const handleBuy = async (av: AvatarDef) => {
     if (loading) return;
     setError(null);
-    if (coins < AVATAR_COIN_PRICE) {
+    const price = getAvatarPrice(av.id);
+    if (coins < price) {
       setError(t('avatarInsufficientCoins'));
       return;
     }
     setLoading(true);
-    const result = await purchaseAvatar(av.id, AVATAR_COIN_PRICE);
+    const result = await purchaseAvatar(av.id, price);
     if (result.success) {
       setOwnedAvatars(prev => new Set([...prev, av.id]));
       setSelected(av.id);
@@ -125,16 +126,16 @@ export function AvatarPickerModal({ visible, currentAvatarId, isPremium, coins, 
           )}
           {av.tier === 'coin' && !ownedAvatars.has(av.id) && (
             <View style={[styles.tierBadge, { backgroundColor: colors.warning }]}>
-              <Text style={styles.tierBadgeText}>{AVATAR_COIN_PRICE}</Text>
+              <Text style={styles.tierBadgeText}>{getAvatarPrice(av.id)}</Text>
             </View>
           )}
         </Pressable>
         {/* Buy button for unowned coin avatars */}
         {av.tier === 'coin' && !ownedAvatars.has(av.id) && (
           <Pressable
-            style={[styles.buyButton, coins < AVATAR_COIN_PRICE && styles.buyButtonDisabled]}
+            style={[styles.buyButton, coins < getAvatarPrice(av.id) && styles.buyButtonDisabled]}
             onPress={() => handleBuy(av)}
-            disabled={loading || coins < AVATAR_COIN_PRICE}
+            disabled={loading || coins < getAvatarPrice(av.id)}
           >
             <Text style={styles.buyButtonText}>{t('avatarBuy')}</Text>
           </Pressable>

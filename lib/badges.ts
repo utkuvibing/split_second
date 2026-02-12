@@ -233,6 +233,16 @@ export function getBadgeById(id: string): BadgeDef | undefined {
   return BADGES.find((b) => b.id === id);
 }
 
+/**
+ * Return the N hardest unlocked badges (by position in BADGES array — later = harder).
+ */
+export function getHardestBadges(unlocked: UnlockedBadge[], max: number = 3): UnlockedBadge[] {
+  const indexMap = new Map(BADGES.map((b, i) => [b.id, i]));
+  return [...unlocked]
+    .sort((a, b) => (indexMap.get(b.badge_id) ?? 0) - (indexMap.get(a.badge_id) ?? 0))
+    .slice(0, max);
+}
+
 export async function fetchUserBadges(): Promise<UnlockedBadge[]> {
   const { data, error } = await supabase.rpc('get_user_badges');
   if (error) {

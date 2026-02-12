@@ -72,7 +72,32 @@ const AVATARS: AvatarDef[] = [
   { id: 'gem', emoji: '💠', category: 'objects', tier: 'premium' },
   { id: 'volcano', emoji: '🌋', category: 'nature', tier: 'premium' },
   { id: 'aurora', emoji: '🌌', category: 'nature', tier: 'premium' },
+
+  // ─── COIN HIGH — 75 coin each (5) ───
+  { id: 'octopus', emoji: '🐙', category: 'animals', tier: 'coin' },
+  { id: 'butterfly', emoji: '🦋', category: 'animals', tier: 'coin' },
+  { id: 'cowboy', emoji: '🤠', category: 'people', tier: 'coin' },
+  { id: 'dice', emoji: '🎲', category: 'objects', tier: 'coin' },
+  { id: 'comet', emoji: '☄️', category: 'nature', tier: 'coin' },
+
+  // ─── PREMIUM (new) ───
+  { id: 'eagle', emoji: '🦅', category: 'animals', tier: 'premium' },
+  { id: 'angel', emoji: '👼', category: 'people', tier: 'premium' },
+  { id: 'trident', emoji: '🔱', category: 'objects', tier: 'premium' },
 ];
+
+// Per-avatar prices (overrides AVATAR_COIN_PRICE for specific avatars)
+export const AVATAR_PRICES: Record<string, number> = {
+  octopus: 75,
+  butterfly: 75,
+  cowboy: 75,
+  dice: 75,
+  comet: 75,
+};
+
+export function getAvatarPrice(id: string): number {
+  return AVATAR_PRICES[id] ?? AVATAR_COIN_PRICE;
+}
 
 const avatarMap = new Map(AVATARS.map(a => [a.id, a]));
 

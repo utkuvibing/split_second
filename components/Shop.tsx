@@ -37,11 +37,15 @@ interface Props {
   onClose: () => void;
 }
 
+function isPremiumOnlyItem(item: { id: string; isPremium?: boolean }): boolean {
+  return !!item.isPremium && getCoinPrice(item.id) === 0 && item.id !== 'default' && item.id !== 'none';
+}
+
 export function Shop({ visible, onClose }: Props) {
   const colors = useTheme();
   const setTheme = useSetTheme();
   const styles = createStyles(colors);
-  const { equippedTheme, equippedFrame, equippedEffect, refetch: refetchPremium } = usePremium();
+  const { equippedTheme, equippedFrame, equippedEffect, isPremium, refetch: refetchPremium } = usePremium();
   const { isOwned, purchase, equip, refetch: refetchCosmetics } = useCosmetics();
   const { coins, fetchCoins } = useCoins();
   const [previewItem, setPreviewItem] = useState<PreviewItem | null>(null);
@@ -100,6 +104,10 @@ export function Shop({ visible, onClose }: Props) {
     await handlePurchase(previewItem.item.id);
   };
 
+  const isEffectivelyOwned = (id: string, item: { isPremium?: boolean }) => {
+    return isOwned(id) || (isPremiumOnlyItem(item as any) && isPremium);
+  };
+
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
       <View style={styles.container}>
@@ -125,11 +133,13 @@ export function Shop({ visible, onClose }: Props) {
                 nameKey={theme.nameKey}
                 descKey={theme.nameKey}
                 price={getCoinPrice(theme.id)}
-                isOwned={isOwned(theme.id)}
+                isOwned={isEffectivelyOwned(theme.id, theme)}
                 isEquipped={equippedTheme === theme.id}
                 userCoins={coins}
                 preview={<ThemePreview themeColors={theme.colors} />}
                 width={ITEM_WIDTH}
+                isPremiumOnly={isPremiumOnlyItem(theme) && !isPremium}
+                gradientAccent={theme.colors.accent}
                 onPress={() => setPreviewItem({ type: 'theme', item: theme })}
                 onEquip={() => handleEquipTheme(theme.id)}
                 onPurchase={() => handlePurchase(theme.id)}
@@ -146,11 +156,12 @@ export function Shop({ visible, onClose }: Props) {
                 nameKey={frame.nameKey}
                 descKey={frame.descKey}
                 price={getCoinPrice(frame.id)}
-                isOwned={isOwned(frame.id)}
+                isOwned={isEffectivelyOwned(frame.id, frame)}
                 isEquipped={equippedFrame === frame.id}
                 userCoins={coins}
                 preview={<FramePreview borderColors={frame.borderColors} size={48} />}
                 width={ITEM_WIDTH}
+                isPremiumOnly={isPremiumOnlyItem(frame) && !isPremium}
                 onPress={() => setPreviewItem({ type: 'frame', item: frame })}
                 onEquip={() => handleEquipFrame(frame.id)}
                 onPurchase={() => handlePurchase(frame.id)}
@@ -167,11 +178,12 @@ export function Shop({ visible, onClose }: Props) {
                 nameKey={effect.nameKey}
                 descKey={effect.descKey}
                 price={getCoinPrice(effect.id)}
-                isOwned={isOwned(effect.id)}
+                isOwned={isEffectivelyOwned(effect.id, effect)}
                 isEquipped={equippedEffect === effect.id}
                 userCoins={coins}
                 emoji={effect.emoji}
                 width={ITEM_WIDTH}
+                isPremiumOnly={isPremiumOnlyItem(effect) && !isPremium}
                 onPress={() => setPreviewItem({ type: 'effect', item: effect })}
                 onEquip={() => handleEquipEffect(effect.id)}
                 onPurchase={() => handlePurchase(effect.id)}
@@ -184,10 +196,11 @@ export function Shop({ visible, onClose }: Props) {
           <ItemPreviewModal
             visible={!!previewItem}
             item={previewItem}
-            isOwned={isOwned(previewItem.item.id)}
+            isOwned={isEffectivelyOwned(previewItem.item.id, previewItem.item)}
             isEquipped={getPreviewEquipped()}
             price={getCoinPrice(previewItem.item.id)}
             userCoins={coins}
+            isPremiumOnly={isPremiumOnlyItem(previewItem.item) && !isPremium}
             onClose={() => setPreviewItem(null)}
             onEquip={handlePreviewEquip}
             onPurchase={handlePreviewPurchase}

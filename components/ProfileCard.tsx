@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
@@ -8,8 +9,8 @@ import { getPlayerName } from '../lib/leaderboard';
 import { PersonalityType } from '../lib/personality';
 import { PersonalityBadge } from './PersonalityBadge';
 import { AvatarDisplay } from './AvatarDisplay';
-import { RADIUS } from '../constants/ui';
-import { GlassCard } from './ui/GlassCard';
+import { RADIUS, SHADOW, GLASS } from '../constants/ui';
+import { UnlockedBadge, getBadgeById, getHardestBadges } from '../lib/badges';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -20,18 +21,24 @@ interface Props {
   displayName?: string | null;
   avatarId?: string | null;
   personality?: PersonalityType | null;
+  unlockedBadges?: UnlockedBadge[];
   onEditNickname?: () => void;
   onEditAvatar?: () => void;
 }
 
-export function ProfileCard({ frameId, currentStreak, coins, userId, displayName, avatarId, personality, onEditNickname, onEditAvatar }: Props) {
+export function ProfileCard({ frameId, currentStreak, coins, userId, displayName, avatarId, personality, unlockedBadges, onEditNickname, onEditAvatar }: Props) {
   const colors = useTheme();
   const styles = createStyles(colors);
   const playerName = userId ? getPlayerName(userId, displayName) : t('profileAnonymous');
 
   return (
     <Animated.View entering={FadeIn.duration(400)}>
-      <GlassCard>
+      <LinearGradient
+        colors={[colors.accent + '18', colors.surface + 'E6']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={[styles.gradient, SHADOW.md]}
+      >
         <View style={styles.card}>
           <View style={styles.avatarSection}>
             <Pressable onPress={onEditAvatar}>
@@ -39,6 +46,7 @@ export function ProfileCard({ frameId, currentStreak, coins, userId, displayName
             </Pressable>
 
             <Pressable style={styles.nameRow} onPress={onEditNickname}>
+              {onEditNickname && <View style={{ width: 20 }} />}
               <Text style={styles.playerName}>{playerName}</Text>
               {onEditNickname && (
                 <Ionicons name="pencil" size={14} color={colors.textMuted} />
@@ -46,6 +54,10 @@ export function ProfileCard({ frameId, currentStreak, coins, userId, displayName
             </Pressable>
 
             {personality && <PersonalityBadge personality={personality} />}
+
+            {unlockedBadges && unlockedBadges.length > 0 && (
+              <BadgeShowcaseRow badges={unlockedBadges} colors={colors} />
+            )}
 
             <View style={styles.infoRow}>
               {currentStreak > 0 && (
@@ -64,15 +76,34 @@ export function ProfileCard({ frameId, currentStreak, coins, userId, displayName
             </View>
           </View>
         </View>
-      </GlassCard>
+      </LinearGradient>
     </Animated.View>
   );
 }
 
+function BadgeShowcaseRow({ badges }: { badges: UnlockedBadge[]; colors: ThemeColors }) {
+  const hardest = getHardestBadges(badges, 3);
+
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+      {hardest.map((ub) => {
+        const badge = getBadgeById(ub.badge_id);
+        if (!badge) return null;
+        return (
+          <Text key={ub.badge_id} style={{ fontSize: 22 }}>{badge.emoji}</Text>
+        );
+      })}
+    </View>
+  );
+}
+
 const createStyles = (colors: ThemeColors) => StyleSheet.create({
-  card: {
-    backgroundColor: colors.surface,
+  gradient: {
     borderRadius: RADIUS.lg,
+    borderWidth: 1,
+    borderColor: GLASS.borderColor,
+  },
+  card: {
     padding: 16,
     alignItems: 'center',
   },

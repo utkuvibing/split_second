@@ -41,6 +41,30 @@ export const FRAMES: FrameDef[] = [
     isPremium: true,
     borderColors: ['#87CEEB', '#E0F0FF'],
   },
+  {
+    id: 'platinum',
+    nameKey: 'framePlatinum',
+    descKey: 'framePlatinumDesc',
+    slot: 'frame',
+    isPremium: true,
+    borderColors: ['#C0C0C0', '#E8E8E8'],
+  },
+  {
+    id: 'prism',
+    nameKey: 'framePrism',
+    descKey: 'framePrismDesc',
+    slot: 'frame',
+    isPremium: true,
+    borderColors: ['#FF0080', '#8000FF', '#0080FF'],
+  },
+  {
+    id: 'velvet',
+    nameKey: 'frameVelvet',
+    descKey: 'frameVelvetDesc',
+    slot: 'frame',
+    isPremium: true,
+    borderColors: ['#8B008B', '#FF1493'],
+  },
 ];
 
 export const VOTE_EFFECTS: VoteEffectDef[] = [
@@ -75,6 +99,30 @@ export const VOTE_EFFECTS: VoteEffectDef[] = [
     slot: 'vote_effect',
     isPremium: true,
     emoji: '❤️',
+  },
+  {
+    id: 'fireworks',
+    nameKey: 'effectFireworks',
+    descKey: 'effectFireworksDesc',
+    slot: 'vote_effect',
+    isPremium: true,
+    emoji: '🎆',
+  },
+  {
+    id: 'snowfall',
+    nameKey: 'effectSnowfall',
+    descKey: 'effectSnowfallDesc',
+    slot: 'vote_effect',
+    isPremium: true,
+    emoji: '❄️',
+  },
+  {
+    id: 'stardust',
+    nameKey: 'effectStardust',
+    descKey: 'effectStardustDesc',
+    slot: 'vote_effect',
+    isPremium: true,
+    emoji: '✨',
   },
 ];
 

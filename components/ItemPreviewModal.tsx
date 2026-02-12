@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../lib/themeContext';
 import { ThemePreview } from './ThemePreview';
 import { FramePreview } from './FramePreview';
@@ -24,6 +25,7 @@ interface Props {
   isEquipped: boolean;
   price: number;
   userCoins: number;
+  isPremiumOnly?: boolean;
   onClose: () => void;
   onEquip: () => void;
   onPurchase: () => void;
@@ -58,6 +60,7 @@ export function ItemPreviewModal({
   isEquipped,
   price,
   userCoins,
+  isPremiumOnly,
   onClose,
   onEquip,
   onPurchase,
@@ -69,6 +72,11 @@ export function ItemPreviewModal({
 
   const nameKey = item.item.nameKey;
   const descKey = item.type === 'theme' ? item.item.nameKey : (item.item as FrameDef | VoteEffectDef).descKey;
+
+  // Determine accent for gradient
+  const gradientAccent = item.type === 'theme'
+    ? item.item.colors.accent
+    : colors.accent;
 
   const renderPreview = () => {
     switch (item.type) {
@@ -98,6 +106,13 @@ export function ItemPreviewModal({
         </Pressable>
       );
     }
+    if (isPremiumOnly) {
+      return (
+        <View style={[styles.actionButton, styles.actionButtonPremium]}>
+          <Text style={styles.actionButtonText}>⭐ {t('shopPremiumUnlock')}</Text>
+        </View>
+      );
+    }
     if (isFree) {
       return null;
     }
@@ -117,28 +132,35 @@ export function ItemPreviewModal({
   return (
     <Modal visible={visible} transparent animationType="fade">
       <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={styles.card} onPress={(e) => e.stopPropagation()}>
-          <Pressable style={styles.closeButton} onPress={onClose} hitSlop={12}>
-            <Text style={styles.closeText}>✕</Text>
-          </Pressable>
+        <Pressable onPress={(e) => e.stopPropagation()}>
+          <LinearGradient
+            colors={[gradientAccent + '15', colors.surface + 'F0']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.card}
+          >
+            <Pressable style={styles.closeButton} onPress={onClose} hitSlop={12}>
+              <Text style={styles.closeText}>✕</Text>
+            </Pressable>
 
-          <View style={styles.previewArea}>
-            {renderPreview()}
-          </View>
-
-          <Text style={styles.itemName}>{t(nameKey as any)}</Text>
-          <Text style={styles.itemDesc}>{t(descKey as any)}</Text>
-
-          {!isFree && !isOwned && (
-            <View style={styles.priceRow}>
-              <Text style={styles.priceText}>{price} {t('coinSymbol')}</Text>
-              <Text style={styles.balanceText}>
-                {t('shopYourBalance')}: {userCoins} {t('coinSymbol')}
-              </Text>
+            <View style={styles.previewArea}>
+              {renderPreview()}
             </View>
-          )}
 
-          {renderButton()}
+            <Text style={styles.itemName}>{t(nameKey as any)}</Text>
+            <Text style={styles.itemDesc}>{t(descKey as any)}</Text>
+
+            {!isPremiumOnly && !isFree && !isOwned && (
+              <View style={styles.priceRow}>
+                <Text style={styles.priceText}>{price} {t('coinSymbol')}</Text>
+                <Text style={styles.balanceText}>
+                  {t('shopYourBalance')}: {userCoins} {t('coinSymbol')}
+                </Text>
+              </View>
+            )}
+
+            {renderButton()}
+          </LinearGradient>
         </Pressable>
       </Pressable>
     </Modal>
@@ -198,13 +220,14 @@ const createStyles = (colors: ThemeColors) =>
       alignItems: 'center',
     },
     card: {
-      backgroundColor: colors.surface,
       borderRadius: 20,
       padding: 24,
-      width: '85%',
-      maxWidth: 340,
+      width: 320,
+      maxWidth: '85%',
       alignItems: 'center',
       gap: 12,
+      borderWidth: 1,
+      borderColor: 'rgba(255,255,255,0.06)',
     },
     closeButton: {
       position: 'absolute',
@@ -261,6 +284,10 @@ const createStyles = (colors: ThemeColors) =>
       backgroundColor: 'transparent',
       borderWidth: 1,
       borderColor: colors.accent,
+    },
+    actionButtonPremium: {
+      backgroundColor: colors.accent,
+      opacity: 0.7,
     },
     actionButtonDisabled: {
       backgroundColor: colors.textMuted,

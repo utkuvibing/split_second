@@ -90,6 +90,7 @@ export default function ProfileScreen() {
             displayName={displayName}
             avatarId={avatarId}
             personality={personality}
+            unlockedBadges={unlockedBadges}
             onEditNickname={() => setNicknameVisible(true)}
             onEditAvatar={() => setAvatarPickerVisible(true)}
           />

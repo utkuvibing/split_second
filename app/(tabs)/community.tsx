@@ -28,7 +28,7 @@ export default function CommunityScreen() {
   const { submit, loading: submitLoading } = useSubmitQuestion();
   const { coins, fetchCoins } = useCoins();
   const [submitVisible, setSubmitVisible] = useState(false);
-  const [remainingToday, setRemainingToday] = useState(3);
+  const [remainingToday, setRemainingToday] = useState(1);
 
   // Load on mount
   useEffect(() => {

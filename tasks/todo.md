@@ -434,3 +434,63 @@
 
 ### Manual Steps
 - [ ] Run 018_avatars.sql in Supabase SQL Editor
+
+---
+
+## Phase 16: Compatibility Matching + Badge Showcase (V16)
+
+### Phase 16.1: Database
+- [x] 021_friend_personalities.sql - get_friends_with_personality() RPC
+  - Fetches friends with their personality axes (conformity, speed, diversity, courage)
+  - Joins friendships → user_profiles → user_personality
+  - Returns JSON array with friend_id, friend_code, display_name, avatar_id, axes
+
+### Phase 16.2: Compatibility Engine
+- [x] lib/compatibility.ts - Client-side compatibility calculation
+  - 4-axis weighted similarity (conformity 0.3, speed 0.2, diversity 0.25, courage 0.25)
+  - Complementary bonus for large courage/speed differences
+  - 5 labels: soulmate (85+), veryCompatible (70+), compatible (50+), different (30+), opposite
+  - Common ground & differences analysis per axis
+- [x] hooks/useCompatibility.ts - Fetch friends + calculate compatibility
+  - Calls get_friends_with_personality RPC
+  - Sorts by compatibility score descending
+  - Tracks bestMatch (highest scoring friend)
+
+### Phase 16.3: Matching Tab UI
+- [x] app/(tabs)/matching.tsx - New matching screen
+  - Empty states: no personality yet, no friends
+  - BestMatchBanner at top + CompatibilityCard list
+- [x] components/BestMatchBanner.tsx - Gradient banner for best match
+  - Avatar, name, score badge, soulmate highlight
+- [x] components/CompatibilityCard.tsx - Per-friend compatibility card
+  - 4-axis similarity bars with color coding
+  - Common ground & differences text
+  - Handles friends without personality (italic message)
+
+### Phase 16.4: Badge Showcase
+- [x] components/BadgeBannerStrip.tsx - Horizontal scrolling badge strip
+  - FlatList horizontal, sorted by most recent unlock
+  - GlassCard with accent border, emoji, title, date
+- [x] components/ProfileCard.tsx - Added BadgeShowcaseRow (max 6 emoji badges)
+- [x] app/(tabs)/profile.tsx - BadgeBannerStrip below ProfileCard
+
+### Phase 16.5: Tab Navigation
+- [x] app/(tabs)/_layout.tsx - 5 tabs: Leaderboard | Eşleşme | Bugün | Topluluk | Profil
+  - initialRouteName="index" (app opens on Bugün)
+  - Font size reduced to 10 for 5-tab fit
+  - Heart icon for matching tab
+
+### Phase 16.6: i18n
+- [x] lib/i18n.ts - 20+ new keys (TR + EN)
+  - Tab, matching, compatibility labels, empty states
+  - Badge showcase, soulmate, common ground, differences
+
+### Phase 16.7: Tests & Verification
+- [x] lib/__tests__/compatibility.test.ts - 13 tests
+  - calculateCompatibility: identical, opposite, per-axis, common ground, differences, complementary bonus, clamping, labels
+  - getCompatibilityLabelKey: all 5 labels
+- [x] All 33 suites, 301 tests passing
+- [x] TypeScript: 0 errors
+
+### Manual Steps for V16
+- [ ] Run 021_friend_personalities.sql in Supabase SQL Editor

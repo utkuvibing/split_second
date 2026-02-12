@@ -218,6 +218,9 @@ const tr = {
   themeForest: 'Orman Gecesi',
   themeRose: 'Gül Altını',
   themeNoir: 'Noir',
+  themeCyber: 'Siber',
+  themeCherry: 'Sakura',
+  themeArctic: 'Kutup',
 
   // Shop
   shopTitle: 'Mağaza',
@@ -229,6 +232,8 @@ const tr = {
   shopOwned: 'Sahip',
   shopGet: 'Al',
   shopPremiumRequired: 'Premium Gerekli',
+  shopPremiumBadge: 'Premium',
+  shopPremiumUnlock: 'Premium ile Aç',
 
   // Frames
   frameNone: 'Varsayılan',
@@ -241,6 +246,12 @@ const tr = {
   frameNeonDesc: 'Parlayan aksan çerçeve',
   frameFireDesc: 'Kırmızı-turuncu çerçeve',
   frameIceDesc: 'Mavi-beyaz çerçeve',
+  framePlatinum: 'Platin',
+  framePlatinumDesc: 'Gümüş gradyan çerçeve',
+  framePrism: 'Prizma',
+  framePrismDesc: 'Gökkuşağı kırılma çerçeve',
+  frameVelvet: 'Kadife',
+  frameVelvetDesc: 'Mor-pembe kadife çerçeve',
 
   // Vote effects
   effectDefault: 'Standart',
@@ -251,6 +262,12 @@ const tr = {
   effectConfettiDesc: 'Oy verince konfeti patlaması',
   effectLightningDesc: 'Şimşek çakması efekti',
   effectHeartsDesc: 'Kalp parçacıkları',
+  effectFireworks: 'Havai Fişek',
+  effectFireworksDesc: 'Havai fişek patlaması',
+  effectSnowfall: 'Kar Yağışı',
+  effectSnowfallDesc: 'Düşen kar taneleri',
+  effectStardust: 'Yıldız Tozu',
+  effectStardustDesc: 'Parıldayan yıldız tozu',
 
   // Premium badges
   badgeCollector: 'Koleksiyoncu',
@@ -364,6 +381,8 @@ const tr = {
   mysteryBoxOpen: 'Aç!',
   mysteryBoxBoost: '2x Coin (1 saat)',
   mysteryBoxInventory: 'Kutular',
+  mysteryBoxTeaser: '3 soruyu cevapla, mystery box kazan!',
+  mysteryBoxTeaserProgress: '{{voted}}/{{total}} tamamlandı',
   rarity_common: 'Sıradan',
   rarity_rare: 'Nadir',
   rarity_epic: 'Destansı',
@@ -415,6 +434,25 @@ const tr = {
   avatarBuy: 'Al',
   avatarInsufficientCoins: 'Yeterli coin yok',
   avatarPremiumOnly: 'Premium',
+
+  // Badge Showcase
+  badgeShowcase: 'Rozetlerin',
+
+  // Matching / Compatibility Tab
+  tabMatching: 'Eşleşme',
+  bestMatch: 'En Uyumlu Eşin',
+  soulmate: 'Ruh İkizi',
+  veryCompatible: 'Çok Uyumlu',
+  compatibleLabel: 'Uyumlu',
+  differentPaths: 'Farklı Yollar',
+  opposites: 'Zıt Kutuplar',
+  commonGround: 'Ortak Noktalar',
+  differencesLabel: 'Farklılıklar',
+  addFriendsToMatch: 'Arkadaş ekle ve uyumluluğunu keşfet',
+  friendNoPersonality: 'Henüz kişilik testi yapmamış',
+  matchingTitle: 'Uyumluluk',
+  noPersonalityYet: 'Kişilik tipini keşfet',
+  noPersonalityMatchDesc: 'Eşleşme için önce 6 oy vererek kişilik tipini belirle!',
 
   // Dev menu
   devMenu: 'Geliştirici Menüsü',
@@ -628,6 +666,9 @@ const en: typeof tr = {
   themeForest: 'Forest Night',
   themeRose: 'Rose Gold',
   themeNoir: 'Noir',
+  themeCyber: 'Cyber',
+  themeCherry: 'Cherry Blossom',
+  themeArctic: 'Arctic',
 
   // Shop
   shopTitle: 'Shop',
@@ -639,6 +680,8 @@ const en: typeof tr = {
   shopOwned: 'Owned',
   shopGet: 'Get',
   shopPremiumRequired: 'Premium Required',
+  shopPremiumBadge: 'Premium',
+  shopPremiumUnlock: 'Unlock with Premium',
 
   // Frames
   frameNone: 'Default',
@@ -651,6 +694,12 @@ const en: typeof tr = {
   frameNeonDesc: 'Glowing accent border',
   frameFireDesc: 'Red-orange border',
   frameIceDesc: 'Blue-white border',
+  framePlatinum: 'Platinum',
+  framePlatinumDesc: 'Silver gradient border',
+  framePrism: 'Prism',
+  framePrismDesc: 'Rainbow refraction border',
+  frameVelvet: 'Velvet',
+  frameVelvetDesc: 'Purple-pink velvet border',
 
   // Vote effects
   effectDefault: 'Standard',
@@ -661,6 +710,12 @@ const en: typeof tr = {
   effectConfettiDesc: 'Confetti burst on vote',
   effectLightningDesc: 'Lightning flash effect',
   effectHeartsDesc: 'Heart particles',
+  effectFireworks: 'Fireworks',
+  effectFireworksDesc: 'Fireworks burst',
+  effectSnowfall: 'Snowfall',
+  effectSnowfallDesc: 'Falling snowflakes',
+  effectStardust: 'Stardust',
+  effectStardustDesc: 'Sparkling star dust',
 
   // Premium badges
   badgeCollector: 'Collector',
@@ -774,6 +829,8 @@ const en: typeof tr = {
   mysteryBoxOpen: 'Open!',
   mysteryBoxBoost: '2x Coins (1 hour)',
   mysteryBoxInventory: 'Boxes',
+  mysteryBoxTeaser: 'Answer all 3 to unlock a mystery box!',
+  mysteryBoxTeaserProgress: '{{voted}}/{{total}} completed',
   rarity_common: 'Common',
   rarity_rare: 'Rare',
   rarity_epic: 'Epic',
@@ -825,6 +882,25 @@ const en: typeof tr = {
   avatarBuy: 'Buy',
   avatarInsufficientCoins: 'Not enough coins',
   avatarPremiumOnly: 'Premium',
+
+  // Badge Showcase
+  badgeShowcase: 'Your Badges',
+
+  // Matching / Compatibility Tab
+  tabMatching: 'Matching',
+  bestMatch: 'Best Match',
+  soulmate: 'Soulmate',
+  veryCompatible: 'Very Compatible',
+  compatibleLabel: 'Compatible',
+  differentPaths: 'Different Paths',
+  opposites: 'Opposites',
+  commonGround: 'Common Ground',
+  differencesLabel: 'Differences',
+  addFriendsToMatch: 'Add friends to discover compatibility',
+  friendNoPersonality: 'No personality test yet',
+  matchingTitle: 'Compatibility',
+  noPersonalityYet: 'Discover your type',
+  noPersonalityMatchDesc: 'Cast 6 votes to unlock your personality type for matching!',
 
   // Dev menu
   devMenu: 'Developer Menu',
