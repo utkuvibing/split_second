@@ -11,6 +11,8 @@ import Animated, {
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { PersonalityType } from '../lib/personality';
+import { AnimatedIcon } from './ui/AnimatedIcon';
+import { GradientButton } from './ui/GradientButton';
 import { t, TranslationKey } from '../lib/i18n';
 
 interface Props {
@@ -80,7 +82,7 @@ export function PersonalityRevealModal({ visible, personality, onClose }: Props)
         <View style={styles.content}>
           {phase === 'analyzing' ? (
             <View style={styles.analyzingContainer}>
-              <Text style={styles.analyzingEmoji}>🔮</Text>
+              <AnimatedIcon name="crystal-ball" family="mci" size={60} color="#ffffff" animation="pulse" />
               <Text style={styles.analyzingText}>{t('personalityAnalyzing')}</Text>
             </View>
           ) : (
@@ -100,9 +102,7 @@ export function PersonalityRevealModal({ visible, personality, onClose }: Props)
                 <Text style={styles.revealDesc}>
                   {t(personality.descKeyTr as TranslationKey)}
                 </Text>
-                <Pressable style={styles.closeButton} onPress={onClose}>
-                  <Text style={styles.closeText}>{t('continue')}</Text>
-                </Pressable>
+                <GradientButton title={t('continue')} onPress={onClose} style={{ marginTop: 24 }} />
               </Animated.View>
             </View>
           )}

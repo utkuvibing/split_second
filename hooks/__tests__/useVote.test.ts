@@ -96,7 +96,7 @@ describe('useVote', () => {
       await result.current.vote('a');
     });
 
-    expect(mockSubmitVote).toHaveBeenCalledWith('question-3', 'a');
+    expect(mockSubmitVote).toHaveBeenCalledWith('question-3', 'a', expect.any(Number));
     expect(result.current.userChoice).toBe('a');
     expect(result.current.hasVoted).toBe(true);
     expect(result.current.results).toEqual({
@@ -146,7 +146,7 @@ describe('useVote', () => {
       await result.current.vote('b');
     });
 
-    expect(mockSubmitVote).toHaveBeenCalledWith('question-5', 'b');
+    expect(mockSubmitVote).toHaveBeenCalledWith('question-5', 'b', expect.any(Number));
     expect(result.current.userChoice).toBeNull();
     expect(result.current.results).toBeNull();
   });
@@ -220,7 +220,7 @@ describe('useVote', () => {
     });
 
     expect(mockSubmitVote).toHaveBeenCalledTimes(1);
-    expect(mockSubmitVote).toHaveBeenCalledWith('question-7', 'a');
+    expect(mockSubmitVote).toHaveBeenCalledWith('question-7', 'a', expect.any(Number));
   });
 
   it('should handle questionId change', async () => {

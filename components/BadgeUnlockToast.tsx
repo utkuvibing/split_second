@@ -12,6 +12,8 @@ import Animated, {
 import { useTheme } from '../lib/themeContext';
 import { getBadgeById } from '../lib/badges';
 import { t } from '../lib/i18n';
+import { RADIUS, SHADOW } from '../constants/ui';
+import { GlassCard } from './ui/GlassCard';
 
 interface Props {
   badgeId: string;
@@ -62,23 +64,23 @@ export function BadgeUnlockToast({ badgeId, onDone }: Props) {
 
   return (
     <Animated.View
-      style={[
-        styles.container,
-        containerStyle,
-        { backgroundColor: colors.surface, borderColor: colors.accent },
-      ]}
+      style={[containerStyle, { marginHorizontal: 24 }, SHADOW.glow(colors.accent)]}
     >
-      <Animated.View style={emojiStyle}>
-        <Text style={styles.emoji}>{badge.emoji}</Text>
-      </Animated.View>
-      <View style={styles.textContainer}>
-        <Text style={[styles.unlocked, { color: colors.accent }]}>
-          {t('badgeUnlocked')}
-        </Text>
-        <Text style={[styles.title, { color: colors.text }]}>
-          {t(badge.titleKey as any)}
-        </Text>
-      </View>
+      <GlassCard>
+        <View style={[styles.container, { borderColor: colors.accent }]}>
+          <Animated.View style={emojiStyle}>
+            <Text style={styles.emoji}>{badge.emoji}</Text>
+          </Animated.View>
+          <View style={styles.textContainer}>
+            <Text style={[styles.unlocked, { color: colors.accent }]}>
+              {t('badgeUnlocked')}
+            </Text>
+            <Text style={[styles.title, { color: colors.text }]}>
+              {t(badge.titleKey as any)}
+            </Text>
+          </View>
+        </View>
+      </GlassCard>
     </Animated.View>
   );
 }
@@ -87,12 +89,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: RADIUS.lg,
     paddingVertical: 12,
     paddingHorizontal: 16,
     gap: 12,
     borderWidth: 1,
-    marginHorizontal: 24,
   },
   emoji: {
     fontSize: 36,

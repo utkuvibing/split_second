@@ -29,29 +29,34 @@ export function StatsGrid({ stats }: Props) {
     <Animated.View entering={FadeIn.duration(400)} style={styles.container}>
       <View style={styles.row}>
         <StatCard
-          emoji="🗳️"
+          icon="checkbox"
+          iconFamily="ionicons"
           value={stats.total_votes.toString()}
           label={t('totalVotesStat')}
         />
         <StatCard
-          emoji="🔥"
+          icon="fire"
+          iconFamily="mci"
           value={stats.current_streak.toString()}
           label={t('dailyStreak')}
         />
         <StatCard
-          emoji="🏆"
+          icon="trophy"
+          iconFamily="ionicons"
           value={stats.longest_streak.toString()}
           label={t('longestStreakStat')}
         />
       </View>
       <View style={styles.row}>
         <StatCard
-          emoji="🤝"
+          icon="hand-left"
+          iconFamily="ionicons"
           value={`%${stats.majority_percent}`}
           label={t('withMajority')}
         />
         <StatCard
-          emoji="🏷️"
+          icon="pricetag"
+          iconFamily="ionicons"
           value={topCategoryLabel}
           label={t('favoriteCategory')}
         />

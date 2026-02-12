@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, Modal } from 'react-native';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { setDevPremium } from '../lib/premium';
+import { GradientButton } from './ui/GradientButton';
 import { t } from '../lib/i18n';
 import { ThemeColors } from '../types/premium';
 
@@ -39,12 +41,12 @@ export function Paywall({ visible, onClose, onPurchased }: Props) {
         <Animated.View entering={SlideInDown.duration(400)} style={styles.container}>
           {/* Close button */}
           <Pressable style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeText}>✕</Text>
+            <Ionicons name="close" size={18} color={colors.textMuted} />
           </Pressable>
 
           {/* Header */}
           <Animated.View entering={FadeIn.delay(200).duration(300)} style={styles.header}>
-            <Text style={styles.logo}>⚡</Text>
+            <Ionicons name="flash" size={48} color={colors.accent} />
             <Text style={styles.title}>{t('premiumTitle')}</Text>
             <Text style={styles.subtitle}>{t('premiumSubtitle')}</Text>
           </Animated.View>
@@ -53,7 +55,7 @@ export function Paywall({ visible, onClose, onPurchased }: Props) {
           <View style={styles.featureList}>
             {FEATURES.map((key) => (
               <View key={key} style={styles.featureRow}>
-                <Text style={styles.featureCheck}>✓</Text>
+                <Ionicons name="checkmark" size={18} color={colors.accent} />
                 <Text style={styles.featureText}>{t(key)}</Text>
               </View>
             ))}
@@ -81,9 +83,7 @@ export function Paywall({ visible, onClose, onPurchased }: Props) {
           </View>
 
           {/* CTA */}
-          <Pressable style={styles.ctaButton} onPress={handlePurchase}>
-            <Text style={styles.ctaText}>{t('premiumStartTrial')}</Text>
-          </Pressable>
+          <GradientButton title={t('premiumStartTrial')} onPress={handlePurchase} glow />
 
           {/* Restore */}
           <Pressable onPress={handlePurchase}>

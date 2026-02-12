@@ -5,6 +5,8 @@ export interface UserProfile {
   premium_until: string | null;
   coins: number;
   friend_code: string;
+  display_name: string | null;
+  avatar_id: string | null;
   theme_id: string;
   frame_id: string;
   vote_effect_id: string;
@@ -48,6 +50,7 @@ export interface CosmeticDef {
 export interface FrameDef extends CosmeticDef {
   slot: 'frame';
   borderColors: string[];
+  isBoxExclusive?: boolean;
 }
 
 export interface VoteEffectDef extends CosmeticDef {

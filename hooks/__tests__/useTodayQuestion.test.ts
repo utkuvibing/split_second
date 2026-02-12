@@ -24,6 +24,7 @@ const mockQuestion = {
   category: 'superpower',
   is_active: true,
   created_at: '2025-01-01T00:00:00Z',
+  time_slot: 'morning' as const,
 };
 
 describe('useTodayQuestion', () => {

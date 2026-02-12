@@ -1,8 +1,11 @@
-import { Text } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { withLayoutContext } from 'expo-router';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../lib/themeContext';
+import { useFriendRequests } from '../../hooks/useFriendRequests';
+import { SHADOW } from '../../constants/ui';
 import { t } from '../../lib/i18n';
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -13,6 +16,7 @@ export default function TabLayout() {
   const colors = useTheme();
   const insets = useSafeAreaInsets();
   const bottomPadding = Math.max(insets.bottom, 8);
+  const { pendingCount } = useFriendRequests();
 
   return (
     <MaterialTopTabs
@@ -21,14 +25,13 @@ export default function TabLayout() {
         swipeEnabled: true,
         animationEnabled: true,
         tabBarStyle: {
-          backgroundColor: colors.surface,
+          backgroundColor: colors.surface + 'E6',
           borderTopColor: colors.background,
           borderTopWidth: 1,
           height: 68 + bottomPadding,
           paddingBottom: bottomPadding,
           paddingTop: 4,
-          elevation: 0,
-          shadowOpacity: 0,
+          ...SHADOW.sm,
         },
         tabBarItemStyle: {
           paddingVertical: 4,
@@ -55,8 +58,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t('tabToday'),
-          tabBarIcon: ({ focused }: { focused: boolean }) => (
-            <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>⚡</Text>
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <Ionicons name={focused ? 'flash' : 'flash-outline'} size={20} color={color} />
           ),
           tabBarShowIcon: true,
         }}
@@ -65,8 +68,18 @@ export default function TabLayout() {
         name="leaderboard"
         options={{
           title: t('tabLeaderboard'),
-          tabBarIcon: ({ focused }: { focused: boolean }) => (
-            <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>🏆</Text>
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <Ionicons name={focused ? 'trophy' : 'trophy-outline'} size={20} color={color} />
+          ),
+          tabBarShowIcon: true,
+        }}
+      />
+      <MaterialTopTabs.Screen
+        name="community"
+        options={{
+          title: t('tabCommunity'),
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <Ionicons name={focused ? 'people' : 'people-outline'} size={20} color={color} />
           ),
           tabBarShowIcon: true,
         }}
@@ -75,8 +88,17 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: t('tabProfile'),
-          tabBarIcon: ({ focused }: { focused: boolean }) => (
-            <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>👤</Text>
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <View>
+              <Ionicons name={focused ? 'person' : 'person-outline'} size={20} color={color} />
+              {pendingCount > 0 && (
+                <View style={{
+                  position: 'absolute', top: -2, right: -6,
+                  backgroundColor: colors.warning, width: 10, height: 10,
+                  borderRadius: 5,
+                }} />
+              )}
+            </View>
           ),
           tabBarShowIcon: true,
         }}

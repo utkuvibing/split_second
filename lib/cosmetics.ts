@@ -78,10 +78,74 @@ export const VOTE_EFFECTS: VoteEffectDef[] = [
   },
 ];
 
+// Box-exclusive frames (not purchasable in shop)
+export const BOX_EXCLUSIVE_FRAMES: FrameDef[] = [
+  {
+    id: 'aurora',
+    nameKey: 'frameAurora',
+    descKey: 'frameAuroraDesc',
+    slot: 'frame',
+    isPremium: false,
+    borderColors: ['#00FF88', '#8B5CF6'],
+    isBoxExclusive: true,
+  },
+  {
+    id: 'galaxy',
+    nameKey: 'frameGalaxy',
+    descKey: 'frameGalaxyDesc',
+    slot: 'frame',
+    isPremium: false,
+    borderColors: ['#1E3A5F', '#9333EA'],
+    isBoxExclusive: true,
+  },
+  {
+    id: 'diamond',
+    nameKey: 'frameDiamond',
+    descKey: 'frameDiamondDesc',
+    slot: 'frame',
+    isPremium: false,
+    borderColors: ['#B9F2FF', '#FFFFFF'],
+    isBoxExclusive: true,
+  },
+  {
+    id: 'phoenix',
+    nameKey: 'framePhoenix',
+    descKey: 'framePhoenixDesc',
+    slot: 'frame',
+    isPremium: false,
+    borderColors: ['#FF4500', '#FFD700'],
+    isBoxExclusive: true,
+  },
+];
+
+export const ALL_FRAMES = [...FRAMES, ...BOX_EXCLUSIVE_FRAMES];
+
 export function getFrameById(id: string): FrameDef {
-  return FRAMES.find((f) => f.id === id) ?? FRAMES[0];
+  return ALL_FRAMES.find((f) => f.id === id) ?? FRAMES[0];
 }
 
+// Box-exclusive effects
+export const BOX_EXCLUSIVE_EFFECTS: VoteEffectDef[] = [
+  {
+    id: 'rainbow',
+    nameKey: 'effectRainbow',
+    descKey: 'effectRainbowDesc',
+    slot: 'vote_effect',
+    isPremium: false,
+    emoji: '🌈',
+  },
+  {
+    id: 'supernova',
+    nameKey: 'effectSupernova',
+    descKey: 'effectSupernovaDesc',
+    slot: 'vote_effect',
+    isPremium: false,
+    emoji: '💥',
+  },
+];
+
+export const ALL_EFFECTS = [...VOTE_EFFECTS, ...BOX_EXCLUSIVE_EFFECTS];
+
 export function getEffectById(id: string): VoteEffectDef {
-  return VOTE_EFFECTS.find((e) => e.id === id) ?? VOTE_EFFECTS[0];
+  return ALL_EFFECTS.find((e) => e.id === id) ?? VOTE_EFFECTS[0];
 }

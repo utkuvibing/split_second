@@ -8,6 +8,7 @@ import {
   setDevOwnAll,
   resetDevPremium,
 } from '../lib/premium';
+import { supabase } from '../lib/supabase';
 import { t } from '../lib/i18n';
 import { ThemeColors } from '../types/premium';
 
@@ -29,6 +30,9 @@ export function DevMenu({ onPremiumChange }: Props) {
   const togglePremium = async (value: boolean) => {
     await setDevPremium(value);
     setPremium(value);
+    if (value) {
+      await supabase.rpc('dev_add_coins', { p_amount: 9999 });
+    }
     onPremiumChange?.();
   };
 

@@ -19,13 +19,27 @@ export const COIN_PRICES: Record<string, number> = {
 
 // Coin reward amounts
 export const COIN_REWARDS = {
-  daily_vote: 10,
+  question_vote: 5,
+  day_complete: 5,
   streak_3: 5,
   streak_7: 15,
   streak_14: 25,
   streak_30: 50,
   badge: 20,
   share: 5,
+  // Mystery box ranges (actual amount determined server-side)
+  mystery_box_common: 15,   // avg 10-20
+  mystery_box_rare: 28,     // avg 20-35
+  mystery_box_epic: 43,     // avg 35-50
+  mystery_box_legendary: 75, // avg 50-100
+  // Community
+  question_promoted: 100,
+};
+
+// Coin costs for actions
+export const COIN_COSTS = {
+  submit_question: 50,
+  change_nickname: 100,
 };
 
 // Get price for a cosmetic, 0 for free items

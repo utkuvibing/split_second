@@ -1,22 +1,24 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
+import { GradientButton } from './ui/GradientButton';
 import { t, TranslationKey } from '../lib/i18n';
 
 interface Props {
   onUpgrade: () => void;
 }
 
-const FEATURES: { emoji: string; titleKey: TranslationKey; descKey: TranslationKey }[] = [
-  { emoji: '📜', titleKey: 'premiumFeatureHistory', descKey: 'premiumFeatureHistoryDesc' },
-  { emoji: '📊', titleKey: 'premiumFeatureStats', descKey: 'premiumFeatureStatsDesc' },
-  { emoji: '🏅', titleKey: 'premiumFeatureBadges', descKey: 'premiumFeatureBadgesDesc' },
-  { emoji: '💡', titleKey: 'premiumFeatureInsights', descKey: 'premiumFeatureInsightsDesc' },
-  { emoji: '🎨', titleKey: 'premiumFeatureThemes', descKey: 'premiumFeatureThemesDesc' },
-  { emoji: '🚫', titleKey: 'premiumFeatureNoAds', descKey: 'premiumFeatureNoAdsDesc' },
-  { emoji: '👥', titleKey: 'premiumFeatureFriends', descKey: 'premiumFeatureFriendsDesc' },
-  { emoji: '🧠', titleKey: 'premiumFeaturePersonality', descKey: 'premiumFeaturePersonalityDesc' },
+const FEATURES: { icon: string; iconFamily?: 'mci'; titleKey: TranslationKey; descKey: TranslationKey }[] = [
+  { icon: 'document-text', titleKey: 'premiumFeatureHistory', descKey: 'premiumFeatureHistoryDesc' },
+  { icon: 'bar-chart', titleKey: 'premiumFeatureStats', descKey: 'premiumFeatureStatsDesc' },
+  { icon: 'medal', titleKey: 'premiumFeatureBadges', descKey: 'premiumFeatureBadgesDesc' },
+  { icon: 'bulb', titleKey: 'premiumFeatureInsights', descKey: 'premiumFeatureInsightsDesc' },
+  { icon: 'color-palette', titleKey: 'premiumFeatureThemes', descKey: 'premiumFeatureThemesDesc' },
+  { icon: 'ban', titleKey: 'premiumFeatureNoAds', descKey: 'premiumFeatureNoAdsDesc' },
+  { icon: 'people', titleKey: 'premiumFeatureFriends', descKey: 'premiumFeatureFriendsDesc' },
+  { icon: 'brain', iconFamily: 'mci', titleKey: 'premiumFeaturePersonality', descKey: 'premiumFeaturePersonalityDesc' },
 ];
 
 export function PremiumFeaturesCard({ onUpgrade }: Props) {
@@ -30,7 +32,13 @@ export function PremiumFeaturesCard({ onUpgrade }: Props) {
       <View style={styles.featureList}>
         {FEATURES.map((f) => (
           <View key={f.titleKey} style={styles.featureRow}>
-            <Text style={styles.featureEmoji}>{f.emoji}</Text>
+            <View style={styles.featureIconContainer}>
+              {f.iconFamily === 'mci' ? (
+                <MaterialCommunityIcons name={f.icon as any} size={20} color={colors.accent} />
+              ) : (
+                <Ionicons name={f.icon as any} size={20} color={colors.accent} />
+              )}
+            </View>
             <View style={styles.featureText}>
               <Text style={styles.featureTitle}>{t(f.titleKey)}</Text>
               <Text style={styles.featureDesc}>{t(f.descKey)}</Text>
@@ -39,9 +47,7 @@ export function PremiumFeaturesCard({ onUpgrade }: Props) {
         ))}
       </View>
 
-      <Pressable style={[styles.ctaButton, { backgroundColor: colors.accent }]} onPress={onUpgrade}>
-        <Text style={styles.ctaText}>{t('premiumUpgrade')}</Text>
-      </Pressable>
+      <GradientButton title={t('premiumUpgrade')} onPress={onUpgrade} glow />
     </Animated.View>
   );
 }
@@ -67,10 +73,9 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  featureEmoji: {
-    fontSize: 22,
+  featureIconContainer: {
     width: 30,
-    textAlign: 'center',
+    alignItems: 'center',
   },
   featureText: {
     flex: 1,
@@ -84,15 +89,5 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
   featureDesc: {
     fontSize: 12,
     color: colors.textMuted,
-  },
-  ctaButton: {
-    borderRadius: 12,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  ctaText: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#FFFFFF',
   },
 });

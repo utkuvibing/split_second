@@ -1,4 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { t } from '../lib/i18n';
 
@@ -23,7 +24,7 @@ export function PremiumGate({ isPremium, feature, children, fallback, onUpgrade 
 
   return (
     <View style={[styles.container, { backgroundColor: colors.surface }]}>
-      <Text style={styles.lockEmoji}>🔒</Text>
+      <Ionicons name="lock-closed" size={32} color={colors.textMuted} />
       <Text style={[styles.title, { color: colors.text }]}>{t('premiumFeature')}</Text>
       <Text style={[styles.subtitle, { color: colors.textMuted }]}>{t('premiumUnlock')}</Text>
       {onUpgrade && (

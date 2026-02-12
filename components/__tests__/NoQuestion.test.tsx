@@ -28,8 +28,9 @@ describe('NoQuestion', () => {
     expect(getByText('12:34:56')).toBeTruthy();
   });
 
-  it('renders emoji', () => {
+  it('renders hourglass icon', () => {
     const { getByText } = render(<NoQuestion />);
-    expect(getByText('⏳')).toBeTruthy();
+    // AnimatedIcon renders Ionicons mock which outputs the icon name as text
+    expect(getByText('hourglass')).toBeTruthy();
   });
 });

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Modal, Pressable, Dimensions, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme, useSetTheme } from '../lib/themeContext';
 import { THEMES } from '../lib/themes';
 import { FRAMES, VOTE_EFFECTS } from '../lib/cosmetics';
@@ -109,7 +110,7 @@ export function Shop({ visible, onClose }: Props) {
               <Text style={styles.coinText}>{coins} {t('coinSymbol')}</Text>
             </View>
             <Pressable onPress={onClose} hitSlop={12}>
-              <Text style={styles.closeText}>✕</Text>
+              <Ionicons name="close" size={24} color={colors.textMuted} />
             </Pressable>
           </View>
         </View>

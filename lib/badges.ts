@@ -19,6 +19,14 @@ export interface BadgeContext {
   longest_streak: number;
   vote_time_seconds?: number;
   vote_hour?: number;
+  // Mystery box context (provided client-side)
+  boxes_opened?: number;
+  legendary_boxes?: number;
+  // Community context (provided client-side)
+  questions_submitted?: number;
+  max_upvotes?: number;
+  // Live event context (provided client-side)
+  live_events_joined?: number;
   // Premium badge context (provided client-side)
   owned_cosmetics_count?: number;
   theme_changes_count?: number;
@@ -141,6 +149,47 @@ export const BADGES: BadgeDef[] = [
     descKey: 'badgeVeteranDesc',
     check: (ctx) => ctx.total_votes >= 100,
     progress: (ctx) => ({ current: Math.min(ctx.total_votes, 100), target: 100 }),
+  },
+  // Mystery box badges
+  {
+    id: 'box_opener',
+    emoji: '📦',
+    titleKey: 'badgeBoxOpener',
+    descKey: 'badgeBoxOpenerDesc',
+    check: (ctx) => (ctx.boxes_opened ?? 0) >= 10,
+    progress: (ctx) => ({ current: Math.min(ctx.boxes_opened ?? 0, 10), target: 10 }),
+  },
+  {
+    id: 'lucky',
+    emoji: '🍀',
+    titleKey: 'badgeLucky',
+    descKey: 'badgeLuckyDesc',
+    check: (ctx) => (ctx.legendary_boxes ?? 0) >= 1,
+  },
+  // Community badges
+  {
+    id: 'creator',
+    emoji: '✍️',
+    titleKey: 'badgeCreator',
+    descKey: 'badgeCreatorDesc',
+    check: (ctx) => (ctx.questions_submitted ?? 0) >= 5,
+    progress: (ctx) => ({ current: Math.min(ctx.questions_submitted ?? 0, 5), target: 5 }),
+  },
+  {
+    id: 'trendsetter',
+    emoji: '📈',
+    titleKey: 'badgeTrendsetter',
+    descKey: 'badgeTrendsetterDesc',
+    check: (ctx) => (ctx.max_upvotes ?? 0) >= 50,
+  },
+  // Live event badge
+  {
+    id: 'live_voter',
+    emoji: '📡',
+    titleKey: 'badgeLiveVoter',
+    descKey: 'badgeLiveVoterDesc',
+    check: (ctx) => (ctx.live_events_joined ?? 0) >= 5,
+    progress: (ctx) => ({ current: Math.min(ctx.live_events_joined ?? 0, 5), target: 5 }),
   },
   // Premium badges
   {

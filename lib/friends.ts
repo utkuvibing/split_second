@@ -5,6 +5,8 @@ export const FREE_FRIEND_LIMIT = 3;
 export interface Friend {
   friend_id: string;
   friend_code: string;
+  friend_display_name: string | null;
+  friend_avatar_id: string | null;
   created_at: string;
   compatibility: number | null;
 }
@@ -12,17 +14,19 @@ export interface Friend {
 export interface FriendVote {
   friend_id: string;
   friend_code: string;
+  friend_display_name: string | null;
+  friend_avatar_id: string | null;
   choice: 'a' | 'b' | null;
   voted_at: string | null;
 }
 
-export type AddFriendError = 'not_found' | 'self' | 'already_friends' | 'limit_reached';
+export type AddFriendError = 'not_found' | 'self' | 'already_friends' | 'already_pending' | 'limit_reached';
 
 export async function addFriendByCode(
   code: string,
   isPremium: boolean
 ): Promise<{ success: boolean; error?: AddFriendError }> {
-  const { data, error } = await supabase.rpc('add_friend_by_code', {
+  const { data, error } = await supabase.rpc('send_friend_request', {
     p_code: code.toUpperCase(),
     p_is_premium: isPremium,
   });
@@ -58,7 +62,7 @@ export function getCompatibilityKey(score: number): string {
   return 'compatibilityHigh';
 }
 
-/** Generate a short display name from friend_code */
-export function getFriendDisplayName(friendCode: string): string {
-  return friendCode;
+/** Get display name: prefer nickname, fallback to friend_code */
+export function getFriendDisplayName(friendCode: string, displayName?: string | null): string {
+  return displayName || friendCode;
 }

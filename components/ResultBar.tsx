@@ -2,14 +2,15 @@ import { View, Text, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withTiming,
+  withSpring,
   withDelay,
-  Easing,
   FadeIn,
 } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState, useMemo } from 'react';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
+import { SHADOW, SPRING } from '../constants/ui';
 import { getCategoryInsight } from '../lib/insights';
 import { t } from '../lib/i18n';
 
@@ -26,9 +27,12 @@ function SocialProofBadge({ userPercent }: { userPercent: number }) {
       entering={FadeIn.delay(1000).duration(400)}
       style={[styles.socialProofContainer, { borderColor: color }]}
     >
-      <Text style={[styles.socialProofText, { color }]}>
-        {isMajority ? '🤝' : '🔥'} {message}
-      </Text>
+      <View style={styles.socialProofRow}>
+        <Ionicons name={isMajority ? 'hand-left' : 'flame'} size={16} color={color} />
+        <Text style={[styles.socialProofText, { color }]}>
+          {message}
+        </Text>
+      </View>
     </Animated.View>
   );
 }
@@ -116,7 +120,7 @@ function ResultBar({
   useEffect(() => {
     animatedWidth.value = withDelay(
       delay,
-      withTiming(percentage, { duration: 800, easing: Easing.out(Easing.cubic) })
+      withSpring(percentage, SPRING.progress)
     );
 
     const startTime = Date.now() + delay;
@@ -150,11 +154,12 @@ function ResultBar({
           ]}
           numberOfLines={2}
         >
-          {isUserChoice ? '\u2713 ' : ''}{label}
+          {isUserChoice && <Ionicons name="checkmark-circle" size={16} color={color} />}
+          {isUserChoice ? ' ' : ''}{label}
         </Text>
         <Text style={[styles.percentage, { color }]}>{displayPercent}%</Text>
       </View>
-      <View style={[styles.barTrack, { backgroundColor: colors.surface }]}>
+      <View style={[styles.barTrack, { backgroundColor: colors.surface }, SHADOW.sm]}>
         <Animated.View style={[styles.barFill, { backgroundColor: color }, barStyle]} />
       </View>
       <Text style={[styles.voteCount, { color: colors.textMuted }]}>
@@ -214,6 +219,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
     alignItems: 'center',
+  },
+  socialProofRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
   },
   socialProofText: {
     fontSize: 14,

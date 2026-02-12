@@ -1,12 +1,13 @@
 import { Share } from 'react-native';
 import { t } from './i18n';
 
-export function buildChallengeLink(date: string): string {
-  return `split-second://q/${date}`;
+export function buildChallengeLink(date: string, slot?: string): string {
+  const base = `split-second://q/${date}`;
+  return slot ? `${base}?slot=${slot}` : base;
 }
 
-export async function shareChallenge(questionText: string, date: string) {
-  const link = buildChallengeLink(date);
+export async function shareChallenge(questionText: string, date: string, slot?: string) {
+  const link = buildChallengeLink(date, slot);
   const message = t('challengeShareText', {
     question: questionText,
     link,

@@ -27,7 +27,8 @@ describe('votes', () => {
       expect(result).toEqual(mockResults);
       expect(supabase.rpc).toHaveBeenCalledWith('submit_vote_and_get_results', {
         p_question_id: 'question-123',
-        p_choice: 'a'
+        p_choice: 'a',
+        p_vote_time: null,
       });
     });
 

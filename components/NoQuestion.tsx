@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../lib/themeContext';
 import { DailyCountdown } from './DailyCountdown';
+import { AnimatedIcon } from './ui/AnimatedIcon';
 import { t } from '../lib/i18n';
 
 export function NoQuestion() {
@@ -8,7 +9,7 @@ export function NoQuestion() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.emoji}>⏳</Text>
+      <AnimatedIcon name="hourglass" size={48} color={colors.textMuted} animation="pulse" />
       <Text style={[styles.title, { color: colors.text }]}>{t('noQuestionToday')}</Text>
       <Text style={[styles.subtitle, { color: colors.textMuted }]}>
         {t('comeBackTomorrow')}
@@ -25,10 +26,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 32,
     gap: 12,
-  },
-  emoji: {
-    fontSize: 48,
-    marginBottom: 8,
   },
   title: {
     fontSize: 24,

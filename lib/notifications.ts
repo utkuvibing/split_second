@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { t } from './i18n';
 
-const NOTIFICATION_SCHEDULED_KEY = 'daily_notification_scheduled';
+const NOTIFICATION_SCHEDULED_KEY = 'daily_notifications_v2_scheduled';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -44,7 +44,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   return true;
 }
 
-export async function scheduleDailyReminder() {
+export async function scheduleDailyReminders() {
   const alreadyScheduled = await AsyncStorage.getItem(NOTIFICATION_SCHEDULED_KEY);
   if (alreadyScheduled === 'true') return;
 
@@ -53,21 +53,53 @@ export async function scheduleDailyReminder() {
 
   await Notifications.cancelAllScheduledNotificationsAsync();
 
+  // Morning reminder at 08:00
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: t('dailyReminderTitle'),
-      body: t('dailyReminderBody'),
+      title: t('morningReminderTitle'),
+      body: t('morningReminderBody'),
       sound: 'default',
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 12,
+      hour: 8,
+      minute: 0,
+    },
+  });
+
+  // Afternoon reminder at 14:00
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: t('afternoonReminderTitle'),
+      body: t('afternoonReminderBody'),
+      sound: 'default',
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DAILY,
+      hour: 14,
+      minute: 0,
+    },
+  });
+
+  // Evening reminder at 20:00
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: t('eveningReminderTitle'),
+      body: t('eveningReminderBody'),
+      sound: 'default',
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DAILY,
+      hour: 20,
       minute: 0,
     },
   });
 
   await AsyncStorage.setItem(NOTIFICATION_SCHEDULED_KEY, 'true');
 }
+
+// Keep backward compat name
+export const scheduleDailyReminder = scheduleDailyReminders;
 
 export async function scheduleStreakReminder(currentStreak: number) {
   if (currentStreak < 3) return;
@@ -83,7 +115,7 @@ export async function scheduleStreakReminder(currentStreak: number) {
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 20,
+      hour: 21,
       minute: 0,
     },
   });

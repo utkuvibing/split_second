@@ -16,6 +16,7 @@ const ERROR_KEYS: Record<string, TranslationKey> = {
   not_found: 'addFriendError',
   self: 'addFriendSelf',
   already_friends: 'addFriendAlready',
+  already_pending: 'alreadyPending',
   limit_reached: 'addFriendLimit',
 };
 
@@ -82,7 +83,7 @@ export function AddFriendModal({ visible, onClose, onSubmit }: Props) {
 
           {success && (
             <Animated.Text entering={FadeIn.duration(200)} style={styles.success}>
-              {t('addFriendSuccess')}
+              {t('friendRequestSent')}
             </Animated.Text>
           )}
 

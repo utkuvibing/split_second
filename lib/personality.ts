@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 
-export const PERSONALITY_UNLOCK_VOTES = 7;
+export const PERSONALITY_UNLOCK_VOTES = 6;
 
 export interface PersonalityType {
   id: string;

@@ -1,3 +1,5 @@
+export type TimeSlot = 'morning' | 'afternoon' | 'evening';
+
 export interface Question {
   id: string;
   question_text: string;
@@ -7,6 +9,7 @@ export interface Question {
   category: string;
   is_active: boolean;
   created_at: string;
+  time_slot: TimeSlot;
   question_text_tr?: string | null;
   option_a_tr?: string | null;
   option_b_tr?: string | null;
@@ -30,6 +33,8 @@ export interface VoteResults {
   total_votes?: number;
   coins_earned?: number;
   total_coins?: number;
+  votes_today?: number;
+  all_today_voted?: boolean;
 }
 
 export interface UserProfileRow {

@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native';
 import { useTheme } from '../../lib/themeContext';
 import { ThemeColors } from '../../types/premium';
+import { GradientButton } from '../../components/ui/GradientButton';
 import { useAuth } from '../../hooks/useAuth';
 import { useVote } from '../../hooks/useVote';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
@@ -22,23 +24,28 @@ const TIMER_SECONDS = 10;
 export default function ChallengeScreen() {
   const colors = useTheme();
   const styles = createStyles(colors);
-  const { date } = useLocalSearchParams<{ date: string }>();
+  const { date, slot } = useLocalSearchParams<{ date: string; slot?: string }>();
   const { userId, loading: authLoading } = useAuth();
   const [question, setQuestion] = useState<Question | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch question by date
+  // Fetch question by date (and optionally by slot)
   useEffect(() => {
     if (!userId || !date) return;
 
     (async () => {
-      const { data, error: fetchError } = await supabase
+      let query = supabase
         .from('questions')
         .select('*')
         .eq('scheduled_date', date)
-        .eq('is_active', true)
-        .single();
+        .eq('is_active', true);
+
+      if (slot) {
+        query = query.eq('time_slot', slot);
+      }
+
+      const { data, error: fetchError } = await query.limit(1).single();
 
       if (fetchError) {
         setError(t('questionNotFound'));
@@ -47,7 +54,7 @@ export default function ChallengeScreen() {
       }
       setLoading(false);
     })();
-  }, [userId, date]);
+  }, [userId, date, slot]);
 
   const { vote, userChoice, results, hasVoted, submitting, loading: voteLoading } = useVote(question?.id);
 
@@ -85,11 +92,9 @@ export default function ChallengeScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.center}>
-          <Text style={styles.errorEmoji}>🔗</Text>
+          <Ionicons name="link" size={48} color={colors.textMuted} />
           <Text style={styles.errorText}>{error ?? t('questionNotFound')}</Text>
-          <Pressable style={styles.retryButton} onPress={() => router.replace('/')}>
-            <Text style={styles.retryText}>{t('goHome')}</Text>
-          </Pressable>
+          <GradientButton title={t('goHome')} onPress={() => router.replace('/')} />
         </View>
       </SafeAreaView>
     );
@@ -117,10 +122,8 @@ export default function ChallengeScreen() {
               category={question.category}
             />
           </Animated.View>
-          <Animated.View entering={FadeIn.delay(800)}>
-            <Pressable style={styles.homeButton} onPress={() => router.replace('/')}>
-              <Text style={styles.homeButtonText}>{t('goToTodayQuestion')}</Text>
-            </Pressable>
+          <Animated.View entering={FadeIn.delay(800)} style={{ marginHorizontal: 24 }}>
+            <GradientButton title={t('goToTodayQuestion')} onPress={() => router.replace('/')} />
           </Animated.View>
         </View>
       </SafeAreaView>
@@ -186,37 +189,8 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     paddingHorizontal: 24,
     lineHeight: 30,
   },
-  errorEmoji: {
-    fontSize: 48,
-    marginBottom: 8,
-  },
   errorText: {
     fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  retryButton: {
-    marginTop: 16,
-    backgroundColor: colors.accent,
-    paddingHorizontal: 32,
-    paddingVertical: 14,
-    borderRadius: 12,
-  },
-  retryText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  homeButton: {
-    backgroundColor: colors.accent,
-    paddingVertical: 14,
-    paddingHorizontal: 32,
-    borderRadius: 14,
-    alignItems: 'center',
-    marginHorizontal: 24,
-  },
-  homeButtonText: {
-    fontSize: 16,
     fontWeight: '700',
     color: colors.text,
   },

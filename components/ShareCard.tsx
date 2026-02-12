@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { t } from '../lib/i18n';
+import { RADIUS, SHADOW } from '../constants/ui';
 
 interface Props {
   questionText: string;
@@ -56,12 +57,13 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     gap: 16,
     borderWidth: 1,
     borderColor: colors.surface,
+    ...SHADOW.lg,
   },
   brand: {
     fontSize: 14,
     fontWeight: '800',
     color: colors.accent,
-    letterSpacing: 2,
+    letterSpacing: 3,
     textAlign: 'center',
   },
   question: {

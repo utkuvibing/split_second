@@ -266,3 +266,171 @@
 - [ ] Run 010_personality.sql in Supabase SQL Editor
 - [ ] Run 011_friends.sql in Supabase SQL Editor
 - [ ] Install expo-clipboard: `npx expo install expo-clipboard`
+
+## Phase 12: Motivation Package (Multi-Question System)
+
+### Phase 12.1: Database Migration
+- [x] 012_multiple_questions.sql - time_slot column, composite unique constraint
+- [x] Updated submit_vote_and_get_results RPC: 5 coins/vote, streak on 3/3 completion
+
+### Phase 12.2: Client Data Layer
+- [x] types/database.ts - Added TimeSlot type, time_slot to Question, votes_today/all_today_voted to VoteResults
+- [x] lib/questions.ts - getTodayQuestions() (array), isQuestionUnlocked(), getSecondsUntilUnlock()
+- [x] hooks/useTodayQuestions.ts - New hook replacing useTodayQuestion
+- [x] hooks/useCountdownToUnlock.ts - Per-slot countdown timer
+
+### Phase 12.3: Carousel UI
+- [x] components/QuestionCarousel.tsx - FlatList horizontal paging with pagination dots
+- [x] components/LockedQuestionCard.tsx - Lock icon + countdown for locked slots
+- [x] app/(tabs)/index.tsx - Major refactor: multi-question state, carousel, day-complete view
+
+### Phase 12.4: Supporting Changes
+- [x] lib/personality.ts - PERSONALITY_UNLOCK_VOTES 7 → 6
+- [x] lib/coins.ts - COIN_REWARDS.daily_vote → question_vote (5), added day_complete (5)
+- [x] lib/notifications.ts - 3 time slot notifications (08:00, 14:00, 20:00)
+- [x] hooks/useDailyCountdown.ts - Next question unlock or midnight countdown
+- [x] components/DailyCountdown.tsx - Dynamic label based on countdown type
+- [x] lib/deeplink.ts - Added slot param support
+- [x] app/q/[date].tsx - Added ?slot= query param for deep links
+- [x] lib/i18n.ts - 20+ new keys (TR + EN): multi-question, notifications, onboarding, social
+
+### Phase 12.5: Onboarding
+- [x] components/Onboarding.tsx - 4 slides (was 2): questions, world, personality, friends
+
+### Phase 12.6: Social Layer
+- [x] components/FriendVotesFeed.tsx - Bigger card layout with reaction badges
+- [x] app/(tabs)/leaderboard.tsx - Global/Friends tab with actual friend filtering
+- [x] lib/leaderboard.ts - Added fetchFriendLeaderboard() with client-side filtering
+- [x] hooks/useLeaderboard.ts - Tab parameter support (global/friends)
+- [x] lib/i18n.ts - Added leaderboardFriendRank key (TR + EN)
+
+### Phase 12.7: Tests
+- [x] Updated lib/__tests__/questions.test.ts for getTodayQuestions + unlock tests
+- [x] Updated hooks/__tests__/useTodayQuestion.test.ts with time_slot mock data
+- [x] Updated hooks/__tests__/useVote.test.ts for vote_time arg
+- [x] Updated lib/__tests__/votes.test.ts for p_vote_time param
+- [x] NEW hooks/__tests__/useTodayQuestions.test.ts - 7 tests for multi-question hook
+- [x] All 288 tests passing, TypeScript clean
+
+### Manual Steps for V12
+- [ ] Run 012_multiple_questions.sql in Supabase SQL Editor
+- [ ] Seed 3 questions per day (morning/afternoon/evening time_slot) instead of 1
+- [ ] Test carousel swipe on real device
+
+---
+
+## Phase 13: UI Modernization (V13)
+
+### Phase 13.1: Foundation
+- [x] constants/ui.ts - Design tokens (RADIUS, SHADOW, GLASS, GRADIENT, SPRING)
+- [x] components/ui/GlassCard.tsx - Glassmorphism wrapper (BlurView + fallback)
+- [x] components/ui/GradientButton.tsx - LinearGradient CTA with spring animation
+- [x] components/ui/AnimatedIcon.tsx - Animated Ionicons/MCI with pulse/bounce
+- [x] lib/haptics.ts - hapticButton(), hapticError(), hapticStreak() functions
+- [x] constants/typography.ts - letterSpacing + textShadow enhancements
+
+### Phase 13.2: Tab Bar
+- [x] app/(tabs)/_layout.tsx - Ionicons replacing emoji Text, SHADOW.sm, frosted bg
+
+### Phase 13.3: Core Components
+- [x] QuestionCard.tsx - SHADOW.md, SPRING.button, hapticButton, RADIUS.lg, letterSpacing
+- [x] ResultBar.tsx - Ionicons (hand-left, flame, checkmark-circle), withSpring, SHADOW.sm
+- [x] CountdownTimer.tsx - Glass container, Typography.timer, SHADOW.sm
+- [x] QuestionCarousel.tsx - Gradient pagination dots, glass progress pill
+- [x] LockedQuestionCard.tsx - GlassCard + AnimatedIcon lock pulse
+- [x] ProfileCard.tsx - GlassCard, Ionicons person, MCI fire
+- [x] StreakBadge.tsx - AnimatedIcon fire (pulse streak>7)
+- [x] StatCard.tsx - Icon support + SHADOW.sm + RADIUS.lg
+- [x] StatsGrid.tsx - All emojis → icons
+- [x] ShareCard.tsx - SHADOW.lg, letterSpacing brand text
+- [x] BadgeUnlockToast.tsx - GlassCard + accent glow
+- [x] FriendVotesFeed.tsx - GLASS bg + SHADOW.sm
+- [x] PersonalityDetailCard.tsx - GlassCard + SHADOW.sm
+- [x] DailyCountdown.tsx - GLASS background + border
+
+### Phase 13.4: Screens
+- [x] index.tsx - Ionicons, GradientButton, GlassCard wrappers
+- [x] profile.tsx - GlassCard coin badge, GradientButton shop, icons
+- [x] leaderboard.tsx - GlassCard tab toggle, SHADOW.sm rank banner
+- [x] q/[date].tsx - Ionicons link, GradientButton home/retry
+
+### Phase 13.5: Secondary Components
+- [x] Onboarding.tsx - AnimatedIcon slides, GradientButton, gradient dot
+- [x] LeaderboardRow.tsx - MCI fire, RADIUS.lg + SHADOW.sm
+- [x] Leaderboard.tsx - AnimatedIcon trophy bounce
+- [x] FriendsList.tsx - Ionicons, GradientButton
+- [x] FriendCodeCard.tsx - GlassCard, Ionicons clipboard
+- [x] Shop.tsx - Ionicons close
+- [x] Paywall.tsx - Ionicons close/flash/checkmark, GradientButton
+- [x] PremiumFeaturesCard.tsx - Ionicons/MCI feature icons, GradientButton
+- [x] PersonalityProgress.tsx - AnimatedIcon crystal-ball pulse
+- [x] PersonalityRevealModal.tsx - AnimatedIcon + GradientButton
+- [x] PostVoteInsights.tsx - Ionicons lock-closed
+- [x] PremiumGate.tsx - Ionicons lock-closed
+- [x] NoQuestion.tsx - AnimatedIcon hourglass pulse
+- [x] GlobalStatsBanner.tsx - GLASS background
+- [x] BadgeGrid.tsx - Ionicons lock-closed
+
+### Phase 13.6: Tests & Verification
+- [x] jest.setup.js - Mocks for @expo/vector-icons, expo-linear-gradient, expo-blur, react-native-reanimated
+- [x] NoQuestion.test.tsx - Updated emoji assertion → icon assertion
+- [x] All 32 suites, 288 tests passing
+- [x] TypeScript: 0 errors
+- [x] Expo Metro Bundler starts successfully
+
+---
+
+## Bug Fixes + Community Coin Cost (V14)
+
+### Bug Fix 1: UTC Timezone
+- [x] lib/questions.ts - `toISOString()` → local date formatting (fixes UTC+3 midnight issue)
+
+### Bug Fix 2: Nickname Error Messages
+- [x] lib/nickname.ts - Distinguish RPC missing (`server_error`) vs validation (`invalid_length`)
+- [x] components/NicknameEditModal.tsx - Show "sunucu hatası" for server errors
+- [x] lib/i18n.ts - Added `nicknameServerError` key (TR + EN)
+
+### Feature: Community Question Coin Cost (50 coins)
+- [x] supabase/migrations/016_community_questions.sql - Coin balance check + deduct + transaction log in `submit_community_question` RPC
+- [x] lib/coins.ts - Added `COIN_COSTS.submit_question = 50`
+- [x] components/SubmitQuestionModal.tsx - `userCoins` prop, cost label, disabled when insufficient
+- [x] hooks/useSubmitQuestion.ts - Handles `insufficient_coins` error code
+- [x] app/(tabs)/community.tsx - useCoins integration, passes coins to modal, refreshes after submit
+- [x] lib/i18n.ts - Added `communitySubmitCost`, `communityInsufficientCoins` keys (TR + EN)
+- [x] TypeScript: 0 errors
+
+### Manual Steps
+- [ ] Run 013_nicknames.sql in Supabase SQL Editor (nick kaydetme için gerekli!)
+- [ ] Update `submit_community_question` RPC in Supabase (re-run 016 or ALTER)
+
+---
+
+## Phase 15: Avatar System + Dev Coin Boost (V15)
+
+### Avatar System
+- [x] 018_avatars.sql - avatar_id column, set_avatar RPC, dev_add_coins RPC
+  - Updated get_or_create_profile: returns avatar_id
+  - Updated get_leaderboard: returns avatar_id per entry
+  - Updated get_friends_list: returns friend_avatar_id
+  - Updated get_friend_votes_for_question: returns friend_avatar_id
+- [x] lib/avatars.ts - 28 emoji avatars in 4 categories (animals, people, objects, nature)
+- [x] lib/avatar.ts - setAvatar() RPC wrapper
+- [x] types/premium.ts - avatar_id field on UserProfile
+- [x] hooks/usePremium.ts - avatarId state + return
+- [x] components/AvatarDisplay.tsx - Reusable avatar+frame renderer (emoji or person icon)
+- [x] components/ProfileCard.tsx - Refactored to use AvatarDisplay, added onEditAvatar prop
+- [x] components/AvatarPickerModal.tsx - Category tabs, 4-column grid, save to DB
+- [x] app/(tabs)/profile.tsx - AvatarPickerModal wired up
+- [x] lib/leaderboard.ts - avatar_id field on LeaderboardEntry
+- [x] lib/friends.ts - friend_avatar_id on Friend + FriendVote interfaces
+- [x] components/LeaderboardRow.tsx - 28px avatar next to rank
+- [x] components/FriendsList.tsx - 28px avatar next to friend name
+- [x] components/FriendVotesFeed.tsx - 24px avatar in card header
+- [x] lib/i18n.ts - 7 new keys (TR + EN): chooseAvatar, avatarSaved, categories, avatarNone
+
+### Dev Menu Coin Boost
+- [x] components/DevMenu.tsx - Premium toggle adds +9999 coins via dev_add_coins RPC
+- [x] TypeScript: 0 errors
+
+### Manual Steps
+- [ ] Run 018_avatars.sql in Supabase SQL Editor

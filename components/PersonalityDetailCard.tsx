@@ -4,6 +4,8 @@ import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { PersonalityType, PersonalityAxes } from '../lib/personality';
 import { t, TranslationKey } from '../lib/i18n';
+import { RADIUS, SHADOW } from '../constants/ui';
+import { GlassCard } from './ui/GlassCard';
 
 interface Props {
   personality: PersonalityType;
@@ -30,41 +32,44 @@ export function PersonalityDetailCard({ personality, axes, isPremium }: Props) {
   const styles = createStyles(colors);
 
   return (
-    <Animated.View entering={FadeIn.duration(400)} style={styles.card}>
-      <View style={styles.header}>
-        <Text style={styles.emoji}>{personality.emoji}</Text>
-        <View style={styles.headerText}>
-          <Text style={styles.title}>
-            {t(personality.titleKeyTr as TranslationKey)}
-          </Text>
-          <Text style={styles.desc}>
-            {t(personality.descKeyTr as TranslationKey)}
-          </Text>
-        </View>
-      </View>
+    <Animated.View entering={FadeIn.duration(400)}>
+      <GlassCard style={SHADOW.sm}>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <Text style={styles.emoji}>{personality.emoji}</Text>
+            <View style={styles.headerText}>
+              <Text style={styles.title}>
+                {t(personality.titleKeyTr as TranslationKey)}
+              </Text>
+              <Text style={styles.desc}>
+                {t(personality.descKeyTr as TranslationKey)}
+              </Text>
+            </View>
+          </View>
 
-      {isPremium ? (
-        <View style={styles.axes}>
-          <AxisBar label={t('personalityConformity')} value={axes.conformity} color={colors.optionA} />
-          <AxisBar label={t('personalitySpeed')} value={axes.speed} color={colors.accent} />
-          <AxisBar label={t('personalityDiversity')} value={axes.diversity} color={colors.success} />
-          <AxisBar label={t('personalityCourage')} value={axes.courage} color={colors.warning} />
+          {isPremium ? (
+            <View style={styles.axes}>
+              <AxisBar label={t('personalityConformity')} value={axes.conformity} color={colors.optionA} />
+              <AxisBar label={t('personalitySpeed')} value={axes.speed} color={colors.accent} />
+              <AxisBar label={t('personalityDiversity')} value={axes.diversity} color={colors.success} />
+              <AxisBar label={t('personalityCourage')} value={axes.courage} color={colors.warning} />
+            </View>
+          ) : (
+            <View style={styles.premiumHint}>
+              <Text style={styles.premiumHintText}>
+                {t('premiumUnlock')}
+              </Text>
+            </View>
+          )}
         </View>
-      ) : (
-        <View style={styles.premiumHint}>
-          <Text style={styles.premiumHintText}>
-            {t('premiumUnlock')}
-          </Text>
-        </View>
-      )}
+      </GlassCard>
     </Animated.View>
   );
 }
 
 const createStyles = (colors: ThemeColors) => StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 16,
+    borderRadius: RADIUS.lg,
     padding: 16,
     gap: 16,
   },

@@ -10,6 +10,8 @@ export function usePremium() {
   const [equippedFrame, setEquippedFrame] = useState('none');
   const [equippedEffect, setEquippedEffect] = useState('default');
   const [friendCode, setFriendCode] = useState('');
+  const [displayName, setDisplayName] = useState<string | null>(null);
+  const [avatarId, setAvatarId] = useState<string | null>(null);
   const [coins, setCoins] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +30,8 @@ export function usePremium() {
         setEquippedFrame(profile.frame_id || 'none');
         setEquippedEffect(profile.vote_effect_id || 'default');
         setFriendCode(profile.friend_code ?? '');
+        setDisplayName(profile.display_name ?? null);
+        setAvatarId(profile.avatar_id ?? null);
         setCoins(profile.coins ?? 0);
       } else {
         // If RPC not available yet, just use dev toggle
@@ -58,6 +62,8 @@ export function usePremium() {
     equippedFrame,
     equippedEffect,
     friendCode,
+    displayName,
+    avatarId,
     coins,
     loading,
     refetch,

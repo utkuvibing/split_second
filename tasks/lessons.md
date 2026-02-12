@@ -13,3 +13,9 @@
 ## Reanimated v4
 - No babel plugin needed - uses app.json plugin config instead.
 - Percentage-width animations work with template literals in `useAnimatedStyle`.
+
+## Supabase Error Handling
+- When `supabase.rpc()` returns `{ error }`, it's ALWAYS a transport/server error (RPC missing, network, etc.)
+- Validation errors from the RPC come in `data` (e.g. `{success: false, error: 'invalid_length'}`)
+- Never map Supabase-level errors to user validation messages — they are server errors
+- Supabase/PostgREST error for missing function is "Could not find the function..." NOT "does not exist"

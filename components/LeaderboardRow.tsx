@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { LeaderboardEntry, getPlayerName } from '../lib/leaderboard';
 import { getFrameById } from '../lib/cosmetics';
+import { AvatarDisplay } from './AvatarDisplay';
+import { RADIUS, SHADOW } from '../constants/ui';
 import { t } from '../lib/i18n';
 
 const RANK_EMOJIS: Record<number, string> = {
@@ -39,16 +42,17 @@ export function LeaderboardRow({ entry, isCurrentUser, frameId }: Props) {
           <Text style={styles.rankNumber}>#{entry.rank}</Text>
         )}
       </View>
+      <AvatarDisplay avatarId={entry.avatar_id ?? null} size={28} />
       <View style={styles.info}>
         <Text style={[styles.name, isCurrentUser && styles.nameHighlighted]} numberOfLines={1}>
-          {isCurrentUser ? t('leaderboardYou') : getPlayerName(entry.user_id)}
+          {isCurrentUser ? t('leaderboardYou') : getPlayerName(entry.user_id, entry.display_name)}
         </Text>
         <Text style={styles.stats}>
           {t('leaderboardVotes', { count: entry.total_votes })}
         </Text>
       </View>
       <View style={styles.streakContainer}>
-        <Text style={styles.streakFire}>🔥</Text>
+        <MaterialCommunityIcons name="fire" size={16} color={colors.warning} />
         <Text style={[styles.streakNumber, isCurrentUser && styles.nameHighlighted]}>
           {entry.current_streak}
         </Text>
@@ -63,7 +67,8 @@ const createStyles = (colors: ThemeColors) =>
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: colors.surface,
-      borderRadius: 12,
+      borderRadius: RADIUS.lg,
+      ...SHADOW.sm,
       paddingVertical: 12,
       paddingHorizontal: 14,
       gap: 12,
@@ -104,9 +109,6 @@ const createStyles = (colors: ThemeColors) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
-    },
-    streakFire: {
-      fontSize: 16,
     },
     streakNumber: {
       fontSize: 18,

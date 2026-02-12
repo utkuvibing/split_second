@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { BadgeDef } from '../lib/badges';
@@ -25,7 +26,7 @@ export function PostVoteInsights({ countA, countB, total, nextBadgeProgress, isP
     return (
       <View style={styles.container}>
         <Animated.View entering={FadeIn.delay(800).duration(400)} style={styles.lockedRow}>
-          <Text style={styles.lockEmoji}>🔒</Text>
+          <Ionicons name="lock-closed" size={16} color={colors.textMuted} />
           <Text style={styles.lockedText}>{t('premiumFeature')}</Text>
         </Animated.View>
       </View>

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Animated, { SlideInRight } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
+import { AnimatedIcon } from './ui/AnimatedIcon';
+import { GradientButton } from './ui/GradientButton';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -11,14 +14,25 @@ interface Props {
 
 const slides = [
   {
-    emoji: '⚡',
+    icon: 'flash',
     titleKey: 'onboardingTitle1' as const,
     subtitleKey: 'onboardingDesc1' as const,
   },
   {
-    emoji: '🌍',
+    icon: 'globe',
     titleKey: 'onboardingTitle2' as const,
     subtitleKey: 'onboardingDesc2' as const,
+  },
+  {
+    icon: 'dna' as string,
+    iconFamily: 'mci' as const,
+    titleKey: 'onboardingTitle3' as const,
+    subtitleKey: 'onboardingDesc3' as const,
+  },
+  {
+    icon: 'people',
+    titleKey: 'onboardingTitle4' as const,
+    subtitleKey: 'onboardingDesc4' as const,
   },
 ];
 
@@ -37,7 +51,13 @@ export function Onboarding({ onComplete }: Props) {
         entering={SlideInRight.duration(300)}
         style={styles.slideContent}
       >
-        <Text style={styles.emoji}>{slide.emoji}</Text>
+        <AnimatedIcon
+          name={slide.icon}
+          family={slide.iconFamily ?? 'ionicons'}
+          size={64}
+          color={colors.accent}
+          animation="bounce"
+        />
         <Text style={styles.title}>{t(slide.titleKey)}</Text>
         <Text style={styles.subtitle}>{t(slide.subtitleKey)}</Text>
       </Animated.View>
@@ -45,15 +65,25 @@ export function Onboarding({ onComplete }: Props) {
       <View style={styles.footer}>
         <View style={styles.dots}>
           {slides.map((_, i) => (
-            <View
-              key={i}
-              style={[styles.dot, i === currentSlide && styles.dotActive]}
-            />
+            i === currentSlide ? (
+              <LinearGradient
+                key={i}
+                colors={[colors.accent, colors.optionB]}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={[styles.dot, styles.dotActive]}
+              />
+            ) : (
+              <View
+                key={i}
+                style={[styles.dot, { backgroundColor: colors.surface }]}
+              />
+            )
           ))}
         </View>
 
-        <Pressable
-          style={styles.button}
+        <GradientButton
+          title={isLast ? t('start') : t('continue')}
           onPress={() => {
             if (isLast) {
               onComplete();
@@ -61,11 +91,8 @@ export function Onboarding({ onComplete }: Props) {
               setCurrentSlide(currentSlide + 1);
             }
           }}
-        >
-          <Text style={styles.buttonText}>
-            {isLast ? t('start') : t('continue')}
-          </Text>
-        </Pressable>
+          style={{ width: '100%' }}
+        />
 
         {!isLast && (
           <Pressable onPress={onComplete}>
@@ -89,10 +116,6 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 32,
     gap: 16,
-  },
-  emoji: {
-    fontSize: 64,
-    marginBottom: 16,
   },
   title: {
     fontSize: 28,
@@ -121,24 +144,9 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: colors.surface,
   },
   dotActive: {
-    backgroundColor: colors.accent,
     width: 24,
-  },
-  button: {
-    backgroundColor: colors.accent,
-    paddingVertical: 16,
-    paddingHorizontal: 48,
-    borderRadius: 16,
-    width: '100%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
   },
   skipText: {
     fontSize: 14,

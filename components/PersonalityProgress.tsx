@@ -3,6 +3,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { PERSONALITY_UNLOCK_VOTES } from '../lib/personality';
+import { AnimatedIcon } from './ui/AnimatedIcon';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -17,7 +18,7 @@ export function PersonalityProgress({ totalVotes }: Props) {
 
   return (
     <Animated.View entering={FadeIn.duration(400)} style={styles.container}>
-      <Text style={styles.emoji}>🔮</Text>
+      <AnimatedIcon name="crystal-ball" family="mci" size={36} color={colors.accent} animation="pulse" />
       <Text style={styles.lockedText}>
         {t('personalityLocked', { remaining: String(remaining) })}
       </Text>
@@ -41,9 +42,6 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     gap: 10,
-  },
-  emoji: {
-    fontSize: 36,
   },
   lockedText: {
     fontSize: 14,

@@ -9,6 +9,8 @@ import Animated, {
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useTheme } from '../lib/themeContext';
 import { Typography } from '../constants/typography';
+import { RADIUS, SHADOW, SPRING } from '../constants/ui';
+import { hapticButton } from '../lib/haptics';
 import { Question } from '../types/database';
 import { t } from '../lib/i18n';
 
@@ -41,12 +43,15 @@ function OptionButton({
 
   return (
     <AnimatedPressable
-      style={[styles.optionButton, { backgroundColor: color }, animatedStyle]}
+      style={[styles.optionButton, { backgroundColor: color }, SHADOW.md, animatedStyle]}
       onPressIn={() => {
-        if (!disabled) scale.value = withSpring(0.96);
+        if (!disabled) {
+          scale.value = withSpring(0.95, SPRING.button);
+          hapticButton();
+        }
       }}
       onPressOut={() => {
-        scale.value = withSpring(1);
+        scale.value = withSpring(1, SPRING.button);
       }}
       onPress={onPress}
       disabled={disabled}
@@ -109,7 +114,7 @@ export function QuestionCard({ question, onVote, disabled }: Props) {
           <Text style={[styles.swipeHint, { color: colors.text }]}>{question.option_b}</Text>
         </Animated.View>
 
-        <Text style={styles.questionText}>{question.question_text}</Text>
+        <Text style={[styles.questionText, { borderColor: colors.accent + '33' }]}>{question.question_text}</Text>
 
         <View style={styles.swipeInstructions}>
           <Text style={[styles.swipeText, { color: colors.textMuted }]}>{t('swipeHint')}</Text>
@@ -145,6 +150,7 @@ const styles = StyleSheet.create({
     ...Typography.title,
     fontSize: 26,
     lineHeight: 34,
+    letterSpacing: 0.3,
   },
   optionsContainer: {
     gap: 16,
@@ -152,7 +158,7 @@ const styles = StyleSheet.create({
   optionButton: {
     paddingVertical: 22,
     paddingHorizontal: 24,
-    borderRadius: 16,
+    borderRadius: RADIUS.lg,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 70,

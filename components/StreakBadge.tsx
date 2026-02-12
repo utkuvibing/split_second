@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useTheme } from '../lib/themeContext';
 import { getNextMilestone } from '../lib/streaks';
+import { SHADOW } from '../constants/ui';
+import { AnimatedIcon } from './ui/AnimatedIcon';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -14,9 +16,9 @@ export function StreakBadge({ currentStreak, longestStreak }: Props) {
   const nextMilestone = getNextMilestone(currentStreak);
 
   return (
-    <Animated.View entering={FadeIn.duration(400)} style={styles.container}>
+    <Animated.View entering={FadeIn.duration(400)} style={[styles.container, SHADOW.sm]}>
       <View style={styles.streakRow}>
-        <Text style={styles.fireEmoji}>🔥</Text>
+        <AnimatedIcon name="fire" family="mci" size={28} color={colors.warning} animation={currentStreak > 7 ? 'pulse' : 'none'} />
         <Text style={[styles.streakNumber, { color: colors.warning }]}>{currentStreak}</Text>
         <Text style={[styles.streakLabel, { color: colors.text }]}>{t('dayStreak')}</Text>
       </View>
@@ -44,9 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-  },
-  fireEmoji: {
-    fontSize: 24,
   },
   streakNumber: {
     fontSize: 28,

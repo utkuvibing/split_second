@@ -9,6 +9,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
 import { useTheme } from '../lib/themeContext';
+import { SHADOW, GLASS } from '../constants/ui';
+import { Typography } from '../constants/typography';
 import { hapticTick } from '../lib/haptics';
 
 interface Props {
@@ -62,7 +64,7 @@ export function CountdownTimer({ timeLeft, progress }: Props) {
   const isUrgent = timeLeft <= 3;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: GLASS.backgroundColor(colors.surface), borderColor: GLASS.borderColor }]}>
       <Animated.Text
         style={[
           styles.timeText,
@@ -72,7 +74,7 @@ export function CountdownTimer({ timeLeft, progress }: Props) {
       >
         {timeLeft}
       </Animated.Text>
-      <View style={[styles.barTrack, { backgroundColor: colors.surface }]}>
+      <View style={[styles.barTrack, { backgroundColor: colors.surface }, SHADOW.sm]}>
         <Animated.View
           style={[
             styles.barFill,
@@ -90,10 +92,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     paddingHorizontal: 24,
+    paddingVertical: 16,
+    marginHorizontal: 24,
+    borderRadius: 20,
+    borderWidth: 1,
   },
   timeText: {
-    fontSize: 48,
-    fontWeight: '800',
+    ...Typography.timer,
   },
   barTrack: {
     width: '100%',

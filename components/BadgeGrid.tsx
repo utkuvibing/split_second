@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { BADGES, BadgeContext, UnlockedBadge, fetchBadgeContext } from '../lib/badges';
 import { isPremiumBadge } from '../lib/premium';
 import { useTheme } from '../lib/themeContext';
@@ -56,7 +57,7 @@ export function BadgeGrid({ unlockedBadges, userIsPremium = false }: Props) {
       {/* Show teaser for premium badges if user is free */}
       {!userIsPremium && (
         <View style={[styles.premiumHint, { backgroundColor: colors.surface }]}>
-          <Text style={styles.premiumEmoji}>🔒</Text>
+          <Ionicons name="lock-closed" size={16} color={colors.textMuted} />
           <Text style={[styles.premiumText, { color: colors.textMuted }]}>
             +4 {t('premiumOnly')} {t('badges').toLowerCase()}
           </Text>

@@ -42,10 +42,17 @@ const tr = {
 
   // Countdown
   nextQuestionIn: 'Sonraki soru',
+  nextQuestionsIn: 'Yarının soruları',
 
   // No question
   noQuestionToday: 'Bugün soru yok',
   comeBackTomorrow: 'Yarın yeni bir ikilem için geri gel!',
+
+  // Multi-question
+  questionUnlocksAt: '{time}\'de açılır',
+  dayComplete: 'Günü tamamladın!',
+  questionsCompleted: '{count} soruyu yanıtladın',
+  questionsProgress: '{voted}/{total} soru tamamlandı',
 
   // Streak
   dayStreak: 'günlük seri',
@@ -78,10 +85,14 @@ const tr = {
   catFunny: 'Komik',
 
   // Onboarding
-  onboardingTitle1: 'Bir soru. Her gün.\n10 saniye.',
-  onboardingDesc1: 'Günlük "ya bu ya şu" sorularına hızlıca karar ver!',
+  onboardingTitle1: 'Günde 3 soru,\nher biri 10 saniye.',
+  onboardingDesc1: '"Ya bu ya şu" ikilemlerine hızlıca karar ver!',
   onboardingTitle2: 'Dünya nasıl oy verdi\ngör.',
   onboardingDesc2: 'Sonuçlarını paylaş, arkadaşlarına meydan oku!',
+  onboardingTitle3: '6 oyda kişilik tipini\nkeşfet.',
+  onboardingDesc3: 'Kararların seni tanımlasın!',
+  onboardingTitle4: 'Arkadaşlarınla\nkarşılaştır.',
+  onboardingDesc4: 'Aynı mı düşünüyorsunuz, yoksa zıt mısınız?',
   start: 'Başla!',
   continue: 'Devam',
   skip: 'Atla',
@@ -108,6 +119,12 @@ const tr = {
   dailyReminderChannel: 'Günlük hatırlatma',
   dailyReminderTitle: 'Bugünün sorusu hazır! ⚡',
   dailyReminderBody: 'Karar zamanın geldi. 10 saniyede seç!',
+  morningReminderTitle: 'Sabah sorusu hazır! ☀️',
+  morningReminderBody: 'Güne bir ikilemle başla!',
+  afternoonReminderTitle: 'Öğle sorusu açıldı! 🌤️',
+  afternoonReminderBody: 'Yeni bir soru seni bekliyor!',
+  eveningReminderTitle: 'Akşam sorusu burada! 🌙',
+  eveningReminderBody: 'Günü tamamla, streak\'ini koru!',
   streakReminderTitle: '{streak} günlük serin tehlikede! 🔥',
   streakReminderBody: 'Bugün oy vermeyi unutma, serin kırılmasın!',
 
@@ -151,8 +168,11 @@ const tr = {
 
   // Leaderboard
   leaderboardTitle: 'Sıralama',
+  leaderboardGlobal: 'Global',
+  leaderboardFriends: 'Arkadaşlar',
   leaderboardYou: 'Sen',
   leaderboardVotes: '{count} oy',
+  leaderboardFriendRank: 'Arkadaşların arasında {rank}. sıradasın!',
   leaderboardEmpty: 'Henüz kimse yok',
   leaderboardEmptyDesc: 'İlk oy veren sen ol!',
 
@@ -307,6 +327,8 @@ const tr = {
   removeFriend: 'Arkadaşı Kaldır',
   removeFriendConfirm: 'Bu arkadaşı kaldırmak istediğine emin misin?',
   friendVotesTitle: 'Arkadaşların Seçimi',
+  friendSameChoice: 'Aynı düşünüyor! 🤝',
+  friendOppositeChoice: 'Tam tersi! 😈',
   friendChoseA: '{name} A seçti',
   friendChoseB: '{name} B seçti',
   friendNotVoted: '{name} henüz oy vermedi',
@@ -320,6 +342,79 @@ const tr = {
   compatibilityHigh: 'Ruh ikizi!',
   friendLimit: '{current}/{max} arkadaş',
   friendLimitFree: 'Free: {max} arkadaş',
+
+  // Nickname
+  editNickname: 'Takma Ad Düzenle',
+  nicknamePlaceholder: 'Takma adını gir',
+  nicknameSaved: 'Kaydedildi!',
+  editNicknameError: 'Geçersiz isim (2-16 karakter)',
+  nicknameServerError: 'Sunucu hatası, lütfen daha sonra tekrar deneyin',
+  nicknameInsufficientCoins: 'Yeterli coin yok',
+  nicknameCost: 'Değiştirmek {cost} coin',
+  nicknameSaveWithCost: '{cost} coin ile Kaydet',
+  save: 'Kaydet',
+
+  // Friend Requests
+  friendRequestSent: 'İstek gönderildi!',
+  alreadyPending: 'Zaten bekleyen istek var',
+  pendingRequests: 'Gelen İstekler',
+
+  // Mystery Box
+  mysteryBoxDropped: 'Kutu Düştü!',
+  mysteryBoxOpen: 'Aç!',
+  mysteryBoxBoost: '2x Coin (1 saat)',
+  mysteryBoxInventory: 'Kutular',
+  rarity_common: 'Sıradan',
+  rarity_rare: 'Nadir',
+  rarity_epic: 'Destansı',
+  rarity_legendary: 'Efsanevi',
+  badgeBoxOpener: 'Kutu Avcısı',
+  badgeBoxOpenerDesc: '10 kutu aç',
+  badgeLucky: 'Şanslı',
+  badgeLuckyDesc: 'Efsanevi kutu aç',
+
+  // Community
+  tabCommunity: 'Topluluk',
+  communityTitle: 'Topluluk',
+  communityHot: 'Popüler',
+  communityNew: 'Yeni',
+  communityTop: 'En İyi',
+  communityVs: 'YA DA',
+  communityEmpty: 'Henüz soru yok',
+  communityEmptyDesc: 'İlk soruyu gönderen sen ol!',
+  communitySubmitBtn: 'Soru Sor',
+  communitySubmitTitle: 'Soru Gönder',
+  communitySubmitRemaining: 'Bugün {count} hakkın kaldı',
+  communityOptionA: 'Seçenek A',
+  communityOptionB: 'Seçenek B',
+  communitySubmit: 'Gönder',
+  communitySubmitSuccess: 'Soru gönderildi!',
+  communitySubmitError: 'Gönderilemedi',
+  communitySubmitCost: 'Soru göndermek {cost} coin',
+  communityInsufficientCoins: 'Yeterli coin yok ({cost} coin gerekli)',
+  badgeCreator: 'İçerik Üretici',
+  badgeCreatorDesc: '5 soru gönder',
+  badgeTrendsetter: 'Trend Belirleyici',
+  badgeTrendsetterDesc: '50+ upvote alan soru gönder',
+
+  // Live Events
+  liveEventActive: 'CANLI',
+  liveEventUpcoming: 'Yaklaşan',
+  liveEventReward: 'Oy ver ve {coins} coin kazan!',
+  badgeLiveVoter: 'Canlı Katılımcı',
+  badgeLiveVoterDesc: '5 canlı etkinliğe katıl',
+
+  // Avatar
+  chooseAvatar: 'Avatar Seç',
+  avatarSaved: 'Avatar kaydedildi!',
+  avatarCategoryAnimals: 'Hayvanlar',
+  avatarCategoryPeople: 'Karakterler',
+  avatarCategoryObjects: 'Nesneler',
+  avatarCategoryNature: 'Doğa',
+  avatarNone: 'Avatar Yok',
+  avatarBuy: 'Al',
+  avatarInsufficientCoins: 'Yeterli coin yok',
+  avatarPremiumOnly: 'Premium',
 
   // Dev menu
   devMenu: 'Geliştirici Menüsü',
@@ -357,10 +452,17 @@ const en: typeof tr = {
 
   // Countdown
   nextQuestionIn: 'Next question in',
+  nextQuestionsIn: 'Tomorrow\'s questions',
 
   // No question
   noQuestionToday: 'No question today',
   comeBackTomorrow: 'Come back tomorrow for a new dilemma!',
+
+  // Multi-question
+  questionUnlocksAt: 'Unlocks at {time}',
+  dayComplete: 'Day Complete!',
+  questionsCompleted: 'You answered {count} questions',
+  questionsProgress: '{voted}/{total} questions done',
 
   // Streak
   dayStreak: 'day streak',
@@ -393,10 +495,14 @@ const en: typeof tr = {
   catFunny: 'Funny',
 
   // Onboarding
-  onboardingTitle1: 'One question. Every day.\n10 seconds.',
-  onboardingDesc1: 'Quickly decide on daily "this or that" questions!',
+  onboardingTitle1: '3 questions a day,\n10 seconds each.',
+  onboardingDesc1: 'Quickly decide on "this or that" dilemmas!',
   onboardingTitle2: 'See how the world\nvoted.',
   onboardingDesc2: 'Share your results, challenge your friends!',
+  onboardingTitle3: 'Discover your type\nin 6 votes.',
+  onboardingDesc3: 'Let your decisions define you!',
+  onboardingTitle4: 'Compare with\nyour friends.',
+  onboardingDesc4: 'Do you think alike, or are you opposites?',
   start: 'Start!',
   continue: 'Continue',
   skip: 'Skip',
@@ -423,6 +529,12 @@ const en: typeof tr = {
   dailyReminderChannel: 'Daily reminder',
   dailyReminderTitle: 'Today\'s question is ready! ⚡',
   dailyReminderBody: 'Time to decide. Choose in 10 seconds!',
+  morningReminderTitle: 'Morning question is ready! ☀️',
+  morningReminderBody: 'Start your day with a dilemma!',
+  afternoonReminderTitle: 'Afternoon question unlocked! 🌤️',
+  afternoonReminderBody: 'A new question is waiting for you!',
+  eveningReminderTitle: 'Evening question is here! 🌙',
+  eveningReminderBody: 'Complete your day, keep your streak!',
   streakReminderTitle: 'Your {streak}-day streak is at risk! 🔥',
   streakReminderBody: 'Don\'t forget to vote today!',
 
@@ -466,8 +578,11 @@ const en: typeof tr = {
 
   // Leaderboard
   leaderboardTitle: 'Leaderboard',
+  leaderboardGlobal: 'Global',
+  leaderboardFriends: 'Friends',
   leaderboardYou: 'You',
   leaderboardVotes: '{count} votes',
+  leaderboardFriendRank: 'You\'re #{rank} among friends!',
   leaderboardEmpty: 'No one here yet',
   leaderboardEmptyDesc: 'Be the first to vote!',
 
@@ -622,6 +737,8 @@ const en: typeof tr = {
   removeFriend: 'Remove Friend',
   removeFriendConfirm: 'Are you sure you want to remove this friend?',
   friendVotesTitle: 'Friends\' Choices',
+  friendSameChoice: 'Thinks alike! 🤝',
+  friendOppositeChoice: 'Opposite! 😈',
   friendChoseA: '{name} chose A',
   friendChoseB: '{name} chose B',
   friendNotVoted: '{name} hasn\'t voted yet',
@@ -635,6 +752,79 @@ const en: typeof tr = {
   compatibilityHigh: 'Soul twins!',
   friendLimit: '{current}/{max} friends',
   friendLimitFree: 'Free: {max} friends',
+
+  // Nickname
+  editNickname: 'Edit Nickname',
+  nicknamePlaceholder: 'Enter your nickname',
+  nicknameSaved: 'Saved!',
+  editNicknameError: 'Invalid name (2-16 characters)',
+  nicknameServerError: 'Server error, please try again later',
+  nicknameInsufficientCoins: 'Not enough coins',
+  nicknameCost: 'Changing costs {cost} coins',
+  nicknameSaveWithCost: 'Save for {cost} coins',
+  save: 'Save',
+
+  // Friend Requests
+  friendRequestSent: 'Request sent!',
+  alreadyPending: 'Request already pending',
+  pendingRequests: 'Incoming Requests',
+
+  // Mystery Box
+  mysteryBoxDropped: 'Box Dropped!',
+  mysteryBoxOpen: 'Open!',
+  mysteryBoxBoost: '2x Coins (1 hour)',
+  mysteryBoxInventory: 'Boxes',
+  rarity_common: 'Common',
+  rarity_rare: 'Rare',
+  rarity_epic: 'Epic',
+  rarity_legendary: 'Legendary',
+  badgeBoxOpener: 'Box Hunter',
+  badgeBoxOpenerDesc: 'Open 10 boxes',
+  badgeLucky: 'Lucky',
+  badgeLuckyDesc: 'Open a legendary box',
+
+  // Community
+  tabCommunity: 'Community',
+  communityTitle: 'Community',
+  communityHot: 'Hot',
+  communityNew: 'New',
+  communityTop: 'Top',
+  communityVs: 'OR',
+  communityEmpty: 'No questions yet',
+  communityEmptyDesc: 'Be the first to submit a question!',
+  communitySubmitBtn: 'Ask',
+  communitySubmitTitle: 'Submit Question',
+  communitySubmitRemaining: '{count} submissions left today',
+  communityOptionA: 'Option A',
+  communityOptionB: 'Option B',
+  communitySubmit: 'Submit',
+  communitySubmitSuccess: 'Question submitted!',
+  communitySubmitError: 'Failed to submit',
+  communitySubmitCost: 'Submitting costs {cost} coins',
+  communityInsufficientCoins: 'Not enough coins ({cost} coins needed)',
+  badgeCreator: 'Creator',
+  badgeCreatorDesc: 'Submit 5 questions',
+  badgeTrendsetter: 'Trendsetter',
+  badgeTrendsetterDesc: 'Get 50+ upvotes on a question',
+
+  // Live Events
+  liveEventActive: 'LIVE',
+  liveEventUpcoming: 'Upcoming',
+  liveEventReward: 'Vote and earn {coins} coins!',
+  badgeLiveVoter: 'Live Voter',
+  badgeLiveVoterDesc: 'Participate in 5 live events',
+
+  // Avatar
+  chooseAvatar: 'Choose Avatar',
+  avatarSaved: 'Avatar saved!',
+  avatarCategoryAnimals: 'Animals',
+  avatarCategoryPeople: 'Characters',
+  avatarCategoryObjects: 'Objects',
+  avatarCategoryNature: 'Nature',
+  avatarNone: 'No Avatar',
+  avatarBuy: 'Buy',
+  avatarInsufficientCoins: 'Not enough coins',
+  avatarPremiumOnly: 'Premium',
 
   // Dev menu
   devMenu: 'Developer Menu',

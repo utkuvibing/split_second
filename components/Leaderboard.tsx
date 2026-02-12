@@ -4,6 +4,7 @@ import { useTheme } from '../lib/themeContext';
 import { usePremium } from '../hooks/usePremium';
 import { LeaderboardEntry } from '../lib/leaderboard';
 import { LeaderboardRow } from './LeaderboardRow';
+import { AnimatedIcon } from './ui/AnimatedIcon';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -46,7 +47,7 @@ export function LeaderboardList({ entries, userRank, userEntry, currentUserId, l
         ListEmptyComponent={
           !loading ? (
             <Animated.View entering={FadeIn.duration(400)} style={styles.emptyState}>
-              <Text style={styles.emptyEmoji}>🏆</Text>
+              <AnimatedIcon name="trophy" size={40} color={colors.warning} animation="bounce" />
               <Text style={[styles.emptyText, { color: colors.text }]}>
                 {t('leaderboardEmpty')}
               </Text>
@@ -85,9 +86,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 48,
     gap: 8,
-  },
-  emptyEmoji: {
-    fontSize: 40,
   },
   emptyText: {
     fontSize: 18,

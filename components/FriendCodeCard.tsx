@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Share } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
+import { GlassCard } from './ui/GlassCard';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -32,7 +34,8 @@ export function FriendCodeCard({ friendCode }: Props) {
   };
 
   return (
-    <Animated.View entering={FadeIn.duration(400)} style={styles.card}>
+    <Animated.View entering={FadeIn.duration(400)}>
+      <GlassCard><View style={styles.card}>
       <Text style={styles.label}>{t('friendCode')}</Text>
       <Pressable onPress={handleCopy} style={styles.codeRow}>
         <Text style={styles.code}>{friendCode}</Text>
@@ -44,20 +47,19 @@ export function FriendCodeCard({ friendCode }: Props) {
       </Pressable>
       <View style={styles.actions}>
         <Pressable style={styles.actionButton} onPress={handleCopy}>
-          <Text style={styles.actionText}>📋</Text>
+          <Ionicons name="clipboard-outline" size={16} color={colors.text} />
         </Pressable>
         <Pressable style={[styles.actionButton, { backgroundColor: colors.accent }]} onPress={handleShare}>
           <Text style={styles.actionText}>{t('friendCodeShare')}</Text>
         </Pressable>
       </View>
+    </View></GlassCard>
     </Animated.View>
   );
 }
 
 const createStyles = (colors: ThemeColors) => StyleSheet.create({
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 16,
     padding: 16,
     alignItems: 'center',
     gap: 10,

@@ -1,16 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
-import { LeaderboardData, fetchLeaderboard } from '../lib/leaderboard';
+import { LeaderboardData, fetchLeaderboard, fetchFriendLeaderboard } from '../lib/leaderboard';
 
-export function useLeaderboard() {
+export function useLeaderboard(tab: 'global' | 'friends' = 'global') {
   const [data, setData] = useState<LeaderboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetch = useCallback(async () => {
     setLoading(true);
-    const result = await fetchLeaderboard();
+    const result = tab === 'friends'
+      ? await fetchFriendLeaderboard()
+      : await fetchLeaderboard();
     setData(result);
     setLoading(false);
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     fetch();

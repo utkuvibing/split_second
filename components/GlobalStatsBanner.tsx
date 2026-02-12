@@ -1,6 +1,7 @@
 import { Text, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { useTheme } from '../lib/themeContext';
+import { GLASS } from '../constants/ui';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -12,7 +13,7 @@ export function GlobalStatsBanner({ todayVotes }: Props) {
   if (todayVotes === 0) return null;
 
   return (
-    <Animated.View entering={FadeIn.duration(400)} style={styles.container}>
+    <Animated.View entering={FadeIn.duration(400)} style={[styles.container, { backgroundColor: GLASS.backgroundColor(colors.surface) }]}>
       <Text style={[styles.text, { color: colors.textMuted }]}>
         {t('todayVotedCount', { count: todayVotes.toLocaleString() })}
       </Text>
@@ -24,6 +25,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
   },
   text: {
     fontSize: 13,

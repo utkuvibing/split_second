@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../lib/themeContext';
 import { ThemeColors } from '../types/premium';
 import { Friend, FREE_FRIEND_LIMIT, getFriendDisplayName } from '../lib/friends';
 import { CompatibilityBadge } from './CompatibilityBadge';
+import { AvatarDisplay } from './AvatarDisplay';
+import { GradientButton } from './ui/GradientButton';
 import { t } from '../lib/i18n';
 
 interface Props {
@@ -33,12 +36,10 @@ export function FriendsList({ friends, isPremium, onRemove, onAddPress }: Props)
   if (friends.length === 0) {
     return (
       <Animated.View entering={FadeIn.duration(400)} style={styles.empty}>
-        <Text style={styles.emptyEmoji}>👋</Text>
+        <Ionicons name="hand-left-outline" size={36} color={colors.textMuted} />
         <Text style={styles.emptyText}>{t('noFriendsYet')}</Text>
         <Text style={styles.emptySubtext}>{t('noFriendsDesc')}</Text>
-        <Pressable style={styles.addButton} onPress={onAddPress}>
-          <Text style={styles.addButtonText}>{t('addFriend')}</Text>
-        </Pressable>
+        <GradientButton title={t('addFriend')} onPress={onAddPress} small />
       </Animated.View>
     );
   }
@@ -57,7 +58,10 @@ export function FriendsList({ friends, isPremium, onRemove, onAddPress }: Props)
           onLongPress={() => handleRemove(friend)}
         >
           <View style={styles.friendInfo}>
-            <Text style={styles.friendCode}>{getFriendDisplayName(friend.friend_code)}</Text>
+            <View style={styles.friendLeft}>
+              <AvatarDisplay avatarId={friend.friend_avatar_id ?? null} size={28} />
+              <Text style={styles.friendCode}>{getFriendDisplayName(friend.friend_code, friend.friend_display_name)}</Text>
+            </View>
             <CompatibilityBadge score={friend.compatibility} />
           </View>
         </Pressable>
@@ -90,6 +94,11 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  friendLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
   friendCode: {
     fontSize: 15,
     fontWeight: '700',
@@ -115,9 +124,6 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     paddingVertical: 24,
     gap: 8,
   },
-  emptyEmoji: {
-    fontSize: 36,
-  },
   emptyText: {
     fontSize: 16,
     fontWeight: '600',
@@ -127,17 +133,5 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontSize: 13,
     color: colors.textMuted,
     textAlign: 'center',
-  },
-  addButton: {
-    marginTop: 8,
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  addButtonText: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: colors.text,
   },
 });
