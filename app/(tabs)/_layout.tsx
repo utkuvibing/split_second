@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../lib/themeContext';
 import { useFriendRequests } from '../../hooks/useFriendRequests';
+import { TodayTabIcon } from '../../components/TodayTabIcon';
 import { SHADOW } from '../../constants/ui';
 import { t } from '../../lib/i18n';
 
@@ -20,6 +21,7 @@ export default function TabLayout() {
 
   return (
     <MaterialTopTabs
+      initialRouteName="index"
       tabBarPosition="bottom"
       screenOptions={{
         swipeEnabled: true,
@@ -30,21 +32,24 @@ export default function TabLayout() {
           borderTopWidth: 1,
           height: 68 + bottomPadding,
           paddingBottom: bottomPadding,
-          paddingTop: 4,
+          overflow: 'visible' as const,
           ...SHADOW.sm,
         },
         tabBarItemStyle: {
-          paddingVertical: 4,
+          justifyContent: 'center' as const,
+          alignItems: 'center' as const,
+          height: 68,
+          overflow: 'visible' as const,
         },
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: '600',
           textTransform: 'none',
           marginTop: 2,
-          marginBottom: 4,
-          lineHeight: 18,
+          marginBottom: 0,
+          lineHeight: 16,
         },
         tabBarIndicatorStyle: {
           backgroundColor: colors.accent,
@@ -55,21 +60,32 @@ export default function TabLayout() {
       }}
     >
       <MaterialTopTabs.Screen
-        name="index"
-        options={{
-          title: t('tabToday'),
-          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
-            <Ionicons name={focused ? 'flash' : 'flash-outline'} size={20} color={color} />
-          ),
-          tabBarShowIcon: true,
-        }}
-      />
-      <MaterialTopTabs.Screen
         name="leaderboard"
         options={{
           title: t('tabLeaderboard'),
           tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
             <Ionicons name={focused ? 'trophy' : 'trophy-outline'} size={20} color={color} />
+          ),
+          tabBarShowIcon: true,
+        }}
+      />
+      <MaterialTopTabs.Screen
+        name="matching"
+        options={{
+          title: t('tabMatching'),
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <Ionicons name={focused ? 'heart' : 'heart-outline'} size={20} color={color} />
+          ),
+          tabBarShowIcon: true,
+        }}
+      />
+      <MaterialTopTabs.Screen
+        name="index"
+        options={{
+          title: t('tabToday'),
+          tabBarLabel: () => null,
+          tabBarIcon: ({ focused, color }: { focused: boolean; color: string }) => (
+            <TodayTabIcon focused={focused} color={color} accentColor={colors.accent} />
           ),
           tabBarShowIcon: true,
         }}
