@@ -26,16 +26,8 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Typecheck
         run: npx tsc --noEmit
@@ -47,7 +39,7 @@ jobs:
     name: EAS iOS production build
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/hermes-v1'
+    if: github.ref == 'refs/heads/hermes-v1' && vars.EAS_BUILD_ENABLED == 'true'
 
     env:
       EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
@@ -56,6 +48,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check EAS token
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "EAS_TOKEN secret is not set. Skipping build."
+            exit 1
+          fi
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -63,27 +62,11 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-
-      - name: Restore EAS cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.eas/cache
-            ~/.npm/_npx
-          key: ${{ runner.os }}-eas-${{ github.ref_name }}-${{ hashFiles('eas.json', 'app.json', 'package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-eas-${{ github.ref_name }}-
-            ${{ runner.os }}-eas-
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build iOS production
         run: npx eas build --platform ios --profile production --non-interactive
