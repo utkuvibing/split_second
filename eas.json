@@ -8,16 +8,20 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      }
     },
-    "production": {}
+    "production": {
+      "ios": {
+        "credentialsSource": "remote"
+      }
+    }
   },
   "submit": {
     "production": {
-      "ios": {
-        "appleId": "TODO_REPLACE_WITH_APPLE_ID",
-        "ascAppId": "TODO_REPLACE_WITH_ASC_APP_ID"
-      }
+      "ios": {}
     }
   }
 }

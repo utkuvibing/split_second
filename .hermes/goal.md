@@ -2,39 +2,24 @@
 
 **Mission:** Split Second uygulamasını App Store'da yayına almak.
 
-## State
-- ✅ Code complete (V16: avatars, compatibility, matching tab, all features done)
-- ✅ 301 tests passing, TypeScript 0 errors
-- ❌ SQL migrations not run in Supabase yet
-- ❌ Sound files missing (tick.mp3, vote.mp3, result.mp3)
-- ❌ App icon + splash screen assets needed
-- ❌ EAS not configured/built
-- ❌ Not deployed
+## ✅ TAMAMLANANLAR
+- Kod: V16 features (avatars, compatibility, matching, shop, badges, streaks, friends, personality, mystery boxes, live events)
+- 301 test: ✅ hepsi geçiyor
+- TypeScript: ✅ 0 error
+- Supabase DB: ✅ migration + seed çalıştı (115 soru, 18 tablo, 43 RPC)
+- Assets: ✅ icon, splash, adaptive icon, favicon
+- Sound: ✅ tick.mp3, vote.mp3, result.mp3
+- Docs: ✅ migration-runbook.md, build-readiness.md
+- App Store metadata: ✅ EN+TR descriptions, release notes, screenshot-spec
 
-## Execution Plan
+## ⏳ BEKLEYEN
+- **Apple Developer**: Hesap aktif olana kadar bekliyoruz (~48h)
+- Aktif olunca: `eas.json` → Apple ID + ASC App ID → build → submit
 
-### Step 1: Assets
-- Generate app icon (1024x1024 PNG, dark theme)
-- Generate splash screen
-- Add free CC0 sound effects
-- Update app.json with proper config
-
-### Step 2: Supabase Setup
-- Create a step-by-step migration runbook
-- Test Supabase connection
-- Prepare seed data
-
-### Step 3: Build
-- EAS configure
-- iOS production build
-- TestFlight upload
-
-### Step 4: App Store
-- Screenshots
-- Description/metadata
-- Submit for review
-
-## Decisions
-- Distribution: App Store (iOS only first, Android later)
-- Monetization: Free + Premium subscription + Coin shop
-- Language: Türkçe + English (i18n)
+## TODO: Kodex CLI ile yapılacaklar
+1. GitHub Actions CI/CD pipeline (auto build + test on push)
+2. App Store screenshot placeholder görselleri (1290x2796)
+3. eas.json template'ini Apple ID olmadan da build alabilecek şekilde hazırla (only build, no submit)
+4. TestFlight dağıtım otomasyonu scripti
+5. App Store Connect API ile metadata upload otomasyonu
+6. EAS build öncesi tüm validation check'leri
