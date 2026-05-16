@@ -15,8 +15,8 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "your-apple-id@example.com",
-        "ascAppId": "your-app-store-connect-app-id"
+        "appleId": "TODO_REPLACE_WITH_APPLE_ID",
+        "ascAppId": "TODO_REPLACE_WITH_ASC_APP_ID"
       }
     }
   }
