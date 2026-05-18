@@ -22,12 +22,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+
+      - name: Check Jest environment
+        run: node -e "require('jest-environment-node'); console.log('jest-environment-node OK')"
 
       - name: Typecheck
         run: npx tsc --noEmit
