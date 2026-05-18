@@ -14,6 +14,10 @@ export function useLiveEvent() {
   const [userChoice, setUserChoice] = useState<string | null>(null);
   const [coinsEarned, setCoinsEarned] = useState(0);
   const unsubRef = useRef<(() => void) | null>(null);
+  const eventId = event?.id;
+  const eventStatus = event?.status;
+  const hasEvent = event?.has_event;
+  const eventEndsAt = event?.ends_at;
 
   const fetchEvent = useCallback(async () => {
     const data = await getLiveEvent();
@@ -33,9 +37,9 @@ export function useLiveEvent() {
 
   // Subscribe to real-time votes when event is active
   useEffect(() => {
-    if (!event?.has_event || event.status !== 'active' || !event.id) return;
+    if (!hasEvent || eventStatus !== 'active' || !eventId) return;
 
-    const unsub = subscribeLiveVotes(event.id, (choice) => {
+    const unsub = subscribeLiveVotes(eventId, (choice) => {
       if (choice === 'a') setCountA((prev) => prev + 1);
       if (choice === 'b') setCountB((prev) => prev + 1);
     });
@@ -45,24 +49,24 @@ export function useLiveEvent() {
       unsub();
       unsubRef.current = null;
     };
-  }, [event?.id, event?.status]);
+  }, [eventId, eventStatus, hasEvent]);
 
   // Countdown: time remaining
   const [timeRemaining, setTimeRemaining] = useState(0);
   useEffect(() => {
-    if (!event?.ends_at) return;
+    if (!eventEndsAt) return;
     const update = () => {
-      const remaining = Math.max(0, new Date(event.ends_at!).getTime() - Date.now());
+      const remaining = Math.max(0, new Date(eventEndsAt).getTime() - Date.now());
       setTimeRemaining(Math.floor(remaining / 1000));
     };
     update();
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
-  }, [event?.ends_at]);
+  }, [eventEndsAt]);
 
   const vote = useCallback(async (choice: 'a' | 'b') => {
-    if (!event?.id) return false;
-    const result = await submitLiveVote(event.id, choice);
+    if (!eventId) return false;
+    const result = await submitLiveVote(eventId, choice);
     if (result.success) {
       setUserChoice(choice);
       if (result.count_a != null) setCountA(result.count_a);
@@ -71,7 +75,7 @@ export function useLiveEvent() {
       return true;
     }
     return false;
-  }, [event?.id]);
+  }, [eventId]);
 
   return {
     event,

@@ -16,6 +16,7 @@ import { RADIUS, SHADOW, GLASS } from '../constants/ui';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const TIMER_SECONDS = 10;
+const VIEWABILITY_CONFIG = { viewAreaCoveragePercentThreshold: 50 };
 
 interface QuestionState {
   question: Question;
@@ -117,13 +118,11 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
     !!showTimer
   );
 
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0 && viewableItems[0].index != null) {
       setActiveIndex(viewableItems[0].index);
     }
-  }).current;
-
-  const viewabilityConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+  }, []);
 
   const votedCount = questions.filter(q => q.hasVoted).length;
   const totalCount = questions.length;
@@ -162,7 +161,7 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={viewabilityConfig}
+        viewabilityConfig={VIEWABILITY_CONFIG}
         initialScrollIndex={activeIndex}
         getItemLayout={(_, index) => ({
           length: SCREEN_WIDTH,
