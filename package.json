@@ -15,6 +15,9 @@
     "typecheck": "tsc --noEmit",
     "secrets:check": "node scripts/verify-no-secrets.mjs",
     "validate:questions": "node scripts/validate-questions.mjs",
+    "validate:personality-signals": "node scripts/validate-personality-signals.mjs",
+    "validate:personality-weights": "node scripts/validate-personality-weights.mjs",
+    "generate:personality-signals": "node scripts/generate-personality-signals.mjs",
     "normalize:questions": "node scripts/normalize-questions.mjs",
     "backup:supabase": "node scripts/backup-supabase-tables.mjs",
     "export:questions": "node scripts/export-questions-canonical.mjs"

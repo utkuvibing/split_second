@@ -37,6 +37,7 @@ import { getNextBadgeProgress } from '../../lib/badges';
 import { fetchBadgeContext } from '../../lib/badges';
 import { scheduleDailyReminder, scheduleStreakReminder } from '../../lib/notifications';
 import { usePersonality } from '../../hooks/usePersonality';
+import { PERSONALITY_UNLOCK_VOTES } from '../../lib/personality';
 import { PersonalityRevealModal } from '../../components/PersonalityRevealModal';
 import { useFriendVotes } from '../../hooks/useFriendVotes';
 import { FriendVotesFeed } from '../../components/FriendVotesFeed';
@@ -66,9 +67,9 @@ export default function HomeScreen() {
   const { questions, loading: questionLoading, error, refetch } = useTodayQuestions(!!userId);
   const { unlockedBadges, checkNewUnlocks } = useBadges();
   const { isPremium, equippedEffect } = usePremium();
-  const { personality, isFirstReveal, recalculate: recalcPersonality } = usePersonality();
+  const { personality, recalculate: recalcPersonality } = usePersonality();
   const [showPersonalityReveal, setShowPersonalityReveal] = useState(false);
-  const personalityCheckDone = useRef(false);
+  const personalityRevealShown = useRef(false);
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
   const badgeCheckDone = useRef(false);
@@ -283,16 +284,17 @@ export default function HomeScreen() {
       }).catch(() => {});
     }
 
-    // Personality reveal
-    if (!personalityCheckDone.current) {
-      personalityCheckDone.current = true;
-      recalcPersonality().then((type) => {
-        if (type && isFirstReveal) {
+    // Personality recalc after each vote once unlock threshold is met
+    const voteTotal = results.total_votes ?? 0;
+    if (voteTotal >= PERSONALITY_UNLOCK_VOTES) {
+      recalcPersonality().then((result) => {
+        if (result?.isFirstReveal && !personalityRevealShown.current) {
+          personalityRevealShown.current = true;
           setTimeout(() => setShowPersonalityReveal(true), 2000);
         }
       }).catch(() => {});
     }
-  }, [lastVoteResult]);
+  }, [lastVoteResult, recalcPersonality]);
 
   // Hide splash when ready
   useEffect(() => {

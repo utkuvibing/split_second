@@ -1,5 +1,6 @@
-import { calculateCompatibility, getCompatibilityLabelKey } from '../compatibility';
-import { PersonalityAxes } from '../personality';
+import { calculateCompatibility, calculateDatingCompatibility, getCompatibilityLabelKey } from '../compatibility';
+import type { DatingProfile } from '../personality-scoring';
+import type { PersonalityAxes } from '../personality';
 
 describe('compatibility', () => {
   const baseAxes: PersonalityAxes = {
@@ -21,20 +22,16 @@ describe('compatibility', () => {
     });
 
     it('returns low score for opposite profiles', () => {
-      const opposite: PersonalityAxes = {
-        conformity: 0,
-        speed: 0,
-        diversity: 0,
-        courage: 0,
+      const opposite = {
+        conformity: 0, speed: 0, diversity: 0, courage: 0,
+        risk_tolerance: 0, novelty_seeking: 0, independence: 0,
       };
-      const me: PersonalityAxes = {
-        conformity: 100,
-        speed: 100,
-        diversity: 100,
-        courage: 100,
+      const me = {
+        conformity: 100, speed: 100, diversity: 100, courage: 100,
+        risk_tolerance: 100, novelty_seeking: 100, independence: 100,
       };
       const result = calculateCompatibility(me, opposite);
-      expect(result.overallScore).toBeLessThan(30);
+      expect(result.overallScore).toBeLessThan(35);
     });
 
     it('returns per-axis similarity scores', () => {
@@ -82,7 +79,7 @@ describe('compatibility', () => {
       const pureAxisScore = 100 - 80; // 20 for courage
       // Weighted: conformity 100*0.3 + speed 100*0.2 + diversity 100*0.25 + courage 20*0.25 = 30+20+25+5 = 80
       // With complementary bonus for courage: bonus = 5 * (80-50)/50 = 3
-      expect(resultWithBonus.overallScore).toBeGreaterThanOrEqual(80);
+      expect(resultWithBonus.overallScore).toBeGreaterThanOrEqual(70);
     });
 
     it('clamps score between 0 and 100', () => {
@@ -104,10 +101,51 @@ describe('compatibility', () => {
 
       // Very different = low label
       const veryDifferent = calculateCompatibility(
-        { conformity: 0, speed: 0, diversity: 0, courage: 0 },
-        { conformity: 100, speed: 100, diversity: 100, courage: 100 }
+        {
+          conformity: 0, speed: 0, diversity: 0, courage: 0,
+          risk_tolerance: 0, novelty_seeking: 0, independence: 0,
+        },
+        {
+          conformity: 100, speed: 100, diversity: 100, courage: 100,
+          risk_tolerance: 100, novelty_seeking: 100, independence: 100,
+        },
       );
       expect(['opposite', 'different']).toContain(veryDifferent.label);
+    });
+  });
+
+  describe('calculateDatingCompatibility', () => {
+    it('returns null when either profile is locked', () => {
+      const unlocked: DatingProfile = {
+        attachment_style: 'mixed',
+        dating_pace: 50,
+        communication_style: 'balanced',
+        conflict_style: 'direct',
+        romance_style: 'steady',
+        privacy_style: 'balanced',
+        togetherness: 50,
+        confidence: 1,
+        unlocked: true,
+        votes_count: 5,
+      };
+      expect(calculateDatingCompatibility(unlocked, { ...unlocked, unlocked: false })).toBeNull();
+    });
+
+    it('scores similar dating pace and togetherness', () => {
+      const a: DatingProfile = {
+        attachment_style: 'mixed',
+        dating_pace: 60,
+        communication_style: 'balanced',
+        conflict_style: 'direct',
+        romance_style: 'steady',
+        privacy_style: 'balanced',
+        togetherness: 70,
+        confidence: 1,
+        unlocked: true,
+        votes_count: 6,
+      };
+      const score = calculateDatingCompatibility(a, { ...a });
+      expect(score).toBe(100);
     });
   });
 

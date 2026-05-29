@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../lib/themeContext';
 import { ThemeColors } from '../../types/premium';
 import { usePersonality } from '../../hooks/usePersonality';
+import { buildCompatibilityProfile } from '../../hooks/useCompatibility';
 import { useFriends } from '../../hooks/useFriends';
 import { useCompatibility } from '../../hooks/useCompatibility';
 import { CompatibilityCard } from '../../components/CompatibilityCard';
@@ -15,9 +16,10 @@ import { t } from '../../lib/i18n';
 export default function MatchingScreen() {
   const colors = useTheme();
   const styles = createStyles(colors);
-  const { axes, isUnlocked, loading: personalityLoading } = usePersonality();
+  const { axes, contentAxes, datingProfile, isUnlocked, loading: personalityLoading } = usePersonality();
+  const compatProfile = buildCompatibilityProfile(axes, contentAxes);
   const { friends, loading: friendsLoading } = useFriends();
-  const { friends: compatFriends, bestMatch, loading: compatLoading } = useCompatibility(axes);
+  const { friends: compatFriends, bestMatch, loading: compatLoading } = useCompatibility(compatProfile, datingProfile);
 
   const isLoading = personalityLoading || friendsLoading || compatLoading;
 

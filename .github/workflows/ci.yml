@@ -35,6 +35,15 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      - name: Validate questions
+        run: npm run validate:questions
+
+      - name: Validate personality signals
+        run: npm run validate:personality-signals
+
+      - name: Validate personality weights
+        run: npm run validate:personality-weights
+
       - name: Run tests
         run: npm test
 
