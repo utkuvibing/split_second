@@ -184,40 +184,60 @@ export default function HomeScreen() {
     const current = voteStates[questionId];
     if (current?.hasVoted || current?.submitting) return;
 
+    const question = questions.find(q => q.id === questionId);
+
     setVoteStates(prev => ({
       ...prev,
-      [questionId]: { ...prev[questionId], submitting: true },
+      [questionId]: {
+        userChoice: prev[questionId]?.userChoice ?? null,
+        results: prev[questionId]?.results ?? null,
+        hasVoted: prev[questionId]?.hasVoted ?? false,
+        submitting: true,
+        coinsEarned: prev[questionId]?.coinsEarned ?? 0,
+      },
     }));
 
-    const question = questions.find(q => q.id === questionId);
-    const result = await submitVoteFn(questionId, choice);
+    try {
+      const result = await submitVoteFn(questionId, choice);
 
-    if (result) {
-      const newState: QuestionVoteState = {
-        userChoice: choice,
-        results: result,
-        hasVoted: true,
-        submitting: false,
-        coinsEarned: result.coins_earned ?? 0,
-      };
-
-      setVoteStates(prev => ({
-        ...prev,
-        [questionId]: newState,
-      }));
-
-      if (question) {
-        setLastVoteResult({
-          question,
-          results: result,
+      if (result) {
+        const newState: QuestionVoteState = {
           userChoice: choice,
+          results: result,
+          hasVoted: true,
+          submitting: false,
           coinsEarned: result.coins_earned ?? 0,
-        });
+        };
+
+        setVoteStates(prev => ({
+          ...prev,
+          [questionId]: newState,
+        }));
+
+        if (question) {
+          setLastVoteResult({
+            question,
+            results: result,
+            userChoice: choice,
+            coinsEarned: result.coins_earned ?? 0,
+          });
+        }
+      } else {
+        setVoteStates(prev => ({
+          ...prev,
+          [questionId]: {
+            ...prev[questionId],
+            submitting: false,
+          },
+        }));
       }
-    } else {
+    } catch {
       setVoteStates(prev => ({
         ...prev,
-        [questionId]: { ...prev[questionId], submitting: false },
+        [questionId]: {
+          ...prev[questionId],
+          submitting: false,
+        },
       }));
     }
   }, [questions, submitVoteFn, voteStates]);

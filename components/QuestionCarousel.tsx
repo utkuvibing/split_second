@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, ViewToken } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -97,10 +97,25 @@ export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
   const flatListRef = useRef<FlatList>(null);
 
   const activeQuestion = questions[activeIndex];
-  const showTimer = activeQuestion
-    && !activeQuestion.isLocked
-    && !activeQuestion.hasVoted
-    && !activeQuestion.isSubmitting;
+
+  // Keep carousel on the current unanswered question (initial load + after vote).
+  useEffect(() => {
+    const current = questions[activeIndex];
+    const needsAdvance = !current || current.hasVoted || current.isLocked;
+    if (!needsAdvance) return;
+
+    const nextIdx = questions.findIndex((q) => !q.isLocked && !q.hasVoted);
+    if (nextIdx < 0 || nextIdx === activeIndex) return;
+
+    setActiveIndex(nextIdx);
+    requestAnimationFrame(() => {
+      flatListRef.current?.scrollToIndex({ index: nextIdx, animated: true });
+    });
+  }, [questions, activeIndex]);
+
+  const showTimer = Boolean(
+    activeQuestion && !activeQuestion.isLocked && !activeQuestion.hasVoted
+  );
 
   const tryVote = useCallback((questionId: string, choice: 'a' | 'b') => {
     const item = questions.find(q => q.question.id === questionId);
@@ -128,7 +143,8 @@ export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
   const { timeLeft, progress } = useCountdownTimer(
     TIMER_SECONDS,
     handleTimerExpire,
-    !!showTimer
+    showTimer,
+    activeQuestion?.question.id
   );
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -161,8 +177,12 @@ export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
 
   return (
     <View style={styles.container}>
-      {showTimer && (
-        <CountdownTimer timeLeft={timeLeft} progress={progress} />
+      {showTimer && activeQuestion && (
+        <CountdownTimer
+          key={activeQuestion.question.id}
+          timeLeft={timeLeft}
+          progress={progress}
+        />
       )}
       <PaginationDots items={questions} activeIndex={activeIndex} colors={colors} />
       <FlatList
@@ -181,6 +201,12 @@ export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
           offset: SCREEN_WIDTH * index,
           index,
         })}
+        onScrollToIndexFailed={(info) => {
+          flatListRef.current?.scrollToOffset({
+            offset: info.averageItemLength * info.index,
+            animated: true,
+          });
+        }}
       />
       <Animated.View entering={FadeIn.duration(300)} style={styles.progressBar}>
         <View style={[styles.progressPill, { backgroundColor: GLASS.backgroundColor(colors.surface), borderColor: GLASS.borderColor }]}>
