@@ -6,18 +6,24 @@ import { t } from './i18n';
 
 const NOTIFICATION_SCHEDULED_KEY = 'daily_notifications_v2_scheduled';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  }),
-});
+function notificationsSupported(): boolean {
+  return Platform.OS !== 'web' && Device.isDevice;
+}
+
+if (notificationsSupported()) {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true,
+    }),
+  });
+}
 
 export async function requestNotificationPermissions(): Promise<boolean> {
-  if (!Device.isDevice) {
+  if (!notificationsSupported()) {
     return false;
   }
 
@@ -45,6 +51,8 @@ export async function requestNotificationPermissions(): Promise<boolean> {
 }
 
 export async function scheduleDailyReminders() {
+  if (!notificationsSupported()) return;
+
   const alreadyScheduled = await AsyncStorage.getItem(NOTIFICATION_SCHEDULED_KEY);
   if (alreadyScheduled === 'true') return;
 
@@ -102,6 +110,7 @@ export async function scheduleDailyReminders() {
 export const scheduleDailyReminder = scheduleDailyReminders;
 
 export async function scheduleStreakReminder(currentStreak: number) {
+  if (!notificationsSupported()) return;
   if (currentStreak < 3) return;
 
   const hasPermission = await requestNotificationPermissions();
