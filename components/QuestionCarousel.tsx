@@ -22,12 +22,12 @@ interface QuestionState {
   question: Question;
   hasVoted: boolean;
   isLocked: boolean;
+  isSubmitting: boolean;
 }
 
 interface Props {
   questions: QuestionState[];
   onVote: (questionId: string, choice: 'a' | 'b') => void;
-  submitting: boolean;
   onRefresh: () => void;
 }
 
@@ -86,7 +86,7 @@ const dotStyles = StyleSheet.create({
   },
 });
 
-export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: Props) {
+export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
   const colors = useTheme();
   const styles = createStyles(colors);
   const [activeIndex, setActiveIndex] = useState(() => {
@@ -97,20 +97,33 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
   const flatListRef = useRef<FlatList>(null);
 
   const activeQuestion = questions[activeIndex];
-  const showTimer = activeQuestion && !activeQuestion.isLocked && !activeQuestion.hasVoted;
+  const showTimer = activeQuestion
+    && !activeQuestion.isLocked
+    && !activeQuestion.hasVoted
+    && !activeQuestion.isSubmitting;
 
-  const handleVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+  const tryVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+    const item = questions.find(q => q.question.id === questionId);
+    if (!item || item.hasVoted || item.isLocked || item.isSubmitting) return;
     hapticVote();
     onVote(questionId, choice);
-  }, [onVote]);
+  }, [onVote, questions]);
+
+  const handleVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+    tryVote(questionId, choice);
+  }, [tryVote]);
 
   const handleTimerExpire = useCallback(() => {
-    if (activeQuestion && !activeQuestion.hasVoted && !activeQuestion.isLocked) {
+    if (
+      activeQuestion
+      && !activeQuestion.hasVoted
+      && !activeQuestion.isLocked
+      && !activeQuestion.isSubmitting
+    ) {
       const randomChoice = Math.random() < 0.5 ? 'a' : 'b';
-      hapticVote();
-      onVote(activeQuestion.question.id, randomChoice as 'a' | 'b');
+      tryVote(activeQuestion.question.id, randomChoice as 'a' | 'b');
     }
-  }, [activeQuestion, onVote]);
+  }, [activeQuestion, tryVote]);
 
   const { timeLeft, progress } = useCountdownTimer(
     TIMER_SECONDS,
@@ -139,12 +152,12 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
           <QuestionCard
             question={item.question}
             onVote={(choice) => handleVote(item.question.id, choice)}
-            disabled={submitting || item.hasVoted}
+            disabled={item.hasVoted || item.isSubmitting}
           />
         )}
       </View>
     );
-  }, [submitting, handleVote, onRefresh]);
+  }, [handleVote, onRefresh]);
 
   return (
     <View style={styles.container}>

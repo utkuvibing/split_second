@@ -2,12 +2,13 @@
 
 **[English README](README.md)**
 
-React Native ve Expo ile geliştirilmiş günlük "Hangisini Tercih Edersin?" mobil uygulaması. Her gün bir soru, geri sayım baskısı altında oy ver ve dünyanın nasıl düşündüğünü gör.
+React Native ve Expo ile geliştirilmiş günlük "Hangisini Tercih Edersin?" mobil uygulaması. Her gün **3 soru**: **08:00**, **14:00** ve **20:00** (cihaz yerel saati). Her soruda 10 saniyelik geri sayım; günü tamamlayınca seri ve ödüller.
 
 ## Özellikler
 
-- **Günlük Soru** — Her gece yarısı yeni bir "hangisini tercih edersin" ikilemi
-- **Geri Sayım** — Süre dolmadan oy ver, gerilimi hisset
+- **Günde 3 Soru** — Sabah (08:00), öğle (14:00) ve akşam (20:00) ikilemleri (yerel saat)
+- **10 Saniye Geri Sayım** — Her soruda süre dolmadan oy ver
+- **Gün Tamamlama** — Bugünün tüm aktif sorularını cevaplayınca gün tamamlanır; seri güncellenir ve mystery box şansı açılır
 - **Canlı Sonuçlar** — Oyunu verdikten sonra küresel oy dağılımını gör
 - **Seri Takibi** — Günlük oylama serini devam ettir
 - **Liderlik Tablosu** — En aktif oyuncular ve en uzun seriler

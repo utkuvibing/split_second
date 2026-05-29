@@ -72,6 +72,12 @@ describe('i18n', () => {
       expect(result).toContain('Test Question');
       expect(result).toContain('https://example.com');
     });
+
+    it('should interpolate mysteryBoxTeaserProgress without leftover braces', () => {
+      const result = t('mysteryBoxTeaserProgress', { voted: 2, total: 3 });
+      expect(result).toContain('2/3');
+      expect(result).not.toMatch(/\{/);
+    });
   });
 
   describe('Language detection', () => {

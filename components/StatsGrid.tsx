@@ -19,6 +19,7 @@ const categoryKeys: Record<string, TranslationKey> = {
   entertainment: 'catEntertainment',
   adventure: 'catAdventure',
   funny: 'catFunny',
+  dating: 'catDating',
 };
 
 export function StatsGrid({ stats }: Props) {

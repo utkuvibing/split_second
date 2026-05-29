@@ -83,6 +83,7 @@ const tr = {
   catEntertainment: 'Eğlence',
   catAdventure: 'Macera',
   catFunny: 'Komik',
+  catDating: 'Flört / İlişki',
 
   // Onboarding
   onboardingTitle1: 'Günde 3 soru,\nher biri 10 saniye.',
@@ -103,6 +104,10 @@ const tr = {
   // Challenge screen
   challenge: '🎯 Meydan Okuma',
   questionNotFound: 'Soru bulunamadı',
+  challengeDateInvalid: 'Geçersiz tarih bağlantısı',
+  challengePastClosed: 'Bu soru için oy verme süresi kapandı.',
+  challengeFutureClosed: 'Bu soru henüz açılmadı.',
+  challengeLockedToday: 'Bu soru henüz açılmadı. Açılış saatini bekleyin.',
   goHome: 'Ana Sayfaya Dön',
   goToTodayQuestion: 'Bugünkü Soruya Git',
 
@@ -117,8 +122,8 @@ const tr = {
 
   // Notifications
   dailyReminderChannel: 'Günlük hatırlatma',
-  dailyReminderTitle: 'Bugünün sorusu hazır! ⚡',
-  dailyReminderBody: 'Karar zamanın geldi. 10 saniyede seç!',
+  dailyReminderTitle: 'Bugünün soruları hazır! ⚡',
+  dailyReminderBody: '3 soru seni bekliyor. Her birinde 10 saniyede seç!',
   morningReminderTitle: 'Sabah sorusu hazır! ☀️',
   morningReminderBody: 'Güne bir ikilemle başla!',
   afternoonReminderTitle: 'Öğle sorusu açıldı! 🌤️',
@@ -380,9 +385,10 @@ const tr = {
   mysteryBoxDropped: 'Kutu Düştü!',
   mysteryBoxOpen: 'Aç!',
   mysteryBoxBoost: '2x Coin (1 saat)',
+  mysteryBoxBoostNeutral: 'Özel ödül',
   mysteryBoxInventory: 'Kutular',
   mysteryBoxTeaser: '3 soruyu cevapla, mystery box kazan!',
-  mysteryBoxTeaserProgress: '{{voted}}/{{total}} tamamlandı',
+  mysteryBoxTeaserProgress: '{voted}/{total} soru tamamlandı',
   rarity_common: 'Sıradan',
   rarity_rare: 'Nadir',
   rarity_epic: 'Destansı',
@@ -531,6 +537,7 @@ const en: typeof tr = {
   catEntertainment: 'Entertainment',
   catAdventure: 'Adventure',
   catFunny: 'Funny',
+  catDating: 'Dating / Love Life',
 
   // Onboarding
   onboardingTitle1: '3 questions a day,\n10 seconds each.',
@@ -551,6 +558,10 @@ const en: typeof tr = {
   // Challenge screen
   challenge: '🎯 Challenge',
   questionNotFound: 'Question not found',
+  challengeDateInvalid: 'Invalid date link',
+  challengePastClosed: 'Voting for this question has closed.',
+  challengeFutureClosed: 'This question is not open yet.',
+  challengeLockedToday: 'This question is not open yet. Wait for the unlock time.',
   goHome: 'Go to Home',
   goToTodayQuestion: 'Go to Today\'s Question',
 
@@ -565,8 +576,8 @@ const en: typeof tr = {
 
   // Notifications
   dailyReminderChannel: 'Daily reminder',
-  dailyReminderTitle: 'Today\'s question is ready! ⚡',
-  dailyReminderBody: 'Time to decide. Choose in 10 seconds!',
+  dailyReminderTitle: 'Today\'s questions are ready! ⚡',
+  dailyReminderBody: '3 questions await you. Choose within 10 seconds each!',
   morningReminderTitle: 'Morning question is ready! ☀️',
   morningReminderBody: 'Start your day with a dilemma!',
   afternoonReminderTitle: 'Afternoon question unlocked! 🌤️',
@@ -828,9 +839,10 @@ const en: typeof tr = {
   mysteryBoxDropped: 'Box Dropped!',
   mysteryBoxOpen: 'Open!',
   mysteryBoxBoost: '2x Coins (1 hour)',
+  mysteryBoxBoostNeutral: 'Special reward',
   mysteryBoxInventory: 'Boxes',
   mysteryBoxTeaser: 'Answer all 3 to unlock a mystery box!',
-  mysteryBoxTeaserProgress: '{{voted}}/{{total}} completed',
+  mysteryBoxTeaserProgress: '{voted}/{total} questions completed',
   rarity_common: 'Common',
   rarity_rare: 'Rare',
   rarity_epic: 'Epic',

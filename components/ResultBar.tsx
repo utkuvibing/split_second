@@ -51,13 +51,13 @@ export function ResultBars({
   countA: number;
   countB: number;
   total: number;
-  userChoice: 'a' | 'b';
+  userChoice?: 'a' | 'b';
   category?: string;
 }) {
   const colors = useTheme();
   const percentA = total > 0 ? Math.round((countA / total) * 100) : 0;
   const percentB = total > 0 ? Math.round((countB / total) * 100) : 0;
-  const userPercent = userChoice === 'a' ? percentA : percentB;
+  const userPercent = userChoice === 'a' ? percentA : userChoice === 'b' ? percentB : null;
 
   return (
     <View style={styles.barsContainer}>
@@ -77,8 +77,8 @@ export function ResultBars({
         isUserChoice={userChoice === 'b'}
         delay={200}
       />
-      <SocialProofBadge userPercent={userPercent} />
-      {category && (
+      {userPercent != null && <SocialProofBadge userPercent={userPercent} />}
+      {category && userPercent != null && (
         <Animated.View entering={FadeIn.delay(1200).duration(400)}>
           <CategoryInsight category={category} userPercent={userPercent} />
         </Animated.View>

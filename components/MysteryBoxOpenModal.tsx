@@ -79,7 +79,7 @@ export function MysteryBoxOpenModal({ visible, rarity, rewardType, rewardValue, 
 
   const getRewardLabel = () => {
     if (rewardType === 'coins') return `+${rewardValue} coins`;
-    if (rewardType === 'boost') return t('mysteryBoxBoost');
+    if (rewardType === 'boost') return t('mysteryBoxBoostNeutral');
     return t(`cosmetic_${rewardValue}` as any) || rewardValue;
   };
 
