@@ -1,0 +1,109 @@
+{
+  "version": 2,
+  "types": [
+    {
+      "id": "flash_rebel",
+      "weights": {
+        "speed": 0.15,
+        "conformity_inv": 0.1,
+        "courage": 0.1,
+        "risk_tolerance": 0.15,
+        "novelty_seeking": 0.15,
+        "independence": 0.1,
+        "chaos_tolerance": 0.15,
+        "practicality_inv": 0.1
+      }
+    },
+    {
+      "id": "cool_strategist",
+      "weights": {
+        "speed_inv": 0.15,
+        "conformity": 0.15,
+        "courage_inv": 0.1,
+        "practicality": 0.2,
+        "communication_directness": 0.1,
+        "conflict_style_inv": 0.1,
+        "chaos_tolerance_inv": 0.1,
+        "emotionality_inv": 0.1
+      }
+    },
+    {
+      "id": "gut_feeler",
+      "weights": {
+        "speed": 0.15,
+        "conformity": 0.15,
+        "diversity_inv": 0.1,
+        "emotionality": 0.2,
+        "romance_style": 0.15,
+        "social_energy": 0.1,
+        "practicality_inv": 0.05,
+        "risk_tolerance_inv": 0.1
+      }
+    },
+    {
+      "id": "lone_wolf",
+      "weights": {
+        "speed_inv": 0.12,
+        "conformity_inv": 0.12,
+        "courage": 0.15,
+        "independence": 0.2,
+        "social_energy_inv": 0.15,
+        "commitment_readiness_inv": 0.1,
+        "practicality": 0.08,
+        "communication_directness_inv": 0.08
+      }
+    },
+    {
+      "id": "explorer_soul",
+      "weights": {
+        "diversity": 0.15,
+        "courage": 0.12,
+        "conformity_inv": 0.1,
+        "novelty_seeking": 0.2,
+        "risk_tolerance": 0.15,
+        "social_energy": 0.1,
+        "independence": 0.08,
+        "chaos_tolerance": 0.1
+      }
+    },
+    {
+      "id": "specialist_sage",
+      "weights": {
+        "diversity_inv": 0.15,
+        "courage_inv": 0.12,
+        "conformity": 0.15,
+        "practicality": 0.2,
+        "chaos_tolerance_inv": 0.12,
+        "novelty_seeking_inv": 0.1,
+        "communication_directness": 0.08,
+        "commitment_readiness": 0.08
+      }
+    },
+    {
+      "id": "chaos_agent",
+      "weights": {
+        "speed": 0.12,
+        "courage": 0.12,
+        "diversity": 0.12,
+        "conformity_inv": 0.08,
+        "chaos_tolerance": 0.18,
+        "novelty_seeking": 0.15,
+        "risk_tolerance": 0.12,
+        "independence": 0.11
+      }
+    },
+    {
+      "id": "wise_owl",
+      "weights": {
+        "speed_inv": 0.12,
+        "conformity": 0.12,
+        "diversity_inv": 0.1,
+        "courage_inv": 0.1,
+        "practicality": 0.18,
+        "chaos_tolerance_inv": 0.15,
+        "emotionality": 0.08,
+        "commitment_readiness": 0.15
+      }
+    }
+  ]
+}

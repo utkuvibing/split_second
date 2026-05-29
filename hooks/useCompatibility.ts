@@ -1,6 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { PersonalityAxes } from '../lib/personality';
-import { calculateCompatibility, CompatibilityResult } from '../lib/compatibility';
+import { PersonalityAxes, ContentAxes, DatingProfile } from '../lib/personality';
+import {
+  calculateCompatibility,
+  calculateDatingCompatibility,
+  flattenFriendAxes,
+  CompatibilityProfile,
+  CompatibilityResult,
+} from '../lib/compatibility';
 import { supabase } from '../lib/supabase';
 
 export interface FriendWithPersonality {
@@ -8,14 +14,26 @@ export interface FriendWithPersonality {
   friend_code: string;
   friend_display_name: string | null;
   friend_avatar_id: string | null;
-  axes: PersonalityAxes | null;
+  axes: CompatibilityProfile | null;
+  dating_profile?: DatingProfile | null;
 }
 
 export interface FriendCompatibility extends FriendWithPersonality {
   compatibility: CompatibilityResult | null;
 }
 
-export function useCompatibility(myAxes: PersonalityAxes | null) {
+export function buildCompatibilityProfile(
+  behavioral: PersonalityAxes | null,
+  content: Partial<ContentAxes> | null,
+): CompatibilityProfile | null {
+  if (!behavioral) return null;
+  return { ...behavioral, ...(content ?? {}) };
+}
+
+export function useCompatibility(
+  myAxes: CompatibilityProfile | null,
+  myDating?: DatingProfile | null,
+) {
   const [friends, setFriends] = useState<FriendCompatibility[]>([]);
   const [bestMatch, setBestMatch] = useState<FriendCompatibility | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,15 +59,33 @@ export function useCompatibility(myAxes: PersonalityAxes | null) {
         return;
       }
 
-      const friendsList = data as FriendWithPersonality[];
-      const withCompatibility: FriendCompatibility[] = friendsList.map((friend) => ({
-        ...friend,
-        compatibility: friend.axes
-          ? calculateCompatibility(myAxes, friend.axes)
-          : null,
-      }));
+      const friendsList = (data as Array<Record<string, unknown>>).map((row) => {
+        const rawAxes = row.axes as Record<string, unknown> | null;
+        const datingProfile = (rawAxes?.dating_profile as DatingProfile | null) ?? null;
+        return {
+          friend_id: row.friend_id as string,
+          friend_code: row.friend_code as string,
+          friend_display_name: row.friend_display_name as string | null,
+          friend_avatar_id: row.friend_avatar_id as string | null,
+          axes: flattenFriendAxes(rawAxes),
+          dating_profile: datingProfile,
+        } satisfies FriendWithPersonality;
+      });
 
-      // Sort by compatibility score descending, friends without personality at the end
+      const withCompatibility: FriendCompatibility[] = friendsList.map((friend) => {
+        if (!friend.axes) {
+          return { ...friend, compatibility: null };
+        }
+        const compatibility = calculateCompatibility(myAxes, friend.axes);
+        const datingScore = calculateDatingCompatibility(myDating, friend.dating_profile);
+        return {
+          ...friend,
+          compatibility: datingScore != null
+            ? { ...compatibility, datingScore }
+            : compatibility,
+        };
+      });
+
       withCompatibility.sort((a, b) => {
         if (a.compatibility && b.compatibility) {
           return b.compatibility.overallScore - a.compatibility.overallScore;
@@ -60,17 +96,14 @@ export function useCompatibility(myAxes: PersonalityAxes | null) {
       });
 
       setFriends(withCompatibility);
-
-      // Best match = highest score friend
-      const best = withCompatibility.find((f) => f.compatibility !== null);
-      setBestMatch(best ?? null);
+      setBestMatch(withCompatibility.find((f) => f.compatibility !== null) ?? null);
     } catch (e) {
       console.warn('useCompatibility error:', e);
       setError('unexpected_error');
     } finally {
       setLoading(false);
     }
-  }, [myAxes]);
+  }, [myAxes, myDating]);
 
   useEffect(() => {
     load();

@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { Question, TimeSlot } from '../types/database';
+import { getAppLocalDateKey } from './date';
 
 const UNLOCK_HOURS: Record<TimeSlot, number> = {
   morning: 8,
@@ -8,8 +9,7 @@ const UNLOCK_HOURS: Record<TimeSlot, number> = {
 };
 
 export async function getTodayQuestions(): Promise<Question[]> {
-  const now = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const today = getAppLocalDateKey();
 
   const { data, error } = await supabase
     .from('questions')

@@ -25,7 +25,7 @@ import { Paywall } from '../../components/Paywall';
 import { DevMenu } from '../../components/DevMenu';
 import { usePersonality } from '../../hooks/usePersonality';
 import { PersonalityProgress } from '../../components/PersonalityProgress';
-import { PersonalityDetailCard } from '../../components/PersonalityDetailCard';
+import { PersonalityDetailCard, DatingProfileCard } from '../../components/PersonalityDetailCard';
 import { useFriends } from '../../hooks/useFriends';
 import { FriendCodeCard } from '../../components/FriendCodeCard';
 import { FriendsList } from '../../components/FriendsList';
@@ -47,7 +47,20 @@ export default function ProfileScreen() {
   const { history, loading: historyLoading } = useVoteHistory(isPremium ? undefined : FREE_HISTORY_DAYS);
   const { unlockedBadges, loading: badgesLoading } = useBadges();
 
-  const { personality, axes, totalVotes, isUnlocked: personalityUnlocked, loading: personalityLoading } = usePersonality();
+  const {
+    personality,
+    axes,
+    contentAxes,
+    axisConfidence,
+    datingProfile,
+    datingVotesCount,
+    totalVotes,
+    isUnlocked: personalityUnlocked,
+    contentUnlocked,
+    contentReady,
+    behavioralReady,
+    loading: personalityLoading,
+  } = usePersonality();
   const { friends, addFriend, removeFriend: removeFriendById, loading: friendsLoading } = useFriends();
   const { requests: friendRequests, accept: acceptRequest, reject: rejectRequest, refetch: refetchRequests } = useFriendRequests();
 
@@ -103,12 +116,24 @@ export default function ProfileScreen() {
           {/* Personality section */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{t('personalityTitle')}</Text>
-            {personalityUnlocked && personality && axes ? (
-              <PersonalityDetailCard
-                personality={personality}
-                axes={axes}
-                isPremium={isPremium}
-              />
+            {personalityUnlocked && personality ? (
+              <>
+                <PersonalityDetailCard
+                  personality={personality}
+                  axes={axes}
+                  behavioralReady={behavioralReady}
+                  contentAxes={contentAxes}
+                  contentReady={contentReady}
+                  contentUnlocked={contentUnlocked}
+                  axisConfidence={axisConfidence}
+                  isPremium={isPremium}
+                />
+                <DatingProfileCard
+                  datingProfile={datingProfile}
+                  datingVotesCount={datingVotesCount}
+                  isPremium={isPremium}
+                />
+              </>
             ) : (
               <PersonalityProgress totalVotes={totalVotes} />
             )}

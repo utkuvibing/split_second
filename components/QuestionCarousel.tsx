@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, ViewToken } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,17 +16,18 @@ import { RADIUS, SHADOW, GLASS } from '../constants/ui';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const TIMER_SECONDS = 10;
+const VIEWABILITY_CONFIG = { viewAreaCoveragePercentThreshold: 50 };
 
 interface QuestionState {
   question: Question;
   hasVoted: boolean;
   isLocked: boolean;
+  isSubmitting: boolean;
 }
 
 interface Props {
   questions: QuestionState[];
   onVote: (questionId: string, choice: 'a' | 'b') => void;
-  submitting: boolean;
   onRefresh: () => void;
 }
 
@@ -85,7 +86,7 @@ const dotStyles = StyleSheet.create({
   },
 });
 
-export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: Props) {
+export function QuestionCarousel({ questions, onVote, onRefresh }: Props) {
   const colors = useTheme();
   const styles = createStyles(colors);
   const [activeIndex, setActiveIndex] = useState(() => {
@@ -96,34 +97,61 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
   const flatListRef = useRef<FlatList>(null);
 
   const activeQuestion = questions[activeIndex];
-  const showTimer = activeQuestion && !activeQuestion.isLocked && !activeQuestion.hasVoted;
 
-  const handleVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+  // Keep carousel on the current unanswered question (initial load + after vote).
+  useEffect(() => {
+    const current = questions[activeIndex];
+    const needsAdvance = !current || current.hasVoted || current.isLocked;
+    if (!needsAdvance) return;
+
+    const nextIdx = questions.findIndex((q) => !q.isLocked && !q.hasVoted);
+    if (nextIdx < 0 || nextIdx === activeIndex) return;
+
+    setActiveIndex(nextIdx);
+    requestAnimationFrame(() => {
+      flatListRef.current?.scrollToIndex({ index: nextIdx, animated: true });
+    });
+  }, [questions, activeIndex]);
+
+  const showTimer = Boolean(
+    activeQuestion && !activeQuestion.isLocked && !activeQuestion.hasVoted
+  );
+
+  const tryVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+    const item = questions.find(q => q.question.id === questionId);
+    if (!item || item.hasVoted || item.isLocked || item.isSubmitting) return;
     hapticVote();
     onVote(questionId, choice);
-  }, [onVote]);
+  }, [onVote, questions]);
+
+  const handleVote = useCallback((questionId: string, choice: 'a' | 'b') => {
+    tryVote(questionId, choice);
+  }, [tryVote]);
 
   const handleTimerExpire = useCallback(() => {
-    if (activeQuestion && !activeQuestion.hasVoted && !activeQuestion.isLocked) {
+    if (
+      activeQuestion
+      && !activeQuestion.hasVoted
+      && !activeQuestion.isLocked
+      && !activeQuestion.isSubmitting
+    ) {
       const randomChoice = Math.random() < 0.5 ? 'a' : 'b';
-      hapticVote();
-      onVote(activeQuestion.question.id, randomChoice as 'a' | 'b');
+      tryVote(activeQuestion.question.id, randomChoice as 'a' | 'b');
     }
-  }, [activeQuestion, onVote]);
+  }, [activeQuestion, tryVote]);
 
   const { timeLeft, progress } = useCountdownTimer(
     TIMER_SECONDS,
     handleTimerExpire,
-    !!showTimer
+    showTimer,
+    activeQuestion?.question.id
   );
 
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0 && viewableItems[0].index != null) {
       setActiveIndex(viewableItems[0].index);
     }
-  }).current;
-
-  const viewabilityConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+  }, []);
 
   const votedCount = questions.filter(q => q.hasVoted).length;
   const totalCount = questions.length;
@@ -140,17 +168,21 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
           <QuestionCard
             question={item.question}
             onVote={(choice) => handleVote(item.question.id, choice)}
-            disabled={submitting || item.hasVoted}
+            disabled={item.hasVoted || item.isSubmitting}
           />
         )}
       </View>
     );
-  }, [submitting, handleVote, onRefresh]);
+  }, [handleVote, onRefresh]);
 
   return (
     <View style={styles.container}>
-      {showTimer && (
-        <CountdownTimer timeLeft={timeLeft} progress={progress} />
+      {showTimer && activeQuestion && (
+        <CountdownTimer
+          key={activeQuestion.question.id}
+          timeLeft={timeLeft}
+          progress={progress}
+        />
       )}
       <PaginationDots items={questions} activeIndex={activeIndex} colors={colors} />
       <FlatList
@@ -162,13 +194,19 @@ export function QuestionCarousel({ questions, onVote, submitting, onRefresh }: P
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={viewabilityConfig}
+        viewabilityConfig={VIEWABILITY_CONFIG}
         initialScrollIndex={activeIndex}
         getItemLayout={(_, index) => ({
           length: SCREEN_WIDTH,
           offset: SCREEN_WIDTH * index,
           index,
         })}
+        onScrollToIndexFailed={(info) => {
+          flatListRef.current?.scrollToOffset({
+            offset: info.averageItemLength * info.index,
+            animated: true,
+          });
+        }}
       />
       <Animated.View entering={FadeIn.duration(300)} style={styles.progressBar}>
         <View style={[styles.progressPill, { backgroundColor: GLASS.backgroundColor(colors.surface), borderColor: GLASS.borderColor }]}>

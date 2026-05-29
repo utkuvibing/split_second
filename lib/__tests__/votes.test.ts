@@ -1,6 +1,9 @@
 import { submitVote, getUserVote, getResults } from '../votes';
 
 jest.mock('../supabase');
+jest.mock('../date', () => ({
+  getAppLocalDateKey: () => '2026-05-29',
+}));
 import { supabase } from '../supabase';
 
 describe('votes', () => {
@@ -29,7 +32,22 @@ describe('votes', () => {
         p_question_id: 'question-123',
         p_choice: 'a',
         p_vote_time: null,
+        p_local_date: '2026-05-29',
       });
+    });
+
+    it('returns null when RPC reports success false', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      (supabase.rpc as jest.Mock).mockResolvedValue({
+        data: { success: false, error: 'question_not_for_date' },
+        error: null,
+      });
+
+      const result = await submitVote('question-123', 'a');
+
+      expect(result).toBeNull();
+      consoleSpy.mockRestore();
     });
 
     it('logs error and returns null on error', async () => {
@@ -47,6 +65,55 @@ describe('votes', () => {
         'Vote submission failed:',
         'RPC failed'
       );
+
+      consoleSpy.mockRestore();
+    });
+
+    it('returns existing results on duplicate vote error', async () => {
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      (supabase.rpc as jest.Mock).mockResolvedValue({
+        data: null,
+        error: {
+          code: '23505',
+          message: 'duplicate key value violates unique constraint "votes_user_id_question_id_key"',
+        },
+      });
+
+      (supabase.auth.getSession as jest.Mock).mockResolvedValue({
+        data: { session: { user: { id: 'user-123' } } },
+        error: null,
+      });
+
+      const mockSingle = jest.fn().mockResolvedValue({
+        data: { choice: 'a' },
+        error: null,
+      });
+      const mockEq2 = jest.fn().mockReturnValue({ single: mockSingle });
+      const mockEq1 = jest.fn().mockReturnValue({ eq: mockEq2 });
+      const mockSelectVote = jest.fn().mockReturnValue({ eq: mockEq1 });
+
+      const mockResultsSingle = jest.fn().mockResolvedValue({
+        data: { count_a: 5, count_b: 5, total_votes: 10 },
+        error: null,
+      });
+      const mockResultsEq = jest.fn().mockReturnValue({ single: mockResultsSingle });
+      const mockResultsSelect = jest.fn().mockReturnValue({ eq: mockResultsEq });
+
+      (supabase.from as jest.Mock)
+        .mockReturnValueOnce({ select: mockSelectVote })
+        .mockReturnValueOnce({ select: mockResultsSelect });
+
+      const result = await submitVote('question-123', 'a');
+
+      expect(result).toEqual({
+        count_a: 5,
+        count_b: 5,
+        total: 10,
+        success: true,
+        coins_earned: 0,
+      });
+      expect(consoleSpy).not.toHaveBeenCalled();
 
       consoleSpy.mockRestore();
     });

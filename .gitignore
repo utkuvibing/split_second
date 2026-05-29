@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+.tools/
 
 # Expo
 .expo/
@@ -13,10 +14,13 @@ expo-env.d.ts
 .kotlin/
 *.orig.*
 *.jks
+*.keystore
 *.p8
 *.p12
 *.key
 *.mobileprovision
+*.cer
+*.certSigningRequest
 
 # Metro
 .metro-health-check*
@@ -25,14 +29,43 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
-# macOS
+# macOS / OS
 .DS_Store
+Thumbs.db
 *.pem
 
-# local env files
+# --- Secrets & local environment (never commit) ---
 .env
-.env*.local
+.env.*
+!.env.example
+.envrc
+*.local
+
+# Supabase local / CLI
+supabase/.branches/
+supabase/.temp/
+**/supabase/.env
+**/.supabase/
+
+# Firebase / Google (if added later)
+google-services.json
+GoogleService-Info.plist
+
+# EAS / credentials
+credentials.json
+secrets.json
+*.credentials.json
+AuthKey_*.p8
+asc-api-key.p8
+
+# IDE / editor local
+.idea/
+.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
 
 # typescript
 *.tsbuildinfo
@@ -43,3 +76,11 @@ yarn-error.*
 
 # Test coverage
 coverage/
+
+# Misc local-only
+*.backup
+*.bak
+.hermes/local/
+
+# Supabase table backups (local audit snapshots)
+data/backups/

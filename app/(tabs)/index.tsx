@@ -37,6 +37,7 @@ import { getNextBadgeProgress } from '../../lib/badges';
 import { fetchBadgeContext } from '../../lib/badges';
 import { scheduleDailyReminder, scheduleStreakReminder } from '../../lib/notifications';
 import { usePersonality } from '../../hooks/usePersonality';
+import { PERSONALITY_UNLOCK_VOTES } from '../../lib/personality';
 import { PersonalityRevealModal } from '../../components/PersonalityRevealModal';
 import { useFriendVotes } from '../../hooks/useFriendVotes';
 import { FriendVotesFeed } from '../../components/FriendVotesFeed';
@@ -66,9 +67,9 @@ export default function HomeScreen() {
   const { questions, loading: questionLoading, error, refetch } = useTodayQuestions(!!userId);
   const { unlockedBadges, checkNewUnlocks } = useBadges();
   const { isPremium, equippedEffect } = usePremium();
-  const { personality, isFirstReveal, recalculate: recalcPersonality } = usePersonality();
+  const { personality, recalculate: recalcPersonality } = usePersonality();
   const [showPersonalityReveal, setShowPersonalityReveal] = useState(false);
-  const personalityCheckDone = useRef(false);
+  const personalityRevealShown = useRef(false);
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [nextBadgeProg, setNextBadgeProg] = useState<{ badge: any; current: number; target: number } | null>(null);
   const badgeCheckDone = useRef(false);
@@ -144,9 +145,13 @@ export default function HomeScreen() {
         q => states[q.id]?.hasVoted && states[q.id]?.results
       );
       if (lastVotedQ) {
+        const allAnswered = questions.every(q => states[q.id]?.hasVoted);
         setLastVoteResult({
           question: lastVotedQ,
-          results: states[lastVotedQ.id].results!,
+          results: {
+            ...states[lastVotedQ.id].results!,
+            all_today_voted: allAnswered ? true : states[lastVotedQ.id].results?.all_today_voted,
+          },
           userChoice: states[lastVotedQ.id].userChoice!,
           coinsEarned: 0,
         });
@@ -167,51 +172,76 @@ export default function HomeScreen() {
       question: q,
       hasVoted: voteStates[q.id]?.hasVoted ?? false,
       isLocked: !isQuestionUnlocked(q.time_slot),
+      isSubmitting: voteStates[q.id]?.submitting ?? false,
     }));
   }, [questions, voteStates]);
 
   const allVoted = questions.length > 0 && questions.every(q => voteStates[q.id]?.hasVoted);
+  const dayComplete = lastVoteResult?.results.all_today_voted === true;
   const votedCount = questions.filter(q => voteStates[q.id]?.hasVoted).length;
   const hasAnyUnvotedUnlocked = carouselItems.some(item => !item.hasVoted && !item.isLocked);
 
   const handleVote = useCallback(async (questionId: string, choice: 'a' | 'b') => {
-    setVoteStates(prev => ({
-      ...prev,
-      [questionId]: { ...prev[questionId], submitting: true },
-    }));
+    const current = voteStates[questionId];
+    if (current?.hasVoted || current?.submitting) return;
 
     const question = questions.find(q => q.id === questionId);
-    const result = await submitVoteFn(questionId, choice);
 
-    if (result) {
-      const newState: QuestionVoteState = {
-        userChoice: choice,
-        results: result,
-        hasVoted: true,
-        submitting: false,
-        coinsEarned: result.coins_earned ?? 0,
-      };
+    setVoteStates(prev => ({
+      ...prev,
+      [questionId]: {
+        userChoice: prev[questionId]?.userChoice ?? null,
+        results: prev[questionId]?.results ?? null,
+        hasVoted: prev[questionId]?.hasVoted ?? false,
+        submitting: true,
+        coinsEarned: prev[questionId]?.coinsEarned ?? 0,
+      },
+    }));
 
-      setVoteStates(prev => ({
-        ...prev,
-        [questionId]: newState,
-      }));
+    try {
+      const result = await submitVoteFn(questionId, choice);
 
-      if (question) {
-        setLastVoteResult({
-          question,
-          results: result,
+      if (result) {
+        const newState: QuestionVoteState = {
           userChoice: choice,
+          results: result,
+          hasVoted: true,
+          submitting: false,
           coinsEarned: result.coins_earned ?? 0,
-        });
+        };
+
+        setVoteStates(prev => ({
+          ...prev,
+          [questionId]: newState,
+        }));
+
+        if (question) {
+          setLastVoteResult({
+            question,
+            results: result,
+            userChoice: choice,
+            coinsEarned: result.coins_earned ?? 0,
+          });
+        }
+      } else {
+        setVoteStates(prev => ({
+          ...prev,
+          [questionId]: {
+            ...prev[questionId],
+            submitting: false,
+          },
+        }));
       }
-    } else {
+    } catch {
       setVoteStates(prev => ({
         ...prev,
-        [questionId]: { ...prev[questionId], submitting: false },
+        [questionId]: {
+          ...prev[questionId],
+          submitting: false,
+        },
       }));
     }
-  }, [questions, submitVoteFn]);
+  }, [questions, submitVoteFn, voteStates]);
 
   // Post-vote effects
   useEffect(() => {
@@ -254,16 +284,17 @@ export default function HomeScreen() {
       }).catch(() => {});
     }
 
-    // Personality reveal
-    if (!personalityCheckDone.current) {
-      personalityCheckDone.current = true;
-      recalcPersonality().then((type) => {
-        if (type && isFirstReveal) {
+    // Personality recalc after each vote once unlock threshold is met
+    const voteTotal = results.total_votes ?? 0;
+    if (voteTotal >= PERSONALITY_UNLOCK_VOTES) {
+      recalcPersonality().then((result) => {
+        if (result?.isFirstReveal && !personalityRevealShown.current) {
+          personalityRevealShown.current = true;
           setTimeout(() => setShowPersonalityReveal(true), 2000);
         }
       }).catch(() => {});
     }
-  }, [lastVoteResult]);
+  }, [lastVoteResult, recalcPersonality]);
 
   // Hide splash when ready
   useEffect(() => {
@@ -303,8 +334,8 @@ export default function HomeScreen() {
     );
   }
 
-  // All questions voted - show results summary
-  if (allVoted && lastVoteResult) {
+  // Day complete (all active today questions voted) - show results summary
+  if (dayComplete && lastVoteResult) {
     const { question, results, userChoice, coinsEarned } = lastVoteResult;
     const percentA = results.total > 0 ? Math.round((results.count_a / results.total) * 100) : 0;
     const percentB = results.total > 0 ? Math.round((results.count_b / results.total) * 100) : 0;
@@ -527,7 +558,7 @@ export default function HomeScreen() {
             onImageShare={() => shareImage(shareCardRef)}
           />
           {/* Mystery box teaser - answer all to unlock */}
-          {!allVoted && (
+          {!dayComplete && (
             <Animated.View entering={FadeIn.delay(700).duration(400)} style={{ marginHorizontal: 24 }}>
               <GlassCard style={SHADOW.sm}>
                 <View style={styles.mysteryTeaser}>
@@ -581,7 +612,6 @@ export default function HomeScreen() {
       <QuestionCarousel
         questions={carouselItems}
         onVote={handleVote}
-        submitting={false}
         onRefresh={refetch}
       />
       {/* Live event modal */}
@@ -607,6 +637,7 @@ export default function HomeScreen() {
 // Hook to expose submitVote for multiple questions with vote time tracking
 function useMultiVote() {
   const questionShownAt = useRef<Record<string, number>>({});
+  const inFlight = useRef<Set<string>>(new Set());
 
   const markShown = useCallback((questionId: string) => {
     if (!questionShownAt.current[questionId]) {
@@ -615,10 +646,17 @@ function useMultiVote() {
   }, []);
 
   const submitVote = useCallback(async (questionId: string, choice: 'a' | 'b'): Promise<VoteResults | null> => {
-    const { submitVote: doSubmit } = await import('../../lib/votes');
-    const shownAt = questionShownAt.current[questionId];
-    const elapsed = shownAt ? (Date.now() - shownAt) / 1000 : undefined;
-    return doSubmit(questionId, choice, elapsed);
+    if (inFlight.current.has(questionId)) return null;
+    inFlight.current.add(questionId);
+
+    try {
+      const { submitVote: doSubmit } = await import('../../lib/votes');
+      const shownAt = questionShownAt.current[questionId];
+      const elapsed = shownAt ? (Date.now() - shownAt) / 1000 : undefined;
+      return doSubmit(questionId, choice, elapsed);
+    } finally {
+      inFlight.current.delete(questionId);
+    }
   }, []);
 
   return { submitVote, markShown };

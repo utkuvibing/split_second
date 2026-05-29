@@ -3,7 +3,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 export function useCountdownTimer(
   seconds: number,
   onExpire: () => void,
-  active: boolean
+  active: boolean,
+  resetKey?: string | number
 ) {
   const [timeLeft, setTimeLeft] = useState(seconds);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -39,7 +40,7 @@ export function useCountdownTimer(
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [active, seconds]);
+  }, [active, seconds, resetKey]);
 
   const progress = timeLeft / seconds; // 1.0 → 0.0
 

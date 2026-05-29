@@ -82,7 +82,13 @@ export function CompatibilityCard({ friend, index }: Props) {
             </View>
           </View>
 
-          {/* 4-axis similarity bars */}
+          {compat.datingScore != null && (
+            <Text style={styles.datingScore}>
+              {t('datingCompatScore', { score: String(compat.datingScore) })}
+            </Text>
+          )}
+
+          {/* Top axis similarity bars */}
           <View style={styles.axes}>
             <AxisSimilarityBar
               label={t('personalityConformity')}
@@ -160,6 +166,11 @@ const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     color: colors.text,
+  },
+  datingScore: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontWeight: '600',
   },
   label: {
     fontSize: 12,

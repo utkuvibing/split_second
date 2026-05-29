@@ -1,0 +1,3505 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-29T17:53:23.906Z",
+  "signal_scale": {
+    "min": -2,
+    "max": 2
+  },
+  "axes": [
+    "risk_tolerance",
+    "novelty_seeking",
+    "social_energy",
+    "independence",
+    "emotionality",
+    "practicality",
+    "commitment_readiness",
+    "communication_directness",
+    "conflict_style",
+    "romance_style",
+    "chaos_tolerance"
+  ],
+  "dating_dimensions": [
+    "attachment_style",
+    "dating_pace",
+    "communication_style",
+    "conflict_style",
+    "romance_style",
+    "privacy_style",
+    "togetherness"
+  ],
+  "questions": {
+    "911a33fe-8abd-4755-ae6d-02fdcb58b12d": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 2
+      },
+      "review_status": "draft"
+    },
+    "9265e680-f11f-4ad7-a4e6-b9d0376ccb0f": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 2,
+        "novelty_seeking": -1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 2,
+        "risk_tolerance": 1,
+        "chaos_tolerance": 2
+      },
+      "review_status": "draft"
+    },
+    "ccc8c639-e20e-4769-bea1-e96db93f8737": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": 1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1,
+        "emotionality": 1,
+        "novelty_seeking": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "1dc5cafe-faec-42b2-8241-299167818819": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "c8e0fa09-1a49-4bdd-9e55-f9ae779b4559": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "925a205f-06a7-4dd0-a47d-2621d9862114": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "890ad4dc-da24-432c-8aee-1ca034227c7e": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 2
+      },
+      "review_status": "draft"
+    },
+    "eaedec23-8e37-42e4-b2c6-a217484b9d44": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "communication_directness": 1,
+        "commitment_readiness": 1,
+        "social_energy": 1,
+        "independence": -1
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 1,
+        "communication_directness": -1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "frequent",
+          "dating_pace": 2,
+          "togetherness": 2
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "dating_pace": -1,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = frequent initiator/anxious-lean; B = space/independence. Signals and dating block aligned."
+    },
+    "db9aaf8e-8962-4dfe-aae2-d42b91bb2da5": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "7dcbea03-9dd8-4147-8aaf-c2a4e37a4115": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "2efd6f24-53a5-479a-bd78-d5823073b531": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "4728f24b-f011-4354-9431-68a4ac7fa976": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "dd444a56-c3eb-48a4-a64c-947234dc34d7": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 1
+      },
+      "review_status": "draft"
+    },
+    "b4a85757-230a-4feb-bfc9-2defcb35a333": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "0e0a7c5f-339c-4142-b374-81ee1a71a53c": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 2,
+        "romance_style": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 2,
+        "practicality": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = detail-oriented commitment; B = big-picture independence. Emotionality vs practicality split OK."
+    },
+    "bde467dd-a55e-4234-ba81-3d8fa11a8bac": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "practicality": 2,
+        "communication_directness": 1,
+        "commitment_readiness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "335b41d6-27a5-4b37-84d6-bd78c39a0479": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "practicality": 2
+      },
+      "b": {
+        "emotionality": 2,
+        "social_energy": 1,
+        "novelty_seeking": 2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "b6c77b24-66d5-478c-8299-27ed83111b50": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "a3b4bc6e-7dad-4dac-a016-4cd9ca2c8d32": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1,
+        "chaos_tolerance": 1,
+        "novelty_seeking": 1,
+        "practicality": 2
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1,
+        "practicality": 2,
+        "commitment_readiness": 2,
+        "chaos_tolerance": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = planned/steady romance; B = spontaneous pace. dating_pace and romance_style contrast verified."
+    },
+    "9649c18d-c807-4d65-9bd7-c579dbde245a": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 2,
+        "independence": 2
+      },
+      "b": {
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "social_energy": 1,
+        "commitment_readiness": 2
+      },
+      "review_status": "draft"
+    },
+    "27a5b54d-0c14-46c9-ab01-381dd03a6b13": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "e28acc3a-2094-463b-b3cf-d9f76df6ae12": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "communication_directness": 1,
+        "commitment_readiness": 2,
+        "social_energy": 1,
+        "independence": -2
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 1,
+        "communication_directness": -1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "frequent",
+          "dating_pace": 2,
+          "togetherness": 2
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "dating_pace": -2,
+          "togetherness": -2
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual override reviewed: blind setup (social/trust) vs independent meet-cute. Attachment and pace signals confirmed."
+    },
+    "7aaa22f0-ae02-48c4-998d-ae6a224bfa56": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "6d68d7cc-a3c1-4837-83e9-4950fb73a2ce": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "2039db66-f63d-4484-9cc2-bd5e727472f4": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1,
+        "risk_tolerance": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "3235e97d-bb33-45e9-8222-4b09acde23f0": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "00892cc9-5a66-451d-8c62-bb0dc28f269d": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "social_energy": 1,
+        "chaos_tolerance": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "practicality": 2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "29af9f64-5708-4d29-93a4-bb34ca82b5f6": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "380e58ce-a313-4379-a5c7-38614a2d1cf7": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1,
+        "novelty_seeking": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "practicality": 2,
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "68aadfcf-5d08-4e80-998a-aec98ba263ad": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "c272a312-5ff4-40e1-aeff-1ad2f3e96688": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "d3396f64-f560-45b2-8b26-22ec397dcba7": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "9a195687-6832-49a9-bb4a-c40ef4acea82": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "e7f5993d-b6a4-4813-9f18-1b68e203069e": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "f30d03e3-2f92-436e-a0f1-defff1f793ec": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 2,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 2,
+        "social_energy": 1,
+        "conflict_style": -1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "a4c4e933-15d5-464b-a067-424067868f0e": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "75b79626-34d1-4853-9ea5-bce99c9f9696": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "0ed0db18-88ac-4383-830c-a8f18b82e038": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "4afd648a-9ed3-487a-ad75-85e3484e1a3a": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "b6fe065f-b68f-484d-83a4-532c9c484ae3": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "55edd238-2452-4672-93a6-74e28926b2a3": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "7acefc07-7681-47d6-acc1-2f086076d31c": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "c736da87-bd3e-4e68-b176-6540e6becbd6": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "802f9636-5910-45e9-a67c-1c6ed97137ed": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "8f3fe55a-b7ad-4cd2-9dd6-afa8ec6445d7": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 2
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "independence": 2
+      },
+      "review_status": "draft"
+    },
+    "53e7d969-4d82-4710-87bb-af96356f5f28": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "9664f458-d73d-4275-9a47-0a16e5a978c6": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 2,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "independence": 2
+      },
+      "review_status": "draft"
+    },
+    "941d314d-dd1c-4a9b-947e-2780acb8a1f0": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 2,
+        "practicality": -1,
+        "romance_style": 1
+      },
+      "b": {
+        "practicality": 2,
+        "communication_directness": 2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "c14fc980-41d4-45bf-b788-ce6bee44b9d8": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 2,
+        "practicality": 2
+      },
+      "review_status": "draft"
+    },
+    "a2f8d55d-df1d-4a9a-9b3a-e221e2db1f4c": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "0ee68128-b2ae-4217-a721-8ba661f8bd39": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "social_energy": 2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "independence": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "51863397-340a-44bd-96ab-0de0f435422e": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "114e66b6-e26a-4704-af17-50f2e227fa38": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "705c8166-697f-46d7-8a5c-04a8a65c4827": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "19d444b2-944d-4369-a820-8edc4660c342": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "854f8c34-02f0-4bd4-aa5e-f9f7daf1fd34": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "bc86ec78-39a1-491e-83fb-fa8e45a2c418": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "3b06d898-8264-4b97-a742-c1390098e199": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "independence": 1
+      },
+      "review_status": "draft"
+    },
+    "1b4f91d7-87a2-414f-9a4a-b5bb9e3fc76b": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "1d042786-14b8-4a20-9cce-8a2f6848cda1": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "134f2b92-2edb-4886-908c-79ffdb12a39a": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 2,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 2,
+        "social_energy": 1,
+        "conflict_style": -1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "890a7f79-397a-46e9-89fc-af7b476fcf20": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "f217a789-8303-4289-b21f-654f37c2a406": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1,
+        "commitment_readiness": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "independence": 2,
+        "communication_directness": -1
+      },
+      "review_status": "draft"
+    },
+    "a65d3de4-4c02-4746-b8a1-db7b8bc040eb": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "c4aaaccb-a630-4727-bc75-c23c98e96982": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "7390348f-1648-4bb4-ab0c-25c8add68d65": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "e83bf45d-7ca1-4e93-9369-be3835661ba8": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "d288232f-4f45-4da9-aadc-71dc50e3d9be": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "8050324b-a876-4a9c-a928-57debfd66dab": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "be4dbc3a-81c0-478d-b2d8-b4bdad6db769": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "f1cf5580-d117-47c2-8d61-ceca9ccf8190": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "794c2430-7de9-430a-b0e6-c1798945241f": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "a20172db-daa7-4d25-9561-20764e957b3b": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "9d2e8c2f-5b45-4895-ba73-907fd6b10b5c": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "2ef1fbee-4bca-432e-af16-ec01e5cf7885": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "4f553708-f47b-4be3-a37b-2c8f3d2c82bf": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 2,
+        "independence": 2
+      },
+      "b": {
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "social_energy": 2,
+        "commitment_readiness": 2
+      },
+      "review_status": "draft"
+    },
+    "8ab9348d-2e18-4383-bdf1-07bfae25049c": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "7c0573dd-0b23-4cdb-a853-e6dd7e663c24": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 2,
+        "communication_directness": 1,
+        "novelty_seeking": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = fast commitment/move-in; B = slow boundary. dating_pace +2 vs -2 appropriate."
+    },
+    "efae01aa-0ef9-4a11-b344-1247bbf4a15d": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "8c7bd832-146a-4c4f-9a19-7771a7bd4f55": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "6bcc6d16-7856-47f2-8a18-08e6820f3d0a": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "ec835cdc-8dc0-44d0-a5a2-051a24d59342": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "1ffb89c4-e3e0-44a3-be6b-85ce4f89427a": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "cac74e58-cb87-4cae-9540-a06c287fa0ee": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "3dffcb4a-8eb3-4d02-9011-ff614b041f4f": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "05ae6b0b-96ef-4872-aff9-0e65c7e97c53": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "25cc40ae-96ed-4fa0-aab4-b880e9c5d760": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "d1bb9ad4-fc00-4c47-84fa-3887cf44bcc7": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "7c5c7c4c-2526-41cf-8d52-a88a80d1071d": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "050ebbe0-0580-4824-a470-8977bec1f309": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "7276f98b-58da-4276-8c40-4442d2b67757": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "af30d86d-8e63-4e43-99b3-79217dc425a5": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 2
+      },
+      "review_status": "draft"
+    },
+    "89a1e0c0-0d25-4c33-9407-4632d11f4a1e": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "00f7bb90-d99e-42d0-9e83-74f9a8fddeb8": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 2,
+        "independence": 2,
+        "social_energy": 2,
+        "romance_style": 1
+      },
+      "b": {
+        "independence": 2,
+        "communication_directness": 2,
+        "social_energy": 2,
+        "commitment_readiness": 2,
+        "practicality": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "private",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "private",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = family-fit harmony; B = chemistry/independence. conflict_style harmonizer vs direct OK."
+    },
+    "97ec47cc-0be7-4c15-9e46-6c1ca061a09a": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 2,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 2,
+        "risk_tolerance": -1,
+        "independence": 2
+      },
+      "review_status": "draft"
+    },
+    "ab30009e-f5e0-4ca0-8c15-cd984d43afdf": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1,
+        "independence": 2
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1,
+        "social_energy": 1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "031c0708-2aea-4629-9b4e-601fe9a94d96": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "2822eda1-bea1-4ddf-a576-4a1f1fc275c6": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "e79152b3-320d-4b10-b408-6448126f6317": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 2,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 2,
+        "risk_tolerance": 1,
+        "emotionality": 1
+      },
+      "review_status": "draft"
+    },
+    "18614903-68ca-4681-9531-6fbacf084844": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "13fe0acf-d4af-4d17-82d3-8c34437a25f4": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1,
+        "commitment_readiness": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 2,
+        "communication_directness": -1
+      },
+      "review_status": "draft"
+    },
+    "31d86f0d-8f5f-4e75-936b-2d89ba10f741": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "communication_directness": 1,
+        "social_energy": 1,
+        "independence": -1
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 1,
+        "communication_directness": -1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "frequent",
+          "dating_pace": 2,
+          "togetherness": 2
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "dating_pace": -1,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual override reviewed: instant-reply clingy vs slow independent. Core anxious/avoidant axis validated."
+    },
+    "cb6e6275-447e-4c63-823a-25e74a62b27a": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 2,
+        "commitment_readiness": 2
+      },
+      "review_status": "draft"
+    },
+    "ca798073-b39c-435c-afdc-8935890ca69a": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "d0b4ab0d-a478-4660-83bf-faf3e093184f": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "8dcd7542-8bc3-434f-8526-2e8f841fdff8": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "conflict_style": -1,
+        "emotionality": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "conflict_style": 1,
+        "communication_directness": 1,
+        "practicality": 2
+      },
+      "review_status": "draft"
+    },
+    "3dabcfbf-eceb-46cb-810c-32343ed45ac1": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 2
+      },
+      "review_status": "draft"
+    },
+    "8f62e57f-2837-44cf-8177-9821a5319c4a": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1,
+        "communication_directness": 2
+      },
+      "b": {
+        "independence": 2,
+        "communication_directness": 1,
+        "emotionality": 1,
+        "conflict_style": -1,
+        "novelty_seeking": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "harmonizer",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = radical honesty/direct; B = gentle harmony. communication_directness and conflict_style split OK."
+    },
+    "0d8ec775-a89c-4fe9-afc6-cf2683bcf590": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "efde0b56-31dc-45d2-a1ad-fe54c771c904": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "f18c9d3b-0e7c-4f04-aaef-4fc48e3197fc": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 2,
+        "novelty_seeking": -1,
+        "emotionality": 2,
+        "romance_style": 2,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 2,
+        "risk_tolerance": 2,
+        "practicality": 2,
+        "communication_directness": 2
+      },
+      "review_status": "draft"
+    },
+    "1cc7b060-01a6-4777-a632-cf99ca6c298e": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 1
+      },
+      "review_status": "draft"
+    },
+    "9659d3ac-3ac1-4d46-be67-37d9bbd67cad": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = present-moment romance; B = long-term commitment. commitment_readiness contrast verified."
+    },
+    "0c7b49cf-a82e-4f93-ac92-490f7b4975c3": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "2d8daa33-43b1-441c-bd95-0bedb2e05f29": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 2,
+        "social_energy": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "independence": 2,
+        "communication_directness": -1
+      },
+      "review_status": "draft"
+    },
+    "66a58c80-b32a-4034-9dec-213baf43ccb7": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "1cfcf136-680b-4072-9711-670edfe44cee": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "e40543a4-df2b-4d69-add4-0bc2a3ea267c": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1,
+        "communication_directness": 2
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1,
+        "emotionality": 2,
+        "conflict_style": -2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "6e591c83-4977-4f8f-8e9c-39c0e1a929c0": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 2,
+        "chaos_tolerance": 1,
+        "novelty_seeking": 1,
+        "practicality": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 2,
+        "practicality": 2,
+        "commitment_readiness": 1,
+        "chaos_tolerance": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "grand",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "grand",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 2,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = cozy/steady romance; B = chaotic/grand gestures. romance_style steady vs grand OK."
+    },
+    "686d9d76-a5ea-412a-8467-a8ece69856b9": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 2,
+        "social_energy": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "independence": 2,
+        "communication_directness": -1
+      },
+      "review_status": "draft"
+    },
+    "52480f25-2530-4cc2-8b53-91c728251ace": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "23eba099-56cd-4196-b26b-d8c268c79969": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "practicality": 2,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "ce210a40-5504-462b-8e2d-b3077650c51b": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 2
+      },
+      "review_status": "draft"
+    },
+    "d5c7542f-8e4d-4f19-9544-70b7d258b9c8": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1,
+        "independence": 2
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1,
+        "social_energy": 2,
+        "commitment_readiness": 2
+      },
+      "review_status": "draft"
+    },
+    "3d783e69-7454-4645-a48d-9b13aff8b776": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "ba111b83-fdd0-401e-a54e-cc63572f04e9": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1,
+        "communication_directness": 2
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1,
+        "emotionality": 2,
+        "conflict_style": -2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "harmonizer",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = closure/direct communication; B = ambiguity tolerance. communication_style contrast OK."
+    },
+    "61ffea51-5944-4b65-aefb-d9b40f01be97": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "eeb135ce-1e98-4852-b1a7-f15f09c95dad": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 2,
+        "romance_style": 1,
+        "risk_tolerance": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "practicality": 2,
+        "communication_directness": 2,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "9596ecf1-2f8c-4220-9a21-2523368938c8": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "951c2a51-b933-4905-8ee4-6ea44c9bc315": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 2,
+        "romance_style": 2,
+        "practicality": 2,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 2,
+        "practicality": 2,
+        "emotionality": 2,
+        "novelty_seeking": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = emotion-first; B = logic-first. emotionality vs practicality split verified."
+    },
+    "003507a6-7320-4331-ad1c-8e86eaa1432d": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "4283b3dd-bc7f-48dc-8abe-72c460599678": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "f94a2344-f8f0-4713-90a3-1e2638c7dd87": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "72aa5f3e-8702-4622-938e-a3df934a60d0": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "9856b347-1339-45e9-843d-f2a20dcec3e6": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "11ffcc7e-f52a-4ca6-9b56-5b1a36bc410a": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "ddda4d25-7ea0-4a93-a5fd-83346bdaa8cb": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "1812354e-1284-456f-b8ff-a4dd3f629177": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "7d8b8a9a-7df3-47de-b3fd-8aacfbe5c11e": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "6d79c613-2665-4775-9523-9e2d34828fff": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "fa6de81d-3d11-404a-893a-6dfab70e34a9": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1,
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = trust/long-distance togetherness; B = local independence. togetherness axis OK."
+    },
+    "2fbd1db0-374e-4746-96be-0840f6832042": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "independence": 2,
+        "communication_directness": -2
+      },
+      "review_status": "draft"
+    },
+    "4b8fe659-d119-4ba8-a39d-f134d5ace0f7": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "a02f65a2-c65f-4a25-b3d4-efe069c4d2ad": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "commitment_readiness": 2,
+        "social_energy": 2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "independence": 2,
+        "communication_directness": -1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "dca908dd-4047-4fa8-8648-8344591db1a8": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "33b906e0-607e-4ec4-a59c-bc5711e0de0a": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "ffa95ec1-8cab-4349-9cbd-33dacdaf1c4a": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "70d22893-cb76-4466-83d9-94602b55f2e3": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "da3f72b8-deb9-4011-8da5-3b7af54530d4": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1,
+        "practicality": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1,
+        "chaos_tolerance": 2,
+        "novelty_seeking": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = equal/practical split; B = provider/traditional. practicality and independence OK."
+    },
+    "01ec8177-8658-436e-a5a1-9a0c042b8c08": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "social_energy": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "independence": 1
+      },
+      "review_status": "draft"
+    },
+    "d5c69d9e-954c-41f9-abe3-af1ad724233f": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "3e27b576-653f-40c7-9c9c-ccd8efe1dbe9": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1,
+        "conflict_style": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "conflict_style": -2,
+        "emotionality": 2
+      },
+      "review_status": "draft"
+    },
+    "c7407e67-ec3f-4691-b2b1-6191766aeffa": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1,
+        "communication_directness": 2
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1,
+        "emotionality": 1,
+        "conflict_style": -1
+      },
+      "review_status": "draft"
+    },
+    "2b9435bf-59a0-4ebb-b440-e0acf5751d46": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "social_energy": 2,
+        "conflict_style": -2,
+        "emotionality": -2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "independence": 1,
+        "conflict_style": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "4f0ffc2d-d188-4e2e-8512-8bcdee284d9d": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "12ad142e-95a0-409e-afbe-5c37980cc6ae": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1,
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "eb4f411b-8759-4e7a-bda1-ec18e9ffb8f3": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 2,
+        "social_energy": 2,
+        "romance_style": 2
+      },
+      "b": {
+        "independence": 2,
+        "communication_directness": 2,
+        "practicality": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "low_key",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "low_key",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = social approval/friends; B = personal chemistry. social_energy vs independence OK."
+    },
+    "3f674bae-e667-44ae-a9d6-74500b9d45d0": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "26479bf8-b422-4ac1-8789-07029cae64ad": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "26f41dcf-35da-4c66-a57d-7d9d47ea850f": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "45285e16-fdba-4170-963d-446a4dd11e19": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "b987f7da-b3a1-4959-b396-b44ccb9f54a6": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "9357a140-61e8-489c-bfd2-c2f4e22ab7f2": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "b53b717f-c25b-4a56-8f8b-f7c27bb35926": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "practicality": 2
+      },
+      "b": {
+        "emotionality": 2,
+        "social_energy": 1,
+        "novelty_seeking": 2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "5a37c98b-5470-402a-9854-7ff6b3b59ca3": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = immediate conflict resolution; B = cool-down space. conflict_style direct vs harmonizer OK."
+    },
+    "97e3c720-1d18-4f6b-90fc-397c8370f7ab": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "ab523670-f8c2-47e9-adb5-c6cd127eff7a": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "d4fa9b0f-1ae1-43c4-990a-e61c7744096a": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "0c56adbe-13ff-41f1-9f72-6db035c2d4de": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "c2d6b258-3329-4144-af4f-275da9458491": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "807887d9-bc2e-4fb4-971e-fb78e8934e3a": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "9e4503fd-dbf3-460d-8994-a4a3f40704ee": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1,
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "review_status": "draft"
+    },
+    "2f3f01d6-bd0c-44f7-aa17-6230a6e962b6": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": -2,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": -2,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = transparency/upfront; B = privacy/minimal past talk. privacy_style balanced vs private OK."
+    },
+    "985a8fea-5a9d-4a7b-9ec5-ce0884241fdf": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "4fdc544d-4fb3-41a7-8e92-1598f6b453f0": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "c768dbb8-425b-4734-8e17-24d6d636e130": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "7f083f39-b01c-4468-922c-1d7f855e8499": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "25ae2910-3224-4c3a-8686-57a978552e55": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "cda19b07-1302-4e8c-a04a-87ce6ae9e373": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "87ba8843-2f07-4b76-a662-fbac270d1a57": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "5c5a1774-08d3-46b7-b03a-28b2654fd16a": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1,
+        "novelty_seeking": 2
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1,
+        "practicality": 2,
+        "commitment_readiness": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = shared career ambition; B = individual growth. independence and commitment_readiness OK."
+    },
+    "4d23d222-3cb9-4696-8e76-4f3e72355562": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "6a1f57a3-ed96-4e6e-8614-f79106ab9444": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "775696b9-b7e8-49e5-b894-5e7f930b81d4": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "practicality": 2,
+        "commitment_readiness": 2,
+        "chaos_tolerance": -2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "8b2f7c71-f8fc-483b-bf02-bbf8640f8c72": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "81bc9c24-e25c-4a18-ba0c-9b4beb2ef7fa": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "ca60ae37-d8ee-43d0-8980-12d0709f3aff": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1,
+        "communication_directness": 2
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1,
+        "emotionality": 1,
+        "conflict_style": -1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "28da6f34-2496-4e54-93e7-7a5f12a273e7": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "cdf5d89f-adb8-4b87-9fa8-bbffdbc79c23": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 1,
+        "social_energy": 2,
+        "chaos_tolerance": 1
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "anxious_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = sentimental/handwritten; B = practical/experiential. romance_style and emotionality OK."
+    },
+    "9dd25280-2111-4fa1-b7a3-440d081c0c83": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "9981b61f-5b3a-474e-a495-c7f6b2d55399": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1,
+        "chaos_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "review_status": "draft"
+    },
+    "269317e7-74a7-4fd5-a6c5-ef905975ae1c": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "6c94a7fd-02d8-4474-9419-ea4386cf2502": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "883a4e93-e411-492f-93f0-4379ba6a1123": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 2,
+        "commitment_readiness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "677048b2-f5a8-477f-af4e-2cd8f2736f0c": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 2,
+        "conflict_style": -2,
+        "emotionality": -2,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "independence": 2,
+        "practicality": 1,
+        "conflict_style": 1
+      },
+      "review_status": "draft"
+    },
+    "34c48e9c-bcac-46c0-8239-728e6024c95f": {
+      "schema_version": 1,
+      "category": "lifestyle",
+      "a": {
+        "practicality": 1,
+        "novelty_seeking": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "47a0819a-2d1c-4288-a57d-2efca89a4712": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 1,
+        "independence": 2
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 1,
+        "social_energy": 2,
+        "commitment_readiness": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "public",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "public",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = public sharing; B = private relationship. privacy_style public vs private verified."
+    },
+    "daa71447-7952-4805-b493-a45f679c99ca": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "34be3e01-9c2f-4d32-b30b-01838e81f0d0": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "adc4fece-f3b5-4fda-a9df-cefd68432dee": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "363b170f-06fb-4b24-9866-fb780481a610": {
+      "schema_version": 1,
+      "category": "funny",
+      "a": {
+        "chaos_tolerance": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "c12d59f4-6c68-4b1d-8ce5-1a6223be02d3": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "191d540b-32ac-4ebe-a8e8-aa99b513f3eb": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "7f60eb6c-e107-4c76-a503-35b7c7d23857": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "3e90f612-dee4-427b-8942-4efa16feeb22": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 2,
+        "emotionality": 2,
+        "romance_style": 2,
+        "risk_tolerance": 2
+      },
+      "b": {
+        "independence": 2,
+        "communication_directness": 2,
+        "practicality": 2,
+        "chaos_tolerance": -1,
+        "novelty_seeking": 2
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "avoidant_lean",
+          "communication_style": "minimal",
+          "romance_style": "steady",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": -2,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = fast-burn intensity; B = slow-burn stability. dating_pace and commitment_readiness OK."
+    },
+    "4f05a874-f406-489e-84e6-aa258e3b5a11": {
+      "schema_version": 1,
+      "category": "superpower",
+      "a": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1
+      },
+      "review_status": "draft"
+    },
+    "9671046c-d948-4c58-b992-664f9702cf7d": {
+      "schema_version": 1,
+      "category": "philosophy",
+      "a": {
+        "emotionality": 1,
+        "practicality": -1
+      },
+      "b": {
+        "practicality": 1,
+        "communication_directness": 1
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    },
+    "fb971c2a-6ee8-42ca-82a6-7afa75f6bb2e": {
+      "schema_version": 1,
+      "category": "food",
+      "a": {
+        "practicality": 1,
+        "emotionality": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "d5a55d77-db39-466f-9dba-3724b3cf0e1d": {
+      "schema_version": 1,
+      "category": "adventure",
+      "a": {
+        "risk_tolerance": 1,
+        "novelty_seeking": 1
+      },
+      "b": {
+        "practicality": 1,
+        "chaos_tolerance": -1
+      },
+      "review_status": "draft"
+    },
+    "8bd165ef-4a30-4440-b815-78eed83c3b35": {
+      "schema_version": 1,
+      "category": "technology",
+      "a": {
+        "practicality": 1,
+        "risk_tolerance": -1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "risk_tolerance": 1
+      },
+      "review_status": "draft"
+    },
+    "eef3ac00-ac38-4a5d-844d-cfaab87ddfc2": {
+      "schema_version": 1,
+      "category": "dating",
+      "a": {
+        "commitment_readiness": 1,
+        "emotionality": 2,
+        "romance_style": 1
+      },
+      "b": {
+        "independence": 1,
+        "communication_directness": 2,
+        "practicality": 1
+      },
+      "dating": {
+        "a": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "grand",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": 1
+        },
+        "b": {
+          "attachment_style": "secure_lean",
+          "communication_style": "balanced",
+          "romance_style": "grand",
+          "privacy_style": "balanced",
+          "conflict_style": "direct",
+          "dating_pace": 0,
+          "togetherness": -1
+        }
+      },
+      "review_status": "reviewed",
+      "reviewer_note": "Manual review: A = grand gestures; B = quiet steady love. romance_style grand vs steady/low_key OK."
+    },
+    "2dc4a66b-414d-4339-8612-a2b2d4a20a98": {
+      "schema_version": 1,
+      "category": "skills",
+      "a": {
+        "practicality": 1,
+        "commitment_readiness": 1
+      },
+      "b": {
+        "novelty_seeking": 1,
+        "social_energy": 1
+      },
+      "review_status": "draft"
+    },
+    "de2e1a1b-231b-4ac7-a117-76c75700a92a": {
+      "schema_version": 1,
+      "category": "entertainment",
+      "a": {
+        "social_energy": 1,
+        "emotionality": 1,
+        "independence": 2
+      },
+      "b": {
+        "independence": 1,
+        "practicality": 1,
+        "social_energy": 2,
+        "commitment_readiness": 2
+      },
+      "review_status": "draft"
+    },
+    "ec91c2f9-5b44-482f-b5d9-49d7132efb7c": {
+      "schema_version": 1,
+      "category": "personality",
+      "a": {
+        "communication_directness": 1,
+        "independence": 1,
+        "social_energy": 2
+      },
+      "b": {
+        "emotionality": 1,
+        "social_energy": 1,
+        "independence": 2
+      },
+      "high_risk_review": true,
+      "review_status": "draft"
+    }
+  }
+}

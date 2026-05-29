@@ -1,0 +1,486 @@
+[
+  {
+    "id": "eaedec23-8e37-42e4-b2c6-a217484b9d44",
+    "index": 7,
+    "old_category": "food",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather eat only pizza or only sushi for the rest of your life?",
+      "question_text_tr": "Ömür boyu sadece pizza mı yoksa sadece suşi mi yemek?",
+      "option_a": "Only pizza",
+      "option_a_tr": "Sadece pizza",
+      "option_b": "Only sushi",
+      "option_b_tr": "Sadece suşi"
+    },
+    "new": {
+      "question_text": "Would you rather match with someone who texts first every day or someone who only calls once a week?",
+      "question_text_tr": "Her gün ilk mesajı atan biriyle mi eşleşmek yoksa haftada bir arayan biriyle mi?",
+      "option_a": "Texts daily",
+      "option_a_tr": "Günlük mesaj",
+      "option_b": "Calls weekly",
+      "option_b_tr": "Haftalık arama"
+    }
+  },
+  {
+    "id": "0e0a7c5f-339c-4142-b374-81ee1a71a53c",
+    "index": 14,
+    "old_category": "lifestyle",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have free Wi-Fi everywhere or free coffee everywhere?",
+      "question_text_tr": "Her yerde ücretsiz Wi-Fi mı yoksa her yerde ücretsiz kahve mi?",
+      "option_a": "Free Wi-Fi",
+      "option_a_tr": "Ücretsiz Wi-Fi",
+      "option_b": "Free coffee",
+      "option_b_tr": "Ücretsiz kahve"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who remembers every small detail or someone who forgets dates but never forgets how you feel?",
+      "question_text_tr": "Her küçük detayı hatırlayan biriyle mi, yoksa özel günleri unutan ama hislerini unutmayan biriyle mi?",
+      "option_a": "Remembers details",
+      "option_a_tr": "Detayları hatırlar",
+      "option_b": "Remembers feelings",
+      "option_b_tr": "Hissleri hatırlar"
+    }
+  },
+  {
+    "id": "a3b4bc6e-7dad-4dac-a016-4cd9ca2c8d32",
+    "index": 18,
+    "old_category": "lifestyle",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have a personal chef or a personal trainer?",
+      "question_text_tr": "Özel aşçı mı yoksa özel spor hocası mı?",
+      "option_a": "Personal chef",
+      "option_a_tr": "Özel aşçı",
+      "option_b": "Personal trainer",
+      "option_b_tr": "Özel spor hocası"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who plans every date in advance or someone spontaneous but sometimes cancels?",
+      "question_text_tr": "Her buluşmayı önceden planlayan biriyle mi, yoksa spontane ama bazen iptal eden biriyle mi çıkardın?",
+      "option_a": "Plans every date",
+      "option_a_tr": "Her şeyi planlar",
+      "option_b": "Spontaneous but flaky",
+      "option_b_tr": "Spontane ama kararsız"
+    }
+  },
+  {
+    "id": "e28acc3a-2094-463b-b3cf-d9f76df6ae12",
+    "index": 21,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have the ability to teleport or to stop time?",
+      "question_text_tr": "Işınlanma yeteneği mi yoksa zamanı durdurma yeteneği mi?",
+      "option_a": "Teleport",
+      "option_a_tr": "Işınlanmak",
+      "option_b": "Stop time",
+      "option_b_tr": "Zamanı durdurmak"
+    },
+    "new": {
+      "question_text": "Would you rather have your friends set you up blind or meet someone organically with no introduction?",
+      "question_text_tr": "Arkadaşlarının seni hiç tanımadığın biriyle ayarlaması mı, yoksa tanıştırıcı olmadan doğal şekilde tanışmak mı?",
+      "option_a": "Friends set up",
+      "option_a_tr": "Arkadaş ayarlasın",
+      "option_b": "Meet organically",
+      "option_b_tr": "Doğal tanışma"
+    }
+  },
+  {
+    "id": "7c0573dd-0b23-4cdb-a853-e6dd7e663c24",
+    "index": 77,
+    "old_category": "skills",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather master photography or master public speaking?",
+      "question_text_tr": "Fotoğrafçılıkta usta mı yoksa topluluk önünde konuşmada usta mı olmak?",
+      "option_a": "Master photos",
+      "option_a_tr": "Fotoğrafçılık ustası",
+      "option_b": "Master speaking",
+      "option_b_tr": "Konuşma ustası"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who wants to move in within six months or someone who needs two years minimum?",
+      "question_text_tr": "Altı ayda birlikte yaşamak isteyen biriyle mi, yoksa en az iki yıl bekleyen biriyle mi?",
+      "option_a": "Move in soon",
+      "option_a_tr": "Erken birlikte yaşam",
+      "option_b": "Wait two years",
+      "option_b_tr": "İki yıl bekle"
+    }
+  },
+  {
+    "id": "00f7bb90-d99e-42d0-9e83-74f9a8fddeb8",
+    "index": 93,
+    "old_category": "entertainment",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather be the director of a blockbuster or the author of a bestseller?",
+      "question_text_tr": "Gişe rekorlu bir filmin yönetmeni mi yoksa çok satan bir kitabın yazarı mı olmak?",
+      "option_a": "Film director",
+      "option_a_tr": "Film yönetmeni",
+      "option_b": "Bestseller author",
+      "option_b_tr": "Kitap yazarı"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who fits perfectly with your family or someone who feels like your private escape from everyone?",
+      "question_text_tr": "Ailenle mükemmel uyum sağlayan biriyle mi, yoksa herkesten uzak özel kaçışın gibi hissettiren biriyle mi çıkardın?",
+      "option_a": "Family fits perfectly",
+      "option_a_tr": "Aileyle tam uyum",
+      "option_b": "Private escape",
+      "option_b_tr": "Özel kaçış"
+    }
+  },
+  {
+    "id": "31d86f0d-8f5f-4e75-936b-2d89ba10f741",
+    "index": 101,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have telepathic communication with animals or speak every human language fluently?",
+      "question_text_tr": null,
+      "option_a": "Talk to animals",
+      "option_a_tr": null,
+      "option_b": "Speak all languages",
+      "option_b_tr": null
+    },
+    "new": {
+      "question_text": "Would you rather date someone who replies instantly but is clingy, or someone independent who replies slowly?",
+      "question_text_tr": "Hemen cevap veren ama yapışkan biriyle mi, yoksa bağımsız ama geç cevap veren biriyle mi çıkardın?",
+      "option_a": "Instant but clingy",
+      "option_a_tr": "Hızlı ama yapışkan",
+      "option_b": "Independent but slow",
+      "option_b_tr": "Bağımsız ama yavaş"
+    }
+  },
+  {
+    "id": "8f62e57f-2837-44cf-8177-9821a5319c4a",
+    "index": 107,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather always know when someone is lying or always know what someone is thinking?",
+      "question_text_tr": null,
+      "option_a": "Know lies",
+      "option_a_tr": null,
+      "option_b": "Read thoughts",
+      "option_b_tr": null
+    },
+    "new": {
+      "question_text": "Would you rather know your partner's honest thoughts once a week, or never have serious arguments?",
+      "question_text_tr": "Partnerinin gerçek düşüncelerini haftada bir bilmek mi, yoksa hiç ciddi tartışma yaşamamak mı?",
+      "option_a": "Honest thoughts",
+      "option_a_tr": "Gerçek düşünceler",
+      "option_b": "No big arguments",
+      "option_b_tr": "Ciddi tartışma yok"
+    }
+  },
+  {
+    "id": "9659d3ac-3ac1-4d46-be67-37d9bbd67cad",
+    "index": 112,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather talk to your past self or talk to your future self?",
+      "question_text_tr": null,
+      "option_a": "Talk to past self",
+      "option_a_tr": null,
+      "option_b": "Talk to future self",
+      "option_b_tr": null
+    },
+    "new": {
+      "question_text": "Would you rather have a perfect first date with no future, or an awkward first date that becomes a great relationship?",
+      "question_text_tr": "Geleceği olmayan mükemmel bir ilk buluşma mı, yoksa harika ilişkiye dönüşen garip bir ilk buluşma mı?",
+      "option_a": "Perfect first date",
+      "option_a_tr": "Mükemmel ilk buluşma",
+      "option_b": "Awkward but lasting",
+      "option_b_tr": "Garip ama kalıcı"
+    }
+  },
+  {
+    "id": "6e591c83-4977-4f8f-8e9c-39c0e1a929c0",
+    "index": 118,
+    "old_category": "food",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather only eat breakfast foods forever or only eat dinner foods forever?",
+      "question_text_tr": "Sonsuza kadar sadece kahvaltılık mı yoksa sadece akşam yemeği mi yemek?",
+      "option_a": "Breakfast forever",
+      "option_a_tr": "Sadece kahvaltı",
+      "option_b": "Dinner forever",
+      "option_b_tr": "Sadece akşam yemeği"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who plans cozy brunch dates or someone who loves spontaneous late-night walks?",
+      "question_text_tr": "Sakin brunch buluşmaları planlayan biriyle mi, yoksa spontane gece yürüyüşlerini seven biriyle mi çıkardın?",
+      "option_a": "Cozy brunch dates",
+      "option_a_tr": "Brunch buluşmaları",
+      "option_b": "Late-night walks",
+      "option_b_tr": "Gece yürüyüşleri"
+    }
+  },
+  {
+    "id": "ba111b83-fdd0-401e-a54e-cc63572f04e9",
+    "index": 125,
+    "old_category": "lifestyle",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather live in a tiny home with a huge garden or a mansion with no yard?",
+      "question_text_tr": "Dev bahçeli minik evde mi yoksa bahçesiz malikânede mi yaşamak?",
+      "option_a": "Tiny home + garden",
+      "option_a_tr": "Minik ev + bahçe",
+      "option_b": "Mansion no yard",
+      "option_b_tr": "Malikâne, bahçe yok"
+    },
+    "new": {
+      "question_text": "Would you rather be ghosted after a great first date or get honest rejection right away?",
+      "question_text_tr": "Harika bir ilk buluşmadan sonra ghostlanmak mı yoksa hemen net bir red mi almak?",
+      "option_a": "Ghosted later",
+      "option_a_tr": "Sonra ghost",
+      "option_b": "Honest rejection",
+      "option_b_tr": "Hemen net red"
+    }
+  },
+  {
+    "id": "951c2a51-b933-4905-8ee4-6ea44c9bc315",
+    "index": 129,
+    "old_category": "adventure",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather hike the Inca Trail or cycle across the Netherlands?",
+      "question_text_tr": "İnka Yolu'nda yürümek mi yoksa Hollanda'yı bisikletle geçmek mi?",
+      "option_a": "Inca Trail",
+      "option_a_tr": "İnka Yolu",
+      "option_b": "Cycle Netherlands",
+      "option_b_tr": "Hollanda bisiklet"
+    },
+    "new": {
+      "question_text": "Would you rather follow love with logic or follow logic and ignore chemistry?",
+      "question_text_tr": "Aşkı mantıkla mı yönetmek yoksa mantığı seçip kimyayı görmezden mi gelmek?",
+      "option_a": "Love with logic",
+      "option_a_tr": "Mantıklı aşk",
+      "option_b": "Logic over chemistry",
+      "option_b_tr": "Mantık öncelikli"
+    }
+  },
+  {
+    "id": "fa6de81d-3d11-404a-893a-6dfab70e34a9",
+    "index": 140,
+    "old_category": "funny",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have a permanent theme song when you enter rooms or a laugh track for your life?",
+      "question_text_tr": "Odaya girince kalıcı marş mı çalsın yoksa hayatına kahkaha efekti mi eklensin?",
+      "option_a": "Entrance theme",
+      "option_a_tr": "Giriş marşı",
+      "option_b": "Life laugh track",
+      "option_b_tr": "Kahkaha efekti"
+    },
+    "new": {
+      "question_text": "Would you rather do long distance with someone you trust completely or live nearby with constant small doubts?",
+      "question_text_tr": "Tam güvendiğin biriyle uzun mesafe mi yoksa yakında ama sürekli küçük şüphelerle mi?",
+      "option_a": "Long distance, full trust",
+      "option_a_tr": "Uzun mesafe, güven",
+      "option_b": "Nearby with doubts",
+      "option_b_tr": "Yakın ama şüpheli"
+    }
+  },
+  {
+    "id": "da3f72b8-deb9-4011-8da5-3b7af54530d4",
+    "index": 148,
+    "old_category": "adventure",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather dogsled in Alaska or kayak through Norwegian fjords?",
+      "question_text_tr": "Alaska'da kızak mı sürmek yoksa Norveç fiyordlarında kano mu?",
+      "option_a": "Alaska dogsled",
+      "option_a_tr": "Alaska kızak",
+      "option_b": "Norway kayak",
+      "option_b_tr": "Norveç kano"
+    },
+    "new": {
+      "question_text": "Would you rather split the bill every time or have one person always pay but plan all dates?",
+      "question_text_tr": "Her seferinde hesabı bölmek mi yoksa birinin hep ödemesi ama tüm buluşmaları planlaması mı?",
+      "option_a": "Always split",
+      "option_a_tr": "Hep bölüş",
+      "option_b": "One pays, plans",
+      "option_b_tr": "Biri öder, planlar"
+    }
+  },
+  {
+    "id": "eb4f411b-8759-4e7a-bda1-ec18e9ffb8f3",
+    "index": 156,
+    "old_category": "philosophy",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather sacrifice comfort for purpose or sacrifice purpose for comfort?",
+      "question_text_tr": "Konforu amaç uğruna mı feda etmek yoksa amacı konfor uğruna mı?",
+      "option_a": "Comfort for purpose",
+      "option_a_tr": "Amaç için konfor",
+      "option_b": "Purpose for comfort",
+      "option_b_tr": "Konfor için amaç"
+    },
+    "new": {
+      "question_text": "Would you rather date someone your friends love but you find boring, or someone your friends dislike but you adore?",
+      "question_text_tr": "Arkadaşlarının sevdiği ama sana sıkıcı gelen biriyle mi, yoksa arkadaşlarının sevmediği ama senin bayıldığın biriyle mi?",
+      "option_a": "Friends love them",
+      "option_a_tr": "Arkadaşlar sever",
+      "option_b": "Friends dislike them",
+      "option_b_tr": "Arkadaşlar sevmez"
+    }
+  },
+  {
+    "id": "5a37c98b-5470-402a-9854-7ff6b3b59ca3",
+    "index": 164,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather speak to plants or understand baby talk in any language?",
+      "question_text_tr": "Bitkilerle konuşmak mı yoksa her dilde bebek mırıltısını anlamak mı?",
+      "option_a": "Talk to plants",
+      "option_a_tr": "Bitki dili",
+      "option_b": "Understand babies",
+      "option_b_tr": "Bebek dili"
+    },
+    "new": {
+      "question_text": "Would you rather talk through every problem immediately or cool off for a day before discussing?",
+      "question_text_tr": "Her sorunu hemen konuşarak mı çözmek yoksa bir gün sakinleşip sonra mı konuşmak?",
+      "option_a": "Talk immediately",
+      "option_a_tr": "Hemen konuş",
+      "option_b": "Cool off first",
+      "option_b_tr": "Önce sakinleş"
+    }
+  },
+  {
+    "id": "2f3f01d6-bd0c-44f7-aa17-6230a6e962b6",
+    "index": 172,
+    "old_category": "entertainment",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather be a famous podcast host or a famous Twitch streamer?",
+      "question_text_tr": "Ünlü podcast sunucusu mu yoksa ünlü Twitch yayıncısı mı olmak?",
+      "option_a": "Podcast host",
+      "option_a_tr": "Podcast",
+      "option_b": "Twitch streamer",
+      "option_b_tr": "Twitch"
+    },
+    "new": {
+      "question_text": "Would you rather know all your partner's ex stories upfront or discover them slowly over time?",
+      "question_text_tr": "Partnerinin eski ilişki hikayelerini başta tamamen bilmek mi yoksa zamanla mı öğrenmek?",
+      "option_a": "Know upfront",
+      "option_a_tr": "Başta bil",
+      "option_b": "Discover slowly",
+      "option_b_tr": "Yavaş öğren"
+    }
+  },
+  {
+    "id": "5c5a1774-08d3-46b7-b03a-28b2654fd16a",
+    "index": 180,
+    "old_category": "funny",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have to announce your every action or narrate your life in third person?",
+      "question_text_tr": "Her hareketini sesli mi duyurmak yoksa hayatını 3. tekil şahısla mı anlatmak?",
+      "option_a": "Announce actions",
+      "option_a_tr": "Sesli duyuru",
+      "option_b": "Third person life",
+      "option_b_tr": "3. tekil anlatım"
+    },
+    "new": {
+      "question_text": "Would you rather prioritize career growth together or prioritize travel and experiences together?",
+      "question_text_tr": "Birlikte kariyere mi öncelik vermek yoksa birlikte seyahat ve deneyimlere mi?",
+      "option_a": "Career together",
+      "option_a_tr": "Kariyer önceliği",
+      "option_b": "Travel together",
+      "option_b_tr": "Seyahat önceliği"
+    }
+  },
+  {
+    "id": "cdf5d89f-adb8-4b87-9fa8-bbffdbc79c23",
+    "index": 188,
+    "old_category": "adventure",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather sleep in a treehouse resort or an underwater hotel room?",
+      "question_text_tr": "Ağaç ev resort'ta mı uyumak yoksa su altı otel odasında mı?",
+      "option_a": "Treehouse resort",
+      "option_a_tr": "Ağaç ev",
+      "option_b": "Underwater room",
+      "option_b_tr": "Su altı oda"
+    },
+    "new": {
+      "question_text": "Would you rather receive a thoughtful handwritten note or a perfectly timed funny meme every day?",
+      "question_text_tr": "Her gün düşünülmüş el yazısı bir not mu yoksa tam zamanında komik bir meme mi almak?",
+      "option_a": "Handwritten note",
+      "option_a_tr": "El yazısı not",
+      "option_b": "Daily meme",
+      "option_b_tr": "Günlük meme"
+    }
+  },
+  {
+    "id": "47a0819a-2d1c-4288-a57d-2efca89a4712",
+    "index": 196,
+    "old_category": "philosophy",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather be certain about nothing or certain about everything but be wrong half the time?",
+      "question_text_tr": "Hiçbir şeyden emin olmamak mı yoksa her şeyden emin olup yarısında yanılmak mı?",
+      "option_a": "Certain about nothing",
+      "option_a_tr": "Hiç emin değil",
+      "option_b": "Certain but half wrong",
+      "option_b_tr": "Emin ama yarı yanlış"
+    },
+    "new": {
+      "question_text": "Would you rather date someone who shares every detail online or someone who keeps the relationship completely private?",
+      "question_text_tr": "Her şeyi çevrimiçi paylaşan biriyle mi, yoksa ilişkiyi tamamen gizli tutan biriyle mi çıkardın?",
+      "option_a": "Shares online",
+      "option_a_tr": "Online paylaşır",
+      "option_b": "Keeps private",
+      "option_b_tr": "Gizli tutar"
+    }
+  },
+  {
+    "id": "3e90f612-dee4-427b-8942-4efa16feeb22",
+    "index": 204,
+    "old_category": "superpower",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather shrink to ant size once a week or grow to giant size once a week?",
+      "question_text_tr": "Haftada bir karınca boyutuna mı küçülmek yoksa dev boyutuna mı büyümek?",
+      "option_a": "Shrink weekly",
+      "option_a_tr": "Küçül",
+      "option_b": "Grow weekly",
+      "option_b_tr": "Büyü"
+    },
+    "new": {
+      "question_text": "Would you rather fall in love quickly and risk burnout, or take a year to commit but feel secure?",
+      "question_text_tr": "Hızlı aşık olup tükenme riski mi almak yoksa bir yıl bekleyip güvende hissetmek mi?",
+      "option_a": "Fall in love fast",
+      "option_a_tr": "Hızlı aşk",
+      "option_b": "Slow to commit",
+      "option_b_tr": "Yavaş bağlan"
+    }
+  },
+  {
+    "id": "eef3ac00-ac38-4a5d-844d-cfaab87ddfc2",
+    "index": 210,
+    "old_category": "funny",
+    "new_category": "dating",
+    "old": {
+      "question_text": "Would you rather have a permanent cape that does nothing or a permanent crown that jingles?",
+      "question_text_tr": "Hiçbir işe yaramayan kalıcı pelerin mi yoksa zıngırdayan kalıcı taç mı?",
+      "option_a": "Useless cape",
+      "option_a_tr": "İşe yaramaz pelerin",
+      "option_b": "Jingling crown",
+      "option_b_tr": "Zıngır taç"
+    },
+    "new": {
+      "question_text": "Would you rather be with someone who loves grand gestures or someone who shows love in small daily acts?",
+      "question_text_tr": "Büyük jestler yapan biriyle mi, yoksa sevgiyi küçük günlük davranışlarla gösteren biriyle mi?",
+      "option_a": "Grand gestures",
+      "option_a_tr": "Büyük jestler",
+      "option_b": "Small daily acts",
+      "option_b_tr": "Küçük günlük davranışlar"
+    }
+  }
+]

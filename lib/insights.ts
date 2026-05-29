@@ -79,6 +79,11 @@ const categoryMessagesTR: Record<string, string[]> = {
     'Komik ama zor bir seçim',
     'Hayal et ve gül!',
   ],
+  dating: [
+    'Kalp mi mantık mı, yine tartışma çıktı!',
+    'Herkesin ilişki tarzı farklı',
+    'Bu ikilem mesajlaşma grubunu böler',
+  ],
 };
 
 const defaultMessagesTR = [
@@ -137,6 +142,11 @@ const categoryMessagesEN: Record<string, string[]> = {
     'Keep laughing!',
     'Funny but tough choice',
     'Imagine and laugh!',
+  ],
+  dating: [
+    'Hearts vs logic, another debate!',
+    'Everyone dates differently',
+    'This one would split the group chat',
   ],
 };
 

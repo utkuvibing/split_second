@@ -2,12 +2,13 @@
 
 **[Türkçe README](README.tr.md)**
 
-A daily "Would You Rather?" mobile app built with React Native and Expo. One question per day, vote under countdown pressure, and see how the world thinks.
+A daily "Would You Rather?" mobile app built with React Native and Expo. Three questions per day at **08:00**, **14:00**, and **20:00** (device local time). Vote under a 10-second countdown, complete all three to keep your streak and earn rewards.
 
 ## Features
 
-- **Daily Question** — A new "would you rather" dilemma every day at midnight
-- **Countdown Timer** — Vote before time runs out for a more intense experience
+- **Three Daily Questions** — Morning (08:00), afternoon (14:00), and evening (20:00) dilemmas in your local timezone
+- **10-Second Countdown** — Vote before time runs out on each question
+- **Day Completion** — Answer all active questions today to complete the day, update your streak, and unlock mystery box eligibility
 - **Live Results** — See the global vote split after casting yours
 - **Streak Tracking** — Keep your daily voting streak alive
 - **Leaderboard** — Most active players and longest streaks
@@ -47,6 +48,15 @@ npm install --legacy-peer-deps
 ```
 
 Copy `.env.example` to `.env` and fill in your own Supabase project credentials. Then run the SQL migrations from `supabase/migrations/` in order on your Supabase project.
+
+**Do not commit `.env`.** Enable the push guard once per clone:
+
+```bash
+git config core.hooksPath .githooks
+npm run secrets:check
+```
+
+See [docs/public-repo-security.md](docs/public-repo-security.md) before making the repo public.
 
 ### Run
 

@@ -1,0 +1,180 @@
+{
+  "mode": "live",
+  "timestamp": "2026-05-29T16-36-12-171Z",
+  "backup_path": null,
+  "rows_to_update": 214,
+  "date_field_changes": 394,
+  "category_changes": 31,
+  "tr_fields_filled": 45,
+  "sample_diffs": [
+    {
+      "id": "911a33fe-8abd-4755-ae6d-02fdcb58b12d",
+      "index": 0,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-05",
+          "to": "2026-05-29"
+        }
+      }
+    },
+    {
+      "id": "9265e680-f11f-4ad7-a4e6-b9d0376ccb0f",
+      "index": 1,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-06",
+          "to": "2026-05-29"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "afternoon"
+        }
+      }
+    },
+    {
+      "id": "ccc8c639-e20e-4769-bea1-e96db93f8737",
+      "index": 2,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-07",
+          "to": "2026-05-29"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "evening"
+        }
+      }
+    },
+    {
+      "id": "1dc5cafe-faec-42b2-8241-299167818819",
+      "index": 3,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-08",
+          "to": "2026-05-30"
+        }
+      }
+    },
+    {
+      "id": "c8e0fa09-1a49-4bdd-9e55-f9ae779b4559",
+      "index": 4,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-09",
+          "to": "2026-05-30"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "afternoon"
+        }
+      }
+    },
+    {
+      "id": "925a205f-06a7-4dd0-a47d-2621d9862114",
+      "index": 5,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-10",
+          "to": "2026-05-30"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "evening"
+        }
+      }
+    },
+    {
+      "id": "890ad4dc-da24-432c-8aee-1ca034227c7e",
+      "index": 6,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-11",
+          "to": "2026-05-31"
+        }
+      }
+    },
+    {
+      "id": "eaedec23-8e37-42e4-b2c6-a217484b9d44",
+      "index": 7,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-12",
+          "to": "2026-05-31"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "afternoon"
+        },
+        "category": {
+          "from": "food",
+          "to": "dating"
+        },
+        "question_text": {
+          "from": "Would you rather eat only pizza or only sushi for the rest of your life?",
+          "to": "Would you rather match with someone who texts first every day or someone who only calls once a week?"
+        },
+        "question_text_tr": {
+          "from": "Ömür boyu sadece pizza mı yoksa sadece suşi mi yemek?",
+          "to": "Her gün ilk mesajı atan biriyle mi eşleşmek yoksa haftada bir arayan biriyle mi?"
+        },
+        "option_a": {
+          "from": "Only pizza",
+          "to": "Texts daily"
+        },
+        "option_a_tr": {
+          "from": "Sadece pizza",
+          "to": "Günlük mesaj"
+        },
+        "option_b": {
+          "from": "Only sushi",
+          "to": "Calls weekly"
+        },
+        "option_b_tr": {
+          "from": "Sadece suşi",
+          "to": "Haftalık arama"
+        }
+      }
+    },
+    {
+      "id": "db9aaf8e-8962-4dfe-aae2-d42b91bb2da5",
+      "index": 8,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-13",
+          "to": "2026-05-31"
+        },
+        "time_slot": {
+          "from": "morning",
+          "to": "evening"
+        }
+      }
+    },
+    {
+      "id": "7dcbea03-9dd8-4147-8aaf-c2a4e37a4115",
+      "index": 9,
+      "changed": {
+        "scheduled_date": {
+          "from": "2026-02-14",
+          "to": "2026-06-01"
+        }
+      }
+    }
+  ],
+  "validation": {
+    "ok": true,
+    "datingCount": 22,
+    "dateRange": {
+      "first": "2026-05-29",
+      "last": "2026-08-08"
+    }
+  },
+  "rows_updated": 214,
+  "transaction": {
+    "ok": true,
+    "rpc": "apply_question_inventory_batch",
+    "result": {
+      "ok": true,
+      "updated": 214
+    }
+  }
+}

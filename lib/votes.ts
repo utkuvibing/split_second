@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { VoteResults } from '../types/database';
+import { getAppLocalDateKey } from './date';
 
 export async function submitVote(
   questionId: string,
@@ -10,14 +11,37 @@ export async function submitVote(
     p_question_id: questionId,
     p_choice: choice,
     p_vote_time: voteTimeSeconds ?? null,
+    p_local_date: getAppLocalDateKey(),
   });
 
   if (error) {
+    const isDuplicateVote =
+      error.code === '23505' ||
+      error.message.includes('votes_user_id_question_id_key');
+
+    if (isDuplicateVote) {
+      const existingChoice = await getUserVote(questionId);
+      const existingResults = await getResults(questionId);
+      if (existingChoice && existingResults) {
+        return {
+          ...existingResults,
+          success: true,
+          coins_earned: 0,
+        };
+      }
+    }
+
     console.error('Vote submission failed:', error.message);
     return null;
   }
 
-  return data as VoteResults;
+  const results = data as VoteResults;
+  if (!results?.success) {
+    console.error('Vote submission rejected:', (results as { error?: string })?.error);
+    return null;
+  }
+
+  return results;
 }
 
 export async function getUserVote(
