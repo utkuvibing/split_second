@@ -40,14 +40,10 @@ export function getServiceRoleKey() {
   return key;
 }
 
+/** Admin/inventory RPCs — requires SUPABASE_SERVICE_ROLE_KEY (no anon fallback). */
 export async function callRpc(fn, body) {
-  const { url, key: anonKey } = getSupabaseConfig();
-  let key;
-  try {
-    key = getServiceRoleKey();
-  } catch {
-    key = anonKey;
-  }
+  const { url } = getSupabaseConfig();
+  const key = getServiceRoleKey();
   const res = await fetch(`${url}/rest/v1/rpc/${fn}`, {
     method: 'POST',
     headers: {
