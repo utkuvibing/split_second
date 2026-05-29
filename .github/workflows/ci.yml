@@ -3,6 +3,12 @@ name: CI/CD
 on:
   push:
     branches:
+      - master
+      - main
+      - hermes-v1
+  pull_request:
+    branches:
+      - master
       - main
       - hermes-v1
 
