@@ -48,6 +48,15 @@ npm install --legacy-peer-deps
 
 `.env.example` dosyasını `.env` olarak kopyala ve kendi Supabase proje bilgilerini gir. Ardından `supabase/migrations/` klasöründeki SQL migration'larını sırasıyla Supabase projenizde çalıştırın.
 
+**`.env` dosyasını asla commit etme.** Push öncesi kontrol için (clone başına bir kez):
+
+```bash
+git config core.hooksPath .githooks
+npm run secrets:check
+```
+
+Repoyu public yapmadan önce [docs/public-repo-security.md](docs/public-repo-security.md) dosyasına bak.
+
 ### Çalıştır
 
 ```bash

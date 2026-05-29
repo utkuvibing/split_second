@@ -64,6 +64,8 @@ export function useLiveEvent() {
     return () => clearInterval(interval);
   }, [eventEndsAt]);
 
+  const eventId = event?.id;
+
   const vote = useCallback(async (choice: 'a' | 'b') => {
     if (!eventId) return false;
     const result = await submitLiveVote(eventId, choice);
